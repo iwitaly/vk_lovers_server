@@ -14,4 +14,3 @@ class Confession(models.Model):
     who_vk_id = models.ForeignKey(User, to_field='vk_id')
     to_who_vk_id = models.CharField(max_length=50)
     type = models.IntegerField(default=-1)
-
