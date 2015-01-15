@@ -9,5 +9,5 @@ class UserSerializer(serializers.ModelSerializer):
 class ConfessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Confession
-        fields = ('who_id', 'to_who_id', 'type')
+        fields = ('who_vk_id', 'to_who_vk_id', 'type')
 
