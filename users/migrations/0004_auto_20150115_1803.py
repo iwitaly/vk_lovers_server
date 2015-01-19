@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RenameField(
             model_name='confession',
-            old_name='to_who_id',
+            old_name='to_who_vk_id',
             new_name='to_who_vk_id',
         ),
         migrations.RenameField(
             model_name='confession',
-            old_name='who_id',
+            old_name='who_vk_id',
             new_name='who_vk_id',
         ),
     ]

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='confession',
-            name='who_id',
+            name='who_vk_id',
             field=models.ForeignKey(to='users.User'),
             preserve_default=True,
         ),

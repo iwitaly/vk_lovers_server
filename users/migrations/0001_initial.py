@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='Confession',
             fields=[
                 ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('to_who_id', models.CharField(max_length=50)),
+                ('to_who_vk_id', models.CharField(max_length=50)),
                 ('type', models.IntegerField(default=-1)),
             ],
             options={
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='confession',
-            name='who_id',
+            name='who_vk_id',
             field=models.ForeignKey(to='users.User'),
             preserve_default=True,
         ),

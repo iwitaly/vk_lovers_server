@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='confession',
-            name='who_id',
+            name='who_vk_id',
             field=models.ForeignKey(to_field='vk_id', to='users.User'),
             preserve_default=True,
         ),

@@ -53,9 +53,9 @@ def user_detail(request, vk_id):
         return HttpResponse(status=204)
 
 @csrf_exempt
-def who_confession_list(request, who_id):
+def who_confession_list(request, who_vk_id):
     try:
-        who_user = User.objects.get(pk=who_id)
+        who_user = User.objects.get(pk=who_vk_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
 
@@ -74,11 +74,12 @@ def who_confession_list(request, who_id):
 
 
 @csrf_exempt
-def who_confession_detail(request, who_id, to_who_id):
+def who_confession_detail(request, who_vk_id, to_who_vk_id):
     try:
-        confession = Confession.objects.get(who_id=who_id, to_who_id=to_who_id)
+        confession = Confession.objects.get(who_vk_id=who_vk_id, to_who_vk_id=to_who_vk_id)
     except Confession.DoesNotExist:
         return HttpResponse(status=404)
+    
     if request.method == 'GET':
         serializer = ConfessionSerializer(confession)
         return JSONResponse(serializer.data)
@@ -96,9 +97,9 @@ def who_confession_detail(request, who_id, to_who_id):
         return HttpResponse(status=204)
 
 @csrf_exempt
-def to_who_confession_list(request, who_id):
+def to_who_confession_list(request, who_vk_id):
     try:
-        who_user = User.objects.get(vk_id=who_id)
+        who_user = User.objects.get(vk_id=who_vk_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
 

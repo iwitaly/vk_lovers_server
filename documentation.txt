@@ -1,0 +1,20 @@
+users/
+GET: Список пользователей
+POST: vk_id, mobile, email: Добавить пользователя
+
+users/vk_id/
+GET: Получить mobile и email
+PUT: vk_id, mobile, email: Изменить данные пользователя с vk_id
+Delete: удалить пользователя с vk_id
+
+users/who_vk_id/who_confession/
+GET: Получить список запросов пользователя с who_vk_id
+POST: who_vk_id to_who_vk_id type: Добавить Confession (Признание) от череловека who_vk_id к человеку to_who_vk_id
+
+users/who_vk_id/who_confession/to_who_vk_id/
+GET: Получить признание от who_vk_id к to_who_vk_id
+PUT: who_vk_id to_who_vk_id type: Изменить признание
+DELETE: who_vk_id to_who_vk_id: Удалить признание
+
+users/who_vk_id/to_who_confession/
+GET: Список признаний, направленных к данному пользователю с who_vk_id
