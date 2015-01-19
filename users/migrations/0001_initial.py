@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Confession',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('to_who_vk_id', models.CharField(max_length=50)),
                 ('type', models.IntegerField(default=-1)),
             ],
@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('vk_id', models.CharField(max_length=50)),
+                ('vk_id', models.CharField(max_length=50, unique=True, serialize=False, primary_key=True)),
+                ('email', models.EmailField(max_length=50)),
                 ('mobile', models.CharField(max_length=20)),
             ],
             options={
