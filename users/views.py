@@ -5,6 +5,9 @@ from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
 
+k_Default_email = 'unknown@unknown.com'
+k_Default_mobile = 'unknown'
+
 class JSONResponse(HttpResponse):
     """
     An HttpResponse that renders its content into JSON.
@@ -24,9 +27,19 @@ def user_list(request):
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
+
+        if data['email'] == '':
+            data['email'] = k_Default_email
+        if data['mobile'] == '':
+            data['mobile'] = k_Default_mobile
+
+        doesExists = User.objects.filter(vk_id=data['vk_id'], mobile=data['mobile'], email=data['email']).exists()
+
+        if not doesExists:
+            if serializer.is_valid():
+                serializer.save()
             return JSONResponse(serializer.data, status=201)
+
         return JSONResponse(serializer.errors, status=400)
 
 @csrf_exempt
@@ -67,9 +80,16 @@ def who_confession_list(request, who_vk_id):
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = ConfessionSerializer(data=data)
+
+        doesExists = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'], type=data['type']).exists()
+
+        #print doesExists
+
         if serializer.is_valid():
-            serializer.save()
+            if not doesExists:
+                serializer.save()
             return JSONResponse(serializer.data, status=201)
+
         return JSONResponse(serializer.errors, status=400)
 
 
@@ -86,7 +106,7 @@ def who_confession_detail(request, who_vk_id, to_who_vk_id):
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        serializer = UserSerializer(confession, data=data)
+        serializer = ConfessionSerializer(confession, data=data)
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)

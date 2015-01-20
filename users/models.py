@@ -15,3 +15,7 @@ class Confession(models.Model):
     who_vk_id = models.ForeignKey(User, to_field='vk_id')
     to_who_vk_id = models.CharField(max_length=50)
     type = models.IntegerField(default=-1)
+
+    def is_unique(self):
+        confessions = Confession.objects.filter(who_vk_id=self.who_vk_id, to_who_vk_id=self.to_who_vk_id, type=self.type)
+        return len(confessions) == 0
