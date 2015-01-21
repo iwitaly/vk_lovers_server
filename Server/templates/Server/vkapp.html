@@ -49,12 +49,36 @@ function makeTableWithFriends(viewerUserSex) {
         }
     });
 }
-
+/*
+var arr = { City: 'Moscow', Age: 25 };
+$.ajax({
+    url: 'Ajax.ashx',
+    type: 'POST',
+    data: JSON.stringify(arr),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    async: false,
+    success: function(msg) {
+        alert(msg);
+    }
+});
+*/
 function initSuccess () {
     VK.api('users.get', {fields: 'sex'}, function(data) {
         var viewerUserIdNumber = data.response[0].uid;
-        //var viewerUserMobile = data.response[0].co
-        $.post('http://vklovers.herokuapp.com/users/', {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: '123'});
+        var arr = {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: '123'};
+        $.ajax({
+            url: 'http://vklovers.herokuapp.com/users/',
+            type: 'POST',
+            data: JSON.stringify(arr),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true,
+            success: function(msg) {
+                alert(msg);
+            }
+        });
+        //$.post('http://vklovers.herokuapp.com/users/', {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: '123'});
         makeTableWithFriends(data.response[0].sex);
     });
 }
