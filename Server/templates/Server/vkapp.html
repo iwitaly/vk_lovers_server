@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+<script src='http://code.jquery.com/jquery-1.11.2.js'></script>
+<script src='http://vk.com/js/api/xd_connection.js?2'></script>
+</head>
+<body>
+    <div>
+        <p>Ок</p>
+        <table id="main-table">
+        </table>
+    </div>
+<script>
+
+function addRowToTableWithFriends (uid, photo, first_name, last_name) {
+    $('#main-table').append('<tr>' +
+        '<td>' + "<img src='" + photo + "'>" + '</td>' +
+        '<td>' + first_name + ' ' + last_name + '</td>' +
+        '<td>' + "<button class='button-date' name='date" + uid.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
+        '<td>' + "<button class='button-sex' name='sex" + uid.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
+    '</tr>');
+}
+
+function makeTableWithFriends(viewerUserSex) {
+    VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
+        switch (viewerUserSex) {
+            case 0: {
+                for(i = 0; i < data.response.length; i++) {
+                    addRowToTableWithFriends(data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                }
+                break;
+            }
+            case 1: {
+                for(i = 0; i < data.response.length; i++) {
+                    if (data.response[i].sex == 2)
+                        addRowToTableWithFriends(data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                }
+                break;
+            }
+            case 2: {
+                for(i = 0; i < data.response.length; i++) {
+                    if (data.response[i].sex == 1)
+                        addRowToTableWithFriends(data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                }
+                break;
+            }
+        }
+    });
+}
+
+function initSuccess () {
+    VK.api('users.get', {fields: 'sex'}, function(data) {
+        var viewerUserIdNumber = data.response[0].uid;
+        //var viewerUserMobile = data.response[0].co
+        $.post('http://vklovers.herokuapp.com/users/', {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: '123'});
+        makeTableWithFriends(data.response[0].sex);
+    });
+}
+
+$(document).ready(
+    VK.init(initSuccess())
+);
+
+</script>
+</body>
+</html>
