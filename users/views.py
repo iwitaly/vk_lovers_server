@@ -131,3 +131,19 @@ def to_who_confession_list(request, who_vk_id):
         to_who_confessions = who_user.get_list_of_to_who_confession()
         serializer = ConfessionSerializer(to_who_confessions, many=True)
         return JSONResponse(serializer.data)
+
+@csrf_exempt
+def post_all_confessions(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        for req in data:
+            serializer = ConfessionSerializer(data=req)
+            doesExists = Confession.objects.filter(who_vk_id=req['who_vk_id'], to_who_vk_id=req['to_who_vk_id'], type=req['type']).exists()
+            if serializer.is_valid():
+                if not doesExists:
+                    serializer.save()
+                    
+        resp = {'status' : 201}
+        return JSONResponse(resp, status=201)
+
+    return HttpResponse(status=400)
