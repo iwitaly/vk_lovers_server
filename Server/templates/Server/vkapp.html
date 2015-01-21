@@ -14,18 +14,18 @@
     </div>
 <script>
 
-function checkForUsersConfession (whoVkId, toWhoVkId) {
+function checkForUsersConfession (whoVkId) {
     var whoVkIdString = whoVkId.toString();
-    var toWhoVKIdString = toWhoVkId.toString();
     $.ajax({
-        url: 'http://vklovers.herokuapp.com/' + whoVkIdString + '/who_confession/' + toWhoVKIdString + '/',
+        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + '/',
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         async: false,
         success: function(data) {
-            alert(typeof data.response);
-            alert(typeof data.response.length);
+            for (i = 0; i < data.response.length; i++) {
+                alert(data.response[i].to_who_vk_id) ;
+            }
         }
     });
 }
@@ -37,7 +37,6 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id='date" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
-    checkForUsersConfession(viewerUserIdNumber, cellUserIdNumber);
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
@@ -65,6 +64,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
+    checkForUsersConfession(viewerUserIdNumber);
 }
 
 function initSuccess () {
