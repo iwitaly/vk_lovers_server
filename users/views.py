@@ -35,9 +35,13 @@ def user_list(request):
 
         doesExists = User.objects.filter(vk_id=data['vk_id'], mobile=data['mobile'], email=data['email']).exists()
 
-        if not doesExists:
-            if serializer.is_valid():
-                serializer.save()
+        print serializer.is_valid(), doesExists
+
+        if doesExists:
+            return JSONResponse(serializer.data, status=201)
+
+        if serializer.is_valid():
+            serializer.save()
             return JSONResponse(serializer.data, status=201)
 
         return JSONResponse(serializer.errors, status=400)
