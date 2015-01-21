@@ -66,7 +66,8 @@ $.ajax({
 function initSuccess () {
     VK.api('users.get', {fields: 'sex'}, function(data) {
         var viewerUserIdNumber = data.response[0].uid;
-        var arr = {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: '123'};
+        var viewerUserMobile = data.response[0].mobile_phone;
+        var arr = {vk_id: viewerUserIdNumber.toString(), email: 'example@yandex.ru', mobile: viewerUserMobile};
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/',
             type: 'POST',
