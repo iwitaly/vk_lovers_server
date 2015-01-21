@@ -17,7 +17,7 @@
 function checkForUsersConfession (whoVkId) {
     var whoVkIdString = whoVkId.toString();
     $.ajax({
-        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + '/',
+        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
@@ -44,21 +44,21 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
         switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
-                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
             case 1: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 2)
-                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].first_name);
+                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
