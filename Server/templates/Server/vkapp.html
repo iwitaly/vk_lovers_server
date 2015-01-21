@@ -15,6 +15,7 @@
 <script>
 
 function checkForUsersConfession (whoVkId) {
+    alert ('ok')
     var whoVkIdString = whoVkId.toString();
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
@@ -23,6 +24,7 @@ function checkForUsersConfession (whoVkId) {
         dataType: 'json',
         async: false,
         success: function(data) {
+            alert(data.response.length)
             for (i = 0; i < data.response.length; i++) {
                 alert(data.response[i].to_who_vk_id) ;
             }
