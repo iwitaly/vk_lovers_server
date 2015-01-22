@@ -80,8 +80,11 @@ function initSuccess () {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: true,
-            success: function(msg) {
-                alert(msg);
+            success: function() {
+                // What should I do if User once been in app?
+            }
+            error: function() {
+                // What should I do else?
             }
         });
         makeTableWithFriends(viewerUserIdNumber, data.response[0].sex);
