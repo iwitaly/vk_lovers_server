@@ -83,15 +83,20 @@ def who_confession_list(request, who_vk_id):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = ConfessionSerializer(data=data)
+        confs = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'])
+        doesExists = confs.exists()
+        serializer = None
 
-        doesExists = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'], type=data['type']).exists()
+        if doesExists:
+            confession = confs[0]
+            serializer = ConfessionSerializer(confession ,data=data)
+        else:
+            serializer = ConfessionSerializer(data=data)
 
-        #print doesExists
+        print doesExists
 
         if serializer.is_valid():
-            if not doesExists:
-                serializer.save()
+            serializer.save()
             return JSONResponse(serializer.data, status=201)
 
         return JSONResponse(serializer.errors, status=400)
@@ -142,7 +147,7 @@ def post_all_confessions(request):
             if serializer.is_valid():
                 if not doesExists:
                     serializer.save()
-                    
+
         resp = {'status' : 201}
         return JSONResponse(resp, status=201)
 
