@@ -120,12 +120,10 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
-    var flagDatePressed = $(this).hasClass('date-pressed');
-    var flagSexPressed = $(this).hasClass('sex-pressed');
+    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
+    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $(this).addClass('date-pressed');
-        alert($(this).hasClass('date-pressed'));
-        alert($(this).attr('value'));
+        $('#date' + toWhoVkIdString).addClass('date-pressed');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
@@ -137,14 +135,14 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
         });
     }
     if ((flagDatePressed == true) && (flagSexPressed == false)) {
-        $(this).removeClass('date-pressed');
+        $('#date' + toWhoVkIdString).removeClass('date-pressed');
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
             type: "DELETE"
         });
     }
     if ((flagDatePressed == false) && (flagSexPressed == true)) {
-        $(this).addClass('date-pressed');
+        $('#date' + toWhoVkIdString).addClass('date-pressed');
         $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
@@ -159,10 +157,10 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
 }
 
 function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
-    var flagDatePressed = $(this).hasClass('date-pressed');
-    var flagSexPressed = $(this).hasClass('sex-pressed');
+    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
+    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $(this).addClass('sex-pressed');
+        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
@@ -174,14 +172,14 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
         });
     }
     if ((flagDatePressed == false) && (flagSexPressed == true)) {
-        $(this).removeClass('sex-pressed');
+        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
             type: "DELETE"
         });
     }
     if ((flagDatePressed == true) && (flagSexPressed == false)) {
-        $(this).addClass('sex-pressed');
+        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
