@@ -51,8 +51,6 @@ function checkForUsersConfession (whoVkIdNumber) {
         for (i = 0; i < data.length; i++) {
             var toWhoVkIdString = data[i].to_who_vk_id;
             var currentType = data[i]['type'];
-            arrayConfessionsUIDS.push(toWhoVkIdString);
-            arrayConfessionsTypes.push(currentType);
             if (currentType == 0) {
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
             } else {
