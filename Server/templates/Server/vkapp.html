@@ -17,7 +17,7 @@
 function checkForUsersConfession (whoVkId) {
     alert ('ok');
     var whoVkIdString = whoVkId.toString();
-    $.ajax({
+    /*$.ajax({
         url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
         type: 'GET',
         data: {},
@@ -33,6 +33,10 @@ function checkForUsersConfession (whoVkId) {
                 alert(data.response[i].to_who_vk_id);
             }
         }
+    }); */
+    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', function(data) {
+        alert("Here");
+        alert(data.response);
     });
 }
 
