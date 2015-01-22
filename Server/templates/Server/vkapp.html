@@ -34,11 +34,11 @@ function checkForUsersConfession (whoVkIdNumber) {
                 alert(typeof  toWhoVkIdString);
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
                 alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
-                //$('#date' + toWhoVkIdString).remove();
+                $('#date' + toWhoVkIdString).remove();
             } else {
                 $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
-                //$('#sex' + toWhoVkIdString).remove();
+                alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
+                $('#sex' + toWhoVkIdString).remove();
             }
         }
     });
