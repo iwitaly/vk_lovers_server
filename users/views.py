@@ -136,13 +136,12 @@ def to_who_confession_list(request, who_vk_id):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
-def post_all_confessions(request):
+def post_all_confessions(request, vk_id):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         for req in data:
             confs = Confession.objects.filter(who_vk_id=req['who_vk_id'], to_who_vk_id=req['to_who_vk_id'])
             doesExists = confs.exists()
-            serializer = None
 
             if doesExists:
                 confession = confs[0]
@@ -155,6 +154,19 @@ def post_all_confessions(request):
             else:
                 resp = {'status' : 400}
                 return JSONResponse(resp, status=400)
+
+        resp = {'status' : 201}
+        return JSONResponse(resp, status=201)
+
+    elif request.method == 'DELETE':
+        try:
+            user = User.objects.get(pk=vk_id)
+        except User.DoesNotExist:
+            return HttpResponse(status=404)
+
+        confessions = user.confession_set.all()
+        for conf in confessions:
+            conf.delete()
 
         resp = {'status' : 201}
         return JSONResponse(resp, status=201)
