@@ -6,6 +6,15 @@
     <script src='http://code.jquery.com/jquery-1.11.2.js'></script>
     <script src='http://vk.com/js/api/xd_connection.js?2'></script>
     <style type="text/css">
+        #table-part {
+            float: bottom;
+        }
+        #to-all-buttons-part {
+            float: right;
+        }
+        #search-part {
+            float: left;
+        }
         .date-pressed {
             background-color: red;
         }
@@ -15,8 +24,19 @@
     </style>
 </head>
 <body>
-    <div id="table-part">
-        <table id="main-table">
+    <div id='search-part'>
+        <input type='text' id='search-bar' name='search-for-name'>
+    </div>
+    <div id='to-all-buttons-part'>
+        <table>
+            <tr>
+                <td><button id='date-all'>Date all</button></td>
+                <td><button id='sex-all'>Sex all</button></td>
+            </tr>
+        </table>
+    </div>
+    <div id='table-part'>
+        <table id='main-table'>
         </table>
     </div>
 <script>
