@@ -45,37 +45,21 @@
     </div>
 <script>
 
-function drawUsersConfessions (arrayConfessionsUIDS, arrayConfessionsTypes) {
-    alert (arrayConfessionsUIDS.length);
-    alert (arrayConfessionsUIDS);
-    for (i = 0; i < arrayConfessionsUIDS.length; i++) {
-        if (arrayConfessionsTypes[i] == 0) {
-            $('#date' + arrayConfessionsUIDS[i]).addClass('date-pressed');
-        }
-        else {
-            $('#sex' + arrayConfessionsUIDS[i]).addClass('sex-pressed');
-        }
-    }
-}
-
-function checkForUsersConfession (whoVkIdNumber, callback) {
+function checkForUsersConfession (whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
-    var arrayConfessionsUIDS = [];
-    var arrayConfessionsTypes = [];
     $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
         for (i = 0; i < data.length; i++) {
-            alert(data.length);
             var toWhoVkIdString = data[i].to_who_vk_id;
             var currentType = data[i]['type'];
             arrayConfessionsUIDS.push(toWhoVkIdString);
             arrayConfessionsTypes.push(currentType);
-            //if (currentType == 0) {
-            //    $('#date' + toWhoVkIdString).addClass('date-pressed');
-            //} else {
-            //    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+            if (currentType == 0) {
+                $('#date' + toWhoVkIdString).addClass('date-pressed');
+            } else {
+                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
             }
-        });
-    callback(arrayConfessionsUIDS, arrayConfessionsTypes);
+        }
+    });
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
@@ -240,9 +224,7 @@ function initSuccess () {
             }
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex, function(vUID) {
-            checkForUsersConfession(vUID, function(arrayUIDS, arrayTypes) {
-                drawUsersConfessions(arrayUIDS, arrayTypes);
-            });
+            checkForUsersConfession(vUID);
         });
         interActionWithViewer(viewerUserIdNumber);
     });
