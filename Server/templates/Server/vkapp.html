@@ -111,7 +111,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: false
         });
     }
     if ((flagDatePressed == true) && (flagSexPressed == false)) {
@@ -131,7 +131,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: false
         });
     }
 }
@@ -148,7 +148,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: false
         });
     }
     if ((flagDatePressed == false) && (flagSexPressed == true)) {
@@ -168,7 +168,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: false
         });
     }
 }
@@ -195,7 +195,7 @@ function initSuccess () {
             data: JSON.stringify(userInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true,
+            async: false,
             success: function() {
                 // What should I do if User once been in app?
                 //alert('Welcome!')
