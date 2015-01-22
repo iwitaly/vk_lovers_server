@@ -3,39 +3,40 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-<script src='http://code.jquery.com/jquery-1.11.2.js'></script>
-<script src='http://vk.com/js/api/xd_connection.js?2'></script>
+    <script src='http://code.jquery.com/jquery-1.11.2.js'></script>
+    <script src='http://vk.com/js/api/xd_connection.js?2'></script>
+    <style type="text/css">
+        #date-pressed {
+            background-color: red;
+        }
+        #sex-pressed {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
     <div>
-        <p>Ок</p>
         <table id="main-table">
         </table>
     </div>
 <script>
 
 function checkForUsersConfession (whoVkId) {
-    alert ('ok');
     var whoVkIdString = whoVkId.toString();
-    /*$.ajax({
-        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-        type: 'GET',
-        data: {},
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false,
-        success: function(data) {
-            if (data.response) {
-                alert("Data response");
-            }
-            alert(data.response.length);
-            for (i = 0; i < data.response.length; i++) {
-                alert(data.response[i].to_who_vk_id);
+    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
+        for (i = 0; i < data.length; i++) {
+            var toWhoVkIdString = data[i].to_who_vk_id;
+            var currentType = data[i]['type'];
+            alert(currentType);
+            switch (type) {
+                case 0: {
+                    $('#date' + toWhoVkIdString).addClass('date-pressed');
+                }
+                case 1: {
+                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                }
             }
         }
-    }); */
-    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
-        alert(data.length);
     });
 }
 
