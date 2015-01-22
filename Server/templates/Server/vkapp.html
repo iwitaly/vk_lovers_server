@@ -224,7 +224,9 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex, checkForUsersConfession(vUID));
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex, function(vUID) {
+            checkForUsersConfession(vUID);
+        });
         interActionWithViewer(viewerUserIdNumber);
     });
 }
