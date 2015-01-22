@@ -20,7 +20,7 @@ function checkForUsersConfession (whoVkId) {
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
         type: 'GET',
-        data: data,
+        data: {},
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         async: false,
@@ -71,8 +71,8 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
 }
 
 function initSuccess () {
-    VK.api('users.get', {fields: 'sex'}, function(data) {
-        var viewerUserIdNumber = data.response[0].uid;
+    VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
+        var viewerUserIdNumber = dataFromVk.response[0].uid;
         var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/',
@@ -88,7 +88,7 @@ function initSuccess () {
                 // What should I do else?
             }
         });
-        makeTableWithFriends(viewerUserIdNumber, data.response[0].sex);
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
 
     });
 }
