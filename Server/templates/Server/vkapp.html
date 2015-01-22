@@ -32,15 +32,11 @@ function checkForUsersConfession (whoVkIdNumber) {
             if (currentType == 0) {
                 //alert(toWhoVkIdString);
                 //alert(typeof  toWhoVkIdString);
-                $('#date' + toWhoVkIdString).load( function () {
-                    $('#date' + toWhoVkIdString).addClass('date-pressed');
-                });
+                $('#date' + toWhoVkIdString).addClass('date-pressed');
                 //alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
                 //$('#date' + toWhoVkIdString).remove();
             } else {
-                $('#sex' + toWhoVkIdString).load( function () {
-                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                });
+                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
                 //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
                 //$('#sex' + toWhoVkIdString).remove();
             }
@@ -100,7 +96,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
-    checkForUsersConfession(viewerUserIdNumber);
+    $('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
