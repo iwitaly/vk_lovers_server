@@ -47,21 +47,24 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
         switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
-                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
+                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                            data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
             case 1: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 2)
-                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
+                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50,
+                                data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
+                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                                data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
@@ -83,9 +86,11 @@ function initSuccess () {
             async: true,
             success: function() {
                 // What should I do if User once been in app?
+                alert('Welcome!')
             },
             error: function() {
                 // What should I do else?
+                alert("You've been here!")
             }
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
