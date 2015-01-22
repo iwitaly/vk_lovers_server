@@ -25,9 +25,12 @@ function checkForUsersConfession (whoVkId) {
         dataType: 'json',
         async: false,
         success: function(data) {
+            if (data.response) {
+                alert("Data response");
+            }
             alert(data.response.length);
             for (i = 0; i < data.response.length; i++) {
-                alert(data.response[i].to_who_vk_id) ;
+                alert(data.response[i].to_who_vk_id);
             }
         }
     });
