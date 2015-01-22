@@ -36,7 +36,8 @@ function checkForUsersConfession (whoVkId) {
     }); */
     $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', function(data) {
         alert("Here");
-        alert(data.response);
+        var obj = $.parseJSON(data);
+        alert(obj);
     });
 }
 
