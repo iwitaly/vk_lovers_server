@@ -96,7 +96,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
-    checkForUsersConfession(viewerUserIdNumber);
+    $('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
