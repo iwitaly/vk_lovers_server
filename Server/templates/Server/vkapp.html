@@ -46,7 +46,8 @@
 <script>
 
 function drawUsersConfessions (arrayConfessionsUIDS, arrayConfessionsTypes) {
-    alert ('here');
+    alert (arrayConfessionsUIDS.length);
+    alert (arrayConfessionsUIDS);
     for (i = 0; i < arrayConfessionsUIDS.length; i++) {
         if (arrayConfessionsTypes[i] == 0) {
             $('#date' + arrayConfessionsUIDS[i]).addClass('date-pressed');
