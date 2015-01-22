@@ -64,7 +64,7 @@ function checkForUsersConfession (whoVkIdNumber) {
         data: {},
         dataType: 'json',
         async: true
-        complete: function () {
+        complete: function (data) {
             for (i = 0; i < data.length; i++) {
                 var toWhoVkIdString = data[i].to_who_vk_id;
                 var currentType = data[i]['type'];
