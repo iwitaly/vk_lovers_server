@@ -42,11 +42,17 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     $('#main-table').append('<tr>' +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
         '<td>' + first_name + ' ' + last_name + '</td>' +
+        '<td>' + "<button class='button-date' id='date" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
+        '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
+    '</tr>');
+    /*$('#main-table').append('<tr>' +
+        '<td>' + "<img src='" + photo + "'>" + '</td>' +
+        '<td>' + first_name + ' ' + last_name + '</td>' +
         '<td>' + "<button class='button-date' id='date" + cellUserIdNumber.toString() +
             + "' value='" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() +
             + "' value='" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
-    '</tr>');
+    '</tr>'); */
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
