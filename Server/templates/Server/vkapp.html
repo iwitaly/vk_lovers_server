@@ -31,23 +31,27 @@ function checkForUsersConfession (whoVkIdNumber) {
             alert(currentType);
             if (currentType == 0) {
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
-                alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
-                $('#date' + toWhoVkIdString).remove();
+                //alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
+                //$('#date' + toWhoVkIdString).remove();
             } else {
                 $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
-                $('#sex' + toWhoVkIdString).remove();
+                //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
+                //$('#sex' + toWhoVkIdString).remove();
             }
         }
     });
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
+    var toWhoVkIdString = cellUserIdNumber.toString();
+    var idDateString = "'date" + toWhoVkIdString + "'" ;
+    var idSexString = "'sex" + toWhoVkIdString + "'" ;
+    alert(idDateString);
     $('#main-table').append('<tr>' +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
         '<td>' + first_name + ' ' + last_name + '</td>' +
-        '<td>' + "<button class='button-date' id='date" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
-        '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
+        '<td>' + "<button class='button-date' id=" + idDateString + '>' + 'Date'+ '</button>' + '</td>' +
+        '<td>' + "<button class='button-sex' id=" + idSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
     /*$('#main-table').append('<tr>' +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
