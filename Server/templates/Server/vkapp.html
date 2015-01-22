@@ -114,7 +114,8 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
-    $('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
+    return(viewerUserIdNumber);
+    //$('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -223,7 +224,7 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex, checkForUsersConfession(result));
         interActionWithViewer(viewerUserIdNumber);
     });
 }
