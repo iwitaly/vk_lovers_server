@@ -15,7 +15,6 @@
     </style>
 </head>
 <body>
-    <p></p>
     <div id="table-part">
         <table id="main-table">
         </table>
@@ -35,32 +34,6 @@ function checkForUsersConfession (whoVkIdNumber) {
             }
         }
     });
-    /*$.ajax({
-        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-        type: 'GET',
-        data: {},
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false,
-        success: function () {
-            for (i = 0; i < data.length; i++) {
-                var toWhoVkIdString = data[i].to_who_vk_id;
-                var currentType = data[i]['type'];
-                //alert(currentType);
-                if (currentType == 0) {
-                    //alert(toWhoVkIdString);
-                    //alert(typeof  toWhoVkIdString);
-                    $('#date' + toWhoVkIdString).addClass('date-pressed');
-                    //alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
-                    //$('#date' + toWhoVkIdString).remove();
-                } else {
-                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                    //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
-                    //$('#sex' + toWhoVkIdString).remove();
-                }
-            }
-        }
-    }); */
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
@@ -75,16 +48,6 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
-
-    /*
-    $('#main-table').append('<tr>' +
-        '<td>' + "<img src='" + photo + "'>" + '</td>' +
-        '<td>' + first_name + ' ' + last_name + '</td>' +
-        '<td>' + "<button class='button-date' id='date" + cellUserIdNumber.toString() +
-            + "' value='" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
-        '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() +
-            + "' value='" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
-    '</tr>');*/
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
@@ -116,7 +79,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
         }
     });
     callback(viewerUserIdNumber);
-    //$('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -193,7 +155,6 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
-
 function interActionWithViewer(viewerUserIdNumber) {
     var whoVkIdString = viewerUserIdNumber.toString();
     $('#table-part').on('click', 'button', function() {
@@ -205,7 +166,6 @@ function interActionWithViewer(viewerUserIdNumber) {
         }
     });
 }
-
 
 function initSuccess () {
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
