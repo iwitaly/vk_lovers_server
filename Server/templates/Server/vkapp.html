@@ -45,7 +45,7 @@ function checkForUsersConfession (whoVkIdNumber) {
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
-    /* var toWhoVkIdString = cellUserIdNumber.toString();
+    var toWhoVkIdString = cellUserIdNumber.toString();
     var idDateString = "'date" + toWhoVkIdString + "'" ;
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
     $('#main-table').append('<tr>' +
@@ -54,8 +54,8 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id=" + idDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
-    */
 
+    /*
     $('#main-table').append('<tr>' +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
         '<td>' + first_name + ' ' + last_name + '</td>' +
@@ -63,7 +63,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
             + "' value='" + cellUserIdNumber.toString() + "'>" + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id='sex" + cellUserIdNumber.toString() +
             + "' value='" + cellUserIdNumber.toString() + "'>"  + 'Sex'+ '</button>' + '</td>' +
-    '</tr>');
+    '</tr>');*/
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
