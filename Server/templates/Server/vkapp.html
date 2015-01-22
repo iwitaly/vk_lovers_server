@@ -20,6 +20,7 @@ function checkForUsersConfession (whoVkId) {
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
         type: 'GET',
+        data: data,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         async: false,
