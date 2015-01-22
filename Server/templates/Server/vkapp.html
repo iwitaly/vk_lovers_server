@@ -29,11 +29,12 @@ function checkForUsersConfession (whoVkIdNumber) {
             var toWhoVkIdString = data[i].to_who_vk_id;
             var currentType = data[i]['type'];
             alert(currentType);
-            alert(toWhoVkIdString);
             if (currentType == 0) {
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
+                alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
             } else {
                 $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
             }
         }
     });
