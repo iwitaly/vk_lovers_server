@@ -119,7 +119,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
     //$('#main-table').load(checkForUsersConfession(viewerUserIdNumber));
 }
 
-/*
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
     var flagDatePressed = $(this).hasClass('date-pressed');
     var flagSexPressed = $(this).hasClass('sex-pressed');
@@ -203,94 +202,6 @@ function interActionWithViewer(viewerUserIdNumber) {
             callBackOnClickToDateButton(whoVkIdString, toWhoVkIdString);
         } else {
             callBackOnClickToSexButton(whoVkIdString, toWhoVkIdString);
-        }
-    });
-}
-*/
-
-function callBackOnClickToDateButton (whoVkIdNumber) {
-    var flagDatePressed = $(this).hasClass('date-pressed');
-    var flagSexPressed = $(this).hasClass('sex-pressed');
-    if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $(this).addClass('date-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-            type: 'POST',
-            data: JSON.stringify(confessionInfo),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true
-        });
-    }
-    if ((flagDatePressed == true) && (flagSexPressed == false)) {
-        $(this).removeClass('date-pressed');
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
-            type: "DELETE"
-        });
-    }
-    if ((flagDatePressed == false) && (flagSexPressed == true)) {
-        $(this).addClass('date-pressed');
-        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-            type: 'POST',
-            data: JSON.stringify(confessionInfo),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true
-        });
-    }
-}
-
-function callBackOnClickToSexButton (whoVkIdNumber) {
-    var flagDatePressed = $(this).hasClass('date-pressed');
-    var flagSexPressed = $(this).hasClass('sex-pressed');
-    var whoVkIdString = whoVkIdNumber.toString();
-    var toWhoVkIdString = $(this).attr('value');
-    if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $(this).addClass('sex-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-            type: 'POST',
-            data: JSON.stringify(confessionInfo),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true
-        });
-    }
-    if ((flagDatePressed == false) && (flagSexPressed == true)) {
-        $(this).removeClass('sex-pressed');
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
-            type: "DELETE"
-        });
-    }
-    if ((flagDatePressed == true) && (flagSexPressed == false)) {
-        $(this).addClass('sex-pressed');
-        $('#date' + toWhoVkIdString).removeClass('date-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-            type: 'POST',
-            data: JSON.stringify(confessionInfo),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true
-        });
-    }
-}
-
-
-function interActionWithViewer(viewerUserIdNumber) {
-    $('#table-part').on('click', 'button', function() {
-        if ($(this).hasClass('button-date') == true) {
-            callBackOnClickToDateButton(viewerUserIdNumber);
-        } else {
-            callBackOnClickToSexButton(viewerUserIdNumber);
         }
     });
 }
