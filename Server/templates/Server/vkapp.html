@@ -24,7 +24,7 @@
 function checkForUsersConfession (whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
     //alert('here');
-    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
+    /*$.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
         for (i = 0; i < data.length; i++) {
             var toWhoVkIdString = data[i].to_who_vk_id;
             var currentType = data[i]['type'];
@@ -39,6 +39,32 @@ function checkForUsersConfession (whoVkIdNumber) {
                 $('#sex' + toWhoVkIdString).addClass('sex-pressed');
                 //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
                 //$('#sex' + toWhoVkIdString).remove();
+            }
+        }
+    }); */
+    $.ajax({
+        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
+        type: 'GET',
+        data: {},
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        success: function () {
+            for (i = 0; i < data.length; i++) {
+                var toWhoVkIdString = data[i].to_who_vk_id;
+                var currentType = data[i]['type'];
+                //alert(currentType);
+                if (currentType == 0) {
+                    //alert(toWhoVkIdString);
+                    //alert(typeof  toWhoVkIdString);
+                    $('#date' + toWhoVkIdString).addClass('date-pressed');
+                    //alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
+                    //$('#date' + toWhoVkIdString).remove();
+                } else {
+                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                    //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
+                    //$('#sex' + toWhoVkIdString).remove();
+                }
             }
         }
     });
