@@ -30,14 +30,14 @@ function checkForUsersConfession (whoVkIdNumber) {
             var currentType = data[i]['type'];
             alert(currentType);
             if (currentType == 0) {
-                alert(toWhoVkIdString);
-                alert(typeof  toWhoVkIdString);
+                //alert(toWhoVkIdString);
+                //alert(typeof  toWhoVkIdString);
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
-                alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
+                //alert($('#date' + toWhoVkIdString).hasClass('date-pressed'));
                 $('#date' + toWhoVkIdString).remove();
             } else {
                 $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
+                //alert($('#sex' + toWhoVkIdString).hasClass('sex-pressed'));
                 $('#sex' + toWhoVkIdString).remove();
             }
         }
@@ -54,7 +54,6 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id=" + idDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
-    $('#date' + '479158').remove();
     /*$('#main-table').append('<tr>' +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
         '<td>' + first_name + ' ' + last_name + '</td>' +
@@ -162,11 +161,11 @@ function initSuccess () {
             async: true,
             success: function() {
                 // What should I do if User once been in app?
-                alert('Welcome!')
+                //alert('Welcome!')
             },
             error: function() {
                 // What should I do else?
-                alert("You've been here!")
+                //alert("You've been here!")
             }
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
