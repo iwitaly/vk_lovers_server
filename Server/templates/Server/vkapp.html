@@ -28,13 +28,10 @@ function checkForUsersConfession (whoVkId) {
             var toWhoVkIdString = data[i].to_who_vk_id;
             var currentType = data[i]['type'];
             alert(currentType);
-            switch (type) {
-                case 0: {
-                    $('#date' + toWhoVkIdString).addClass('date-pressed');
-                }
-                case 1: {
-                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                }
+            if (currentType == 0) {
+                $('#date' + toWhoVkIdString).addClass('date-pressed');
+            } else {
+                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
             }
         }
     });
