@@ -61,10 +61,10 @@ function checkForUsersConfession (whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-        type: 'GET',
-        data: {},
-        dataType: 'json',
-        async: true,
+        data: {
+            format: 'json'
+        },
+        dataType: 'jsonp',
         success: function (data) {
             //..
         },
@@ -80,7 +80,8 @@ function checkForUsersConfession (whoVkIdNumber) {
                     $('#sex' + toWhoVkIdString).addClass('sex-pressed');
                 }
             }
-        }
+        },
+        type: 'GET'
     });
 }
 
