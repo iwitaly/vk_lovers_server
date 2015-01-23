@@ -230,7 +230,8 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
     $('tr.item').each( function() {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
-        //alert(toWhoVkIdString);
+        alert(toWhoVkIdString);
+        alert(typeof toWhoVkIdString);
         if (typeOfConfessions == 0) {
             $('#date' + toWhoVkIdString).addClass('date-pressed');
             $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
