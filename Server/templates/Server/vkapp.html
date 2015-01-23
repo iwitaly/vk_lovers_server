@@ -89,9 +89,9 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    var infoAboutFriends;
+    //var infoAboutFriends;
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
-        infoAboutFriends = data.response;
+        //infoAboutFriends = data.response;
         //alert(infoAboutFriends);
         switch (viewerUserSex) {
             case 0: {
@@ -119,7 +119,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
         checkForUsersConfession(viewerUserIdNumber);
-        return infoAboutFriends;
     });
     //alert(infoAboutFriends);
     //return infoAboutFriends;
@@ -199,25 +198,27 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
-function makeAllPossibleConfessions (whoVkIdString, infoAboutFriends, typeOfConfessions) {
-    var arrayToPost = [];
-    for (i = 0; i < infoAboutFriends.length; i++) {
-        var toWhoVkIdString = infoAboutFriends[i].uid.toString();
-        if (typeOfConfessions == 0) {
-            $('#date' + toWhoVkIdString).addClass('date-pressed');
-        } else {
-            $('#sex' + toWhoVkIdString).addClass('date-pressed');
+function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
+    VK.api('friends.get', {order: 'hints', fields: 'id' }, function(data) {
+        var arrayToPost = [];
+        for (i = 0; i < data.response.length; i++) {
+            var toWhoVkIdString = data.response[i].uid.toString();
+            if (typeOfConfessions == 0) {
+                $('#date' + toWhoVkIdString).addClass('date-pressed');
+            } else {
+                $('#sex' + toWhoVkIdString).addClass('date-pressed');
+            }
+            var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
+            arrayToPost.push(elementConfession);
         }
-        var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
-        arrayToPost.push(elementConfession);
-    }
-    $.ajax({
-        url: 'http://vklovers.herokuapp.com/who_confession/' + whoVkIdString + '/',
-        type: 'POST',
-        data: JSON.stringify(arrayToPost),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: true
+        $.ajax({
+            url: 'http://vklovers.herokuapp.com/who_confession/' + whoVkIdString + '/',
+            type: 'POST',
+            data: JSON.stringify(arrayToPost),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true
+        });
     });
 }
 
@@ -228,7 +229,7 @@ function deleteAllConfessions (whoVkIdString) {
     });
 }
 
-function interActionWithViewer(whoVkIdNumber, infoAboutFriends) {
+function interActionWithViewer(whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
     $('#table-part').on('click', 'button', function() {
         var toWhoVkIdString = $(this).attr('value');
@@ -242,7 +243,7 @@ function interActionWithViewer(whoVkIdNumber, infoAboutFriends) {
         if ($(this).hasClass('date-all-pressed')) {
             deleteAllConfessions(whoVkIdString);
         } else {
-            makeAllPossibleConfessions(whoVkIdString, infoAboutFriends, 0);
+            makeAllPossibleConfessions(whoVkIdString, 0);
             $(this).addClass('date-all-pressed');
         }
     });
@@ -250,7 +251,7 @@ function interActionWithViewer(whoVkIdNumber, infoAboutFriends) {
         if ($(this).hasClass('sex-all-pressed')) {
             deleteAllConfessions(whoVkIdString);
         } else {
-            makeAllPossibleConfessions(whoVkIdString, infoAboutFriends, 1);
+            makeAllPossibleConfessions(whoVkIdString, 1);
             $(this).addClass('sex-all-pressed');
         }
     });
@@ -280,8 +281,8 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        var infoAboutFriends = makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
-        interActionWithViewer(viewerUserIdNumber, infoAboutFriends);
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
+        interActionWithViewer(viewerUserIdNumber);
     });
 }
 
