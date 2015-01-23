@@ -89,11 +89,8 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    //var infoAboutFriends;
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
-        //infoAboutFriends = data.response;
-        //alert(infoAboutFriends);
-        switch (viewerUserSex) {
+       switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
                     addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
@@ -120,8 +117,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
         }
         checkForUsersConfession(viewerUserIdNumber);
     });
-    //alert(infoAboutFriends);
-    //return infoAboutFriends;
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -208,27 +203,10 @@ function deleteAllConfessions (whoVkIdString) {
 };
 
 function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
-    /*deleteAllConfessions(whoVkIdString, idsOfFriends);
-    var arrayToPost = [];
-    for (i = 0; i < idsOfFriends.length; i++) {
-        var toWhoVkIdString = idsOfFriends[i].uid.toString();
-        if (typeOfConfessions == 0) {
-            if (!$('#date' + toWhoVkIdString).hasClass('date-pressed'))
-                $('#date' + toWhoVkIdString).addClass('date-pressed');
-        } else {
-            if (!$('#sex' + toWhoVkIdString).hasClass('sex-pressed'))
-                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-        }
-        var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
-        arrayToPost.push(elementConfession);
-    }*/
     var arrayToPost = [];
     $('tr.item').each( function() {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
-        //alert(toWhoVkIdString);
-        //alert(toWhoVkIdString);
-        //alert(typeof toWhoVkIdString);
         if (typeOfConfessions == 0) {
             $('#date' + toWhoVkIdString).addClass('date-pressed');
             $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
@@ -240,7 +218,6 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
     });
-    //alert(arrayToPost);
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
         type: 'POST',
