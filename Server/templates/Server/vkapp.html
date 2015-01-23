@@ -244,6 +244,7 @@ function interActionWithViewer(whoVkIdNumber, idsOfFriends) {
         }
     });
     $('#date-all').on('click', function () {
+        alert(idsOfFriends);
         if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, idsOfFriends, 0);
             $(this).addClass('date-all-pressed');
@@ -301,6 +302,7 @@ function initSuccess () {
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
         VK.api('friends.get', {order: 'hints', fields: 'id' }, function(data) {
+            alert(data.response)
             interActionWithViewer(viewerUserIdNumber, data.response);
         });
     });
