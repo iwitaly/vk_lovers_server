@@ -140,10 +140,7 @@ function initSuccess () {
         });
         $('#date-all').attr('value', viewerUserIdNumber.toString());
         $('#sex-all').attr('value', viewerUserIdNumber.toString());
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)
-        checkForUsersConfession(vUID);
-
-        interActionWithViewer(viewerUserIdNumber);
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
     });
 }
 
@@ -172,7 +169,7 @@ function checkForUsersConfession (whoVkIdString) {
                 }
             });
 }
-    
+
 $(document).ready(
         var viewerIdString = $('date-all').attr('value');
         checkForUsersConfession(viewerIdString);
@@ -276,6 +273,10 @@ function interActionWithViewer(viewerUserIdString) {
 
 }
 
+$(document).ready(
+        var viewerIdString = $('date-all').attr('value');
+        interActionWithViewer(viewerIdString);
+);
 
 </script>
 </body>
