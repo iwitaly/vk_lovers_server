@@ -80,7 +80,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
     var valueDateString = "'" + toWhoVkIdString + "'" ;
     var valueSexString = "'" + toWhoVkIdString + "'" ;
-    $('#main-table').append('<tr>' +
+    $('#main-table').append("<tr class='item'>" +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
         '<td>' + first_name + ' ' + last_name + '</td>' +
         '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
@@ -199,7 +199,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
 }
 
 function deleteAllConfessions (whoVkIdString) {
-    $('tr').each( function() {
+    $('tr.item').each( function() {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
@@ -227,10 +227,10 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         arrayToPost.push(elementConfession);
     }*/
     var arrayToPost = [];
-    $('tr').each( function() {
+    $('tr.item').each( function() {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
-        alert(toWhoVkIdString);
+        //alert(toWhoVkIdString);
         if (typeOfConfessions == 0) {
             $('#date' + toWhoVkIdString).addClass('date-pressed');
             $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
@@ -241,7 +241,7 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
     });
-    alert(arrayToPost);
+    //alert(arrayToPost);
     $.ajax({
         url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
         type: 'POST',
