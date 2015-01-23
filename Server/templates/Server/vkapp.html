@@ -240,6 +240,7 @@ function interActionWithViewer(whoVkIdNumber, infoAboutFriends) {
             deleteAllConfessions(whoVkIdString);
         } else {
             makeAllPossibleConfessions(whoVkIdString, infoAboutFriends, 0);
+            $(this).addClass('date-all-pressed');
         }
     });
     $('#sex-all').on('click', function () {
@@ -247,6 +248,7 @@ function interActionWithViewer(whoVkIdNumber, infoAboutFriends) {
             deleteAllConfessions(whoVkIdString);
         } else {
             makeAllPossibleConfessions(whoVkIdString, infoAboutFriends, 1);
+            $(this).addClass('sex-all-pressed');
         }
     });
     $('#share').on('click', function () {
