@@ -92,7 +92,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     var infoAboutFriends;
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         infoAboutFriends = data.response;
-        alert(infoAboutFriends);
+        //alert(infoAboutFriends);
         switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
@@ -119,9 +119,10 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
         checkForUsersConfession(viewerUserIdNumber);
+        return infoAboutFriends;
     });
-    alert(infoAboutFriends);
-    return infoAboutFriends;
+    //alert(infoAboutFriends);
+    //return infoAboutFriends;
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
