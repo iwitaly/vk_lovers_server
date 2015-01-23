@@ -170,10 +170,10 @@ function checkForUsersConfession (whoVkIdString) {
             });
 }
 
-$(document).ready(
+$(document).ready( function () {
         var viewerIdString = $('date-all').attr('value');
         checkForUsersConfession(viewerIdString);
-);
+});
 
 </script>
 <script>
@@ -273,10 +273,10 @@ function interActionWithViewer(viewerUserIdString) {
 
 }
 
-$(document).ready(
-        var viewerIdString = $('date-all').attr('value');
-        interActionWithViewer(viewerIdString);
-);
+$(document).ready( function () {
+    var viewerIdString = $('date-all').attr('value');
+    interActionWithViewer(viewerIdString);
+});
 
 </script>
 </body>
