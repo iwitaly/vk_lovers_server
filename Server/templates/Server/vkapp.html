@@ -200,7 +200,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
 
 function deleteAllConfessions (whoVkIdString) {
     $('tr').each( function() {
-        $this = $(this)
+        $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
         $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
