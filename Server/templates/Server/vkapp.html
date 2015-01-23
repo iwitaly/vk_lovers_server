@@ -79,7 +79,6 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    var indicatorMadeTable = [];
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         switch (viewerUserSex) {
             case 0: {
@@ -100,13 +99,15 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        var iInd = addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
         }
+        checkForUsersConfession(viewerUserIdNumber);
     });
+
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -225,11 +226,9 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        //alert(viewerIdString + '1');
-        $.when(makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).always( function () {
-            checkForUsersConfession(viewerUserIdNumber);
-            interActionWithViewer(viewerUserIdNumber);
-        });
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
+        interActionWithViewer(viewerUserIdNumber);
+
     });
 }
 
