@@ -275,10 +275,10 @@ function interActionWithViewer(whoVkIdNumber) {
         }
     });
     $('#sex-all').on('click', function () {
-        if (!$('#sex-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 1);
             $('#sex-all').addClass('sex-all-pressed');
-        } else if (!$('#sex-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
+        } else if (!$('date-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
             deleteAllConfessions(whoVkIdString);
             $('#sex-all').removeClass('sex-all-pressed');
         } else {
