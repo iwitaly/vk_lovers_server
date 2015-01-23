@@ -250,7 +250,7 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
     });
 }
 
-function interActionWithViewer(whoVkIdNumber, idsOfFriends) {
+function interActionWithViewer(whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
     $('#table-part').on('click', 'button', function() {
         var toWhoVkIdString = $(this).attr('value');
@@ -318,7 +318,6 @@ function initSuccess () {
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
         interActionWithViewer(viewerUserIdNumber);
-
     });
 }
 
