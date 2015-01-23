@@ -125,8 +125,8 @@ function makeTableWithFriends(infoAboutConfessions, viewerUserIdNumber, viewerUs
                 break;
             }
             case 2: {
-                for (k = 0; k < infoAboutConfessions; k++) {
-                    addConfessionRowToTableWithFriends(infoAboutConfessions[k]['type'],viewerUserIdNumber, +infoAboutConfessions[k].to_who_vk_id,
+                for (k = 0; k < infoAboutConfessions.length; k++) {
+                    addConfessionRowToTableWithFriends(infoAboutConfessions[k]['type'], viewerUserIdNumber, +infoAboutConfessions[k].to_who_vk_id,
                         data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
                 }
                 for(i = 0; i < data.response.length; i++) {
@@ -257,11 +257,6 @@ function initSuccess () {
             }
         });
         checkForUsersConfession(viewerUserIdNumber, dataFromVk.response[0].sex);
-        //alert(viewerIdString + '1');
-        //$.when(makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).always( function () {
-         //   checkForUsersConfession(viewerUserIdNumber);
-         //   interActionWithViewer(viewerUserIdNumber);
-        });
 }
 
 
