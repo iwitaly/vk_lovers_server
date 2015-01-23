@@ -216,7 +216,7 @@ function makeAllPossibleConfessions (whoVkIdString, idsOfFriends, typeOfConfessi
     for (i = 0; i < idsOfFriends.length; i++) {
         var toWhoVkIdString = idsOfFriends[i].uid.toString();
         if (typeOfConfessions == 0) {
-            if (!$('#date' + toWhoVkIdString).hasClass('date-pressed')
+            if (!$('#date' + toWhoVkIdString).hasClass('date-pressed'))
                 $('#date' + toWhoVkIdString).addClass('date-pressed');
         } else {
             if (!$('#sex' + toWhoVkIdString).hasClass('sex-pressed'))
