@@ -251,7 +251,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
-function interActionWithViewer(viewerUserIdString) {
+function interActionWithViewer(whoVkIdString) {
     $('#table-part').on('click', 'button', function() {
         var toWhoVkIdString = $(this).attr('value');
         if ($(this).hasClass('button-date') == true) {
