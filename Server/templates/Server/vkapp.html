@@ -105,7 +105,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     '</tr>');
 }
 
-function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
+function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         switch (viewerUserSex) {
             case 0: {
@@ -133,7 +133,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex, callback) {
             }
         }
     });
-    callback(viewerUserIdNumber);
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -252,9 +251,9 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex, function(vUID) {
-            checkForUsersConfession(vUID);
-        });
+        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)
+        checkForUsersConfession(vUID);
+
         interActionWithViewer(viewerUserIdNumber);
     });
 }
