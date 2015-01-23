@@ -92,6 +92,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     var infoAboutFriends;
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         infoAboutFriends = data.response;
+        alert(infoAboutFriends);
         switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
