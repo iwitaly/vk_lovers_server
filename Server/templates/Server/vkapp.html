@@ -238,6 +238,7 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
             $('#date' + toWhoVkIdString).removeClass('date-pressed');
             $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         }
+
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
     });
@@ -263,32 +264,32 @@ function interActionWithViewer(whoVkIdNumber) {
         }
     });
     $('#date-all').on('click', function () {
-        if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 0);
-            $(this).addClass('date-all-pressed');
+            $('#date-all').addClass('date-all-pressed');
         }
-        if ($(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        if ($('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             deleteAllConfessions(whoVkIdString);
-            $(this).removeClass('date-all-pressed');
+            $('#date-all').removeClass('date-all-pressed');
         }
-        if (!$(this).hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
+        if (!$('#date-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 0);
-            $(this).addClass('date-all-pressed');
+            $('#date-all').addClass('date-all-pressed');
             $('#sex-all').removeClass('sex-all-pressed');
         }
     });
     $('#sex-all').on('click', function () {
-        if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        if (!$('#sex-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 1);
-            $(this).addClass('sex-all-pressed');
+            $('#sex-all').addClass('sex-all-pressed');
         }
-        if (!$(this).hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
+        if (!$('#sex-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
             deleteAllConfessions(whoVkIdString);
-            $(this).removeClass('sex-all-pressed');
+            $('#sex-all').removeClass('sex-all-pressed');
         }
-        if ($(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        if ($('#sex-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 1);
-            $(this).addClass('sex-all-pressed');
+            $('#sex-all').addClass('sex-all-pressed');
             $('#date-all').removeClass('date-all-pressed');
         }
     });
