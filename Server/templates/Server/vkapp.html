@@ -140,6 +140,8 @@ function initSuccess () {
         });
         $('#date-all').attr('value', viewerUserIdNumber.toString());
         $('#sex-all').attr('value', viewerUserIdNumber.toString());
+        var viewerIdString = $('#date-all').attr('value');
+        alert(viewerIdString + '1');
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
     });
 }
