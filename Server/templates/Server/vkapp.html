@@ -248,6 +248,7 @@ function interActionWithViewer(whoVkIdNumber) {
     });
     $('#date-all').on('click', function () {
         if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+            deleteAllConfessions(whoVkIdString);
             makeAllPossibleConfessions(whoVkIdString, 0);
             $(this).addClass('date-all-pressed');
         }
@@ -264,6 +265,7 @@ function interActionWithViewer(whoVkIdNumber) {
     });
     $('#sex-all').on('click', function () {
         if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+            deleteAllConfessions(whoVkIdString);
             makeAllPossibleConfessions(whoVkIdString, 1);
             $(this).addClass('sex-all-pressed');
         }
