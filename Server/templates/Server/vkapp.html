@@ -65,6 +65,7 @@ function checkForUsersConfession (whoVkIdNumber) {
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
+    var iInd = $.Deferred();
     var toWhoVkIdString = cellUserIdNumber.toString();
     var idDateString = "'date" + toWhoVkIdString + "'" ;
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
@@ -76,10 +77,12 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
+    iInd.resolve();
+    return iInd;
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    var indicatorMadeTable = $.Deferred();
+    var indicatorMadeTable = [];
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         switch (viewerUserSex) {
             case 0: {
@@ -100,15 +103,15 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                        var iInd = addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
                                 data.response[i].first_name, data.response[i].last_name);
+                        indicatorMadeTable.push(iInd);
                 }
                 break;
             }
         }
     });
-    indicatorMadeTable.resolve();
-    return indicatorMadeTable.promise();
+    return indicatorMadeTable;
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -228,7 +231,7 @@ function initSuccess () {
             }
         });
         //alert(viewerIdString + '1');
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex).always( function () {
+        $.when(makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).always( function () {
             checkForUsersConfession(viewerUserIdNumber);
             interActionWithViewer(viewerUserIdNumber);
         });
