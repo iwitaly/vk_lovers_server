@@ -79,6 +79,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
+    var indicatorMadeTable = $.Deferred();
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         switch (viewerUserSex) {
             case 0: {
@@ -106,6 +107,8 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
+    indicatorMadeTable.resolve();
+    return indicatorMadeTable.promise();
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
