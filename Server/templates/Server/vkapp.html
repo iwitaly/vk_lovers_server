@@ -257,7 +257,7 @@ function interActionWithViewer(whoVkIdNumber, idsOfFriends) {
         if (!$(this).hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, idsOfFriends, 0);
             $(this).addClass('date-all-pressed');
-            $('sex-all').removeClass('sex-all-pressed');
+            $('#sex-all').removeClass('sex-all-pressed');
         }
     });
     $('#sex-all').on('click', function () {
@@ -272,7 +272,7 @@ function interActionWithViewer(whoVkIdNumber, idsOfFriends) {
         if ($(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
             makeAllPossibleConfessions(whoVkIdString, 1);
             $(this).addClass('sex-all-pressed');
-            $('date-all').removeClass('date-all-pressed');
+            $('#date-all').removeClass('date-all-pressed');
         }
     });
     $('#share').on('click', function () {
