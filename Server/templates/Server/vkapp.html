@@ -45,46 +45,73 @@
     </div>
 <script>
 
-function checkForUsersConfession (whoVkIdNumber) {
+function checkForUsersConfession (whoVkIdNumber, viewerUserSex ) {
     //alert('check');
     var whoVkIdString = whoVkIdNumber.toString();
     $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
 
     })
             .always(function(data) {
-                for (i = 0; i < data.length; i++) {
-                    var toWhoVkIdString = data[i].to_who_vk_id;
-                    var currentType = data[i]['type'];
-                    if (currentType == 0) {
-                        $('#date' + toWhoVkIdString).addClass('date-pressed');
-                    } else {
-                        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                    }
-                }
+                makeTableWithFriends(data, whoVkIdNumber, viewerUserSex );
             });
 }
 
-function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
-    var toWhoVkIdString = cellUserIdNumber.toString();
-    var idDateString = "'date" + toWhoVkIdString + "'" ;
-    var idSexString = "'sex" + toWhoVkIdString + "'" ;
-    var valueDateString = "'" + toWhoVkIdString + "'" ;
-    var valueSexString = "'" + toWhoVkIdString + "'" ;
-    $('#main-table').append('<tr>' +
-        '<td>' + "<img src='" + photo + "'>" + '</td>' +
-        '<td>' + first_name + ' ' + last_name + '</td>' +
-        '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
-        '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
-    '</tr>');
+function isThereConfession (infoAboutConfessions, whoVkIdNumber, toWhoVkIdNumber) {
+    var flag = false;
+    for (i = 0; i < infoAboutConfessions.length; i++) {
+        if (infoAboutConfessions[i].to_who_vk_id == toWhoVkIdNumber.toString()) {
+            flag = true;
+        }
+    }
+    return flag;
 }
 
-function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    var indicatorMadeTable = [];
+function addConfessionRowToTableWithFriends (confessionType, viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
+        var toWhoVkIdString = cellUserIdNumber.toString();
+        var idDateString = "'date" + toWhoVkIdString + "'";
+        var idSexString = "'sex" + toWhoVkIdString + "'";
+        var valueDateString = "'" + toWhoVkIdString + "'";
+        var valueSexString = "'" + toWhoVkIdString + "'";
+        if (confessionType == 0) {
+            $('#main-table').append('<tr>' +
+            '<td>' + "<img src='" + photo + "'>" + '</td>' +
+            '<td>' + first_name + ' ' + last_name + '</td>' +
+            '<td>' + "<button class='button-date date-pressed' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date' + '</button>' + '</td>' +
+            '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' + valueSexString + '>' + 'Sex' + '</button>' + '</td>' +
+            '</tr>');
+        } else {
+            $('#main-table').append('<tr>' +
+            '<td>' + "<img src='" + photo + "'>" + '</td>' +
+            '<td>' + first_name + ' ' + last_name + '</td>' +
+            '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date' + '</button>' + '</td>' +
+            '<td>' + "<button class='button-sex sex-pressed' id=" + idSexString + ' value=' + valueSexString + '>' + 'Sex' + '</button>' + '</td>' +
+            '</tr>');
+        }
+}
+
+function addRowToTableWithFriends (infoAboutConfessions, viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
+    if (!isThereConfession(infoAboutConfessions, viewerUserIdNumber, cellUserIdNumber)) {
+        var toWhoVkIdString = cellUserIdNumber.toString();
+        var idDateString = "'date" + toWhoVkIdString + "'";
+        var idSexString = "'sex" + toWhoVkIdString + "'";
+        var valueDateString = "'" + toWhoVkIdString + "'";
+        var valueSexString = "'" + toWhoVkIdString + "'";
+        $('#main-table').append('<tr>' +
+        '<td>' + "<img src='" + photo + "'>" + '</td>' +
+        '<td>' + first_name + ' ' + last_name + '</td>' +
+        '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date' + '</button>' + '</td>' +
+        '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' + valueSexString + '>' + 'Sex' + '</button>' + '</td>' +
+        '</tr>');
+    }
+}
+
+
+function makeTableWithFriends(infoAboutConfessions, viewerUserIdNumber, viewerUserSex) {
     VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
         switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
-                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                    addRowToTableWithFriends(infoAboutConfessions, viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
                             data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -92,15 +119,19 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 1: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 2)
-                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(infoAboutConfessions, viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
             }
             case 2: {
+                for (k = 0; k < infoAboutConfessions; k++) {
+                    addConfessionRowToTableWithFriends(infoAboutConfessions[k]['type'],viewerUserIdNumber, +infoAboutConfessions[k].to_who_vk_id,
+                        data.response[i].photo_50, data.response[i].first_name, data.response[i].last_name);
+                }
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        var iInd = addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(infoAboutConfessions, viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -225,12 +256,13 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
+        checkForUsersConfession(viewerUserIdNumber, dataFromVk.response[0].sex);
         //alert(viewerIdString + '1');
-        $.when(makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).always( function () {
-            checkForUsersConfession(viewerUserIdNumber);
-            interActionWithViewer(viewerUserIdNumber);
+        //$.when(makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).always( function () {
+         //   checkForUsersConfession(viewerUserIdNumber);
+         //   interActionWithViewer(viewerUserIdNumber);
         });
-    });
+    }
 }
 
 $(document).ready(
