@@ -226,7 +226,8 @@ function initSuccess () {
         });
         //alert(viewerIdString + '1');
         $.when( makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).then( function () {
-            $.when( checkForUsersConfession(viewerUserIdNumber)).then( interActionWithViewer(viewerUserIdNumber));
+            checkForUsersConfession(viewerUserIdNumber);
+            interActionWithViewer(viewerUserIdNumber);
         });
     });
 }
