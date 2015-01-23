@@ -228,47 +228,47 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
     });
 }
 
-function interActionWithViewer(whoVkIdNumber) {
-    var whoVkIdString = whoVkIdNumber.toString();
-    $('#table-part').on('click', 'button', function() {
-        var toWhoVkIdString = $(this).attr('value');
-        if ($(this).hasClass('button-date') == true) {
-            callBackOnClickToDateButton(whoVkIdString, toWhoVkIdString);
-        } else {
-            callBackOnClickToSexButton(whoVkIdString, toWhoVkIdString);
-        }
-    });
-    $('#date-all').on('click', function () {
-        if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
-            makeAllPossibleConfessions(whoVkIdString, 0);
-            $('#date-all').addClass('date-all-pressed');
-        } else if ($('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
-            deleteAllConfessions(whoVkIdString);
-            $('#date-all').removeClass('date-all-pressed');
-        } else {
-            makeAllPossibleConfessions(whoVkIdString, 0);
-            $('#date-all').addClass('date-all-pressed');
-            $('#sex-all').removeClass('sex-all-pressed');
-        }
-    });
-    $('#sex-all').on('click', function () {
-        if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
-            makeAllPossibleConfessions(whoVkIdString, 1);
-            $('#sex-all').addClass('sex-all-pressed');
-        } else if (!$('date-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
-            deleteAllConfessions(whoVkIdString);
-            $('#sex-all').removeClass('sex-all-pressed');
-        } else {
-            makeAllPossibleConfessions(whoVkIdString, 1);
-            $('#sex-all').addClass('sex-all-pressed');
-            $('#date-all').removeClass('date-all-pressed');
-        }
-    });
-    $('#share').on('click', function () {
+//function interActionWithViewer(whoVkIdNumber) {
+var whoVkIdString;
+$('#table-part').on('click', 'button', function() {
+    var toWhoVkIdString = $(this).attr('value');
+    if ($(this).hasClass('button-date') == true) {
+        callBackOnClickToDateButton(whoVkIdString, toWhoVkIdString);
+    } else {
+        callBackOnClickToSexButton(whoVkIdString, toWhoVkIdString);
+    }
+});
+$('#date-all').on('click', function () {
+    if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        makeAllPossibleConfessions(whoVkIdString, 0);
+        $('#date-all').addClass('date-all-pressed');
+    } else if ($('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        deleteAllConfessions(whoVkIdString);
+        $('#date-all').removeClass('date-all-pressed');
+    } else {
+        makeAllPossibleConfessions(whoVkIdString, 0);
+        $('#date-all').addClass('date-all-pressed');
+        $('#sex-all').removeClass('sex-all-pressed');
+    }
+});
+$('#sex-all').on('click', function () {
+    if (!$('#date-all').hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
+        makeAllPossibleConfessions(whoVkIdString, 1);
+        $('#sex-all').addClass('sex-all-pressed');
+    } else if (!$('date-all').hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
+        deleteAllConfessions(whoVkIdString);
+        $('#sex-all').removeClass('sex-all-pressed');
+    } else {
+        makeAllPossibleConfessions(whoVkIdString, 1);
+        $('#sex-all').addClass('sex-all-pressed');
+        $('#date-all').removeClass('date-all-pressed');
+    }
+});
+$('#share').on('click', function () {
 
-    })
+})
 
-}
+//}
 
 function initSuccess () {
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
@@ -290,6 +290,7 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
+        whoVkIdString = viewerUserIdNumber.toString();
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
         interActionWithViewer(viewerUserIdNumber);
     });
