@@ -65,7 +65,6 @@ function checkForUsersConfession (whoVkIdNumber) {
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
-    var iInd = $.Deferred();
     var toWhoVkIdString = cellUserIdNumber.toString();
     var idDateString = "'date" + toWhoVkIdString + "'" ;
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
@@ -77,8 +76,6 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
-    iInd.resolve();
-    return iInd;
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
@@ -105,13 +102,11 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
                     if (data.response[i].sex == 1)
                         var iInd = addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
                                 data.response[i].first_name, data.response[i].last_name);
-                        indicatorMadeTable.push(iInd);
                 }
                 break;
             }
         }
     });
-    return indicatorMadeTable;
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
