@@ -58,12 +58,12 @@ function checkForUsersConfession (whoVkIdNumber) {
                         $('#date' + toWhoVkIdString).addClass('date-pressed');
                         var currentRow = $('#date' + toWhoVkIdString).closest('tr');
                         currentRow.detach();
-                        $.('#main-table').prepend(currentRow);
+                        $('#main-table').prepend(currentRow);
                     } else {
                         $('#sex' + toWhoVkIdString).addClass('sex-pressed');
                         var currentRow = $('#sex' + toWhoVkIdString).closest('tr');
                         currentRow.detach();
-                        $.('#main-table').prepend(currentRow);
+                        $('#main-table').prepend(currentRow);
                     }
                 }
             });
