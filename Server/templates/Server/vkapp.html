@@ -216,9 +216,11 @@ function makeAllPossibleConfessions (whoVkIdString, idsOfFriends, typeOfConfessi
     for (i = 0; i < idsOfFriends.length; i++) {
         var toWhoVkIdString = idsOfFriends[i].uid.toString();
         if (typeOfConfessions == 0) {
-            $('#date' + toWhoVkIdString).addClass('date-pressed');
+            if (!$('#date' + toWhoVkIdString).hasClass('date-pressed')
+                $('#date' + toWhoVkIdString).addClass('date-pressed');
         } else {
-            $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+            if (!$('#sex' + toWhoVkIdString).hasClass('sex-pressed'))
+                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         }
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
