@@ -108,41 +108,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     });
 }
 
-function initSuccess () {
-    VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
-        var viewerUserIdNumber = dataFromVk.response[0].uid;
-        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/',
-            type: 'POST',
-            data: JSON.stringify(userInfo),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true,
-            success: function() {
-                // What should I do if User once been in app?
-                //alert('Welcome!')
-            },
-            error: function() {
-                // What should I do else?
-                //alert("You've been here!")
-            }
-        });
-        $('#date-all').attr('value', viewerUserIdNumber.toString());
-        $('#sex-all').attr('value', viewerUserIdNumber.toString());
-        var viewerIdString = $('#date-all').attr('value');
-        alert(viewerIdString + '1');
-        $.when( makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).then( checkForUsersConfession(viewerUserIdNumber) );
-    });
-}
-
-$(document).ready(
-    VK.init(initSuccess())
-);
-
-</script>
-<script>
-
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
     var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
     var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
@@ -217,7 +182,8 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
-function interActionWithViewer(whoVkIdString) {
+function interActionWithViewer(whoVkIdNumber) {
+    var whoVkIdString = whoVkIdNumber.toString();
     $('#table-part').on('click', 'button', function() {
         var toWhoVkIdString = $(this).attr('value');
         if ($(this).hasClass('button-date') == true) {
@@ -238,10 +204,39 @@ function interActionWithViewer(whoVkIdString) {
 
 }
 
-$(document).ready( function () {
-    var viewerIdString = $('#date-all').attr('value');
-    interActionWithViewer(viewerIdString);
-});
+function initSuccess () {
+    VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
+        var viewerUserIdNumber = dataFromVk.response[0].uid;
+        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
+        $.ajax({
+            url: 'http://vklovers.herokuapp.com/users/',
+            type: 'POST',
+            data: JSON.stringify(userInfo),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true,
+            success: function() {
+                // What should I do if User once been in app?
+                //alert('Welcome!')
+            },
+            error: function() {
+                // What should I do else?
+                //alert("You've been here!")
+            }
+        });
+        alert(viewerIdString + '1');
+        $.when( makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).then( function () {
+            $.when( checkForUsersConfession(viewerUserIdNumber)).then( interActionWithViewer(viewerUserIdNumber));
+        });
+    });
+}
+
+$(document).ready(
+    VK.init(initSuccess())
+);
+
+</script>
+<script>
 
 </script>
 </body>
