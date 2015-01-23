@@ -224,7 +224,7 @@ function initSuccess () {
                 //alert("You've been here!")
             }
         });
-        alert(viewerIdString + '1');
+        //alert(viewerIdString + '1');
         $.when( makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).then( function () {
             $.when( checkForUsersConfession(viewerUserIdNumber)).then( interActionWithViewer(viewerUserIdNumber));
         });
