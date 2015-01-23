@@ -45,33 +45,24 @@
     </div>
 <script>
 
-    /*
-    var whoVkIdString = whoVkIdNumber.toString();
-    $.ajax({
-        url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
-        data: {
-            format: 'json'
-        },
-        dataType: 'jsonp',
-        success: function (data) {
-            //..
-        },
-        complete: function (data) {
-            alert('Ya');
-            alert(data.length);
-            for (i = 0; i < data.length; i++) {
-                var toWhoVkIdString = data[i].to_who_vk_id;
-                var currentType = data[i]['type'];
-                if (currentType == 0) {
-                    $('#date' + toWhoVkIdString).addClass('date-pressed');
-                } else {
-                    $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                }
-            }
-        },
-        type: 'GET'
-    }); */
+function checkForUsersConfession (whoVkIdNumber) {
+    //alert('check');
+    var vhoVkIdString = whoVkIdNumber.toString();
+    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
 
+    })
+            .always(function(data) {
+                for (i = 0; i < data.length; i++) {
+                    var toWhoVkIdString = data[i].to_who_vk_id;
+                    var currentType = data[i]['type'];
+                    if (currentType == 0) {
+                        $('#date' + toWhoVkIdString).addClass('date-pressed');
+                    } else {
+                        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                    }
+                }
+            });
+}
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
     var toWhoVkIdString = cellUserIdNumber.toString();
@@ -115,7 +106,6 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             }
         }
     });
-    //alert('makeTableDone');
 }
 
 function initSuccess () {
@@ -142,40 +132,13 @@ function initSuccess () {
         $('#sex-all').attr('value', viewerUserIdNumber.toString());
         var viewerIdString = $('#date-all').attr('value');
         alert(viewerIdString + '1');
-        makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
+        $.when( makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex)).then( checkForUsersConfession(viewerUserIdNumber) );
     });
 }
 
 $(document).ready(
     VK.init(initSuccess())
 );
-
-</script>
-<script>
-
-function checkForUsersConfession (whoVkIdString) {
-    //alert('check');
-    $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
-
-    })
-            .always(function(data) {
-                for (i = 0; i < data.length; i++) {
-                    var toWhoVkIdString = data[i].to_who_vk_id;
-                    var currentType = data[i]['type'];
-                    if (currentType == 0) {
-                        $('#date' + toWhoVkIdString).addClass('date-pressed');
-                    } else {
-                        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-                    }
-                }
-            });
-}
-
-$(document).ready( function () {
-    var viewerIdString = $('#date-all').attr('value');
-    alert(viewerIdString);
-    checkForUsersConfession(viewerIdString);
-});
 
 </script>
 <script>
