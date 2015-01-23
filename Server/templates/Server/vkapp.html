@@ -198,45 +198,42 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
-function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
-    VK.api('friends.get', {order: 'hints', fields: 'id' }, function(data) {
-        var arrayToPost = [];
-        for (i = 0; i < data.response.length; i++) {
-            var toWhoVkIdString = data.response[i].uid.toString();
-            if (typeOfConfessions == 0) {
-                $('#date' + toWhoVkIdString).addClass('date-pressed');
-            } else {
-                $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-            }
-            var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
-            arrayToPost.push(elementConfession);
+function makeAllPossibleConfessions (whoVkIdString, idsOfFriends, typeOfConfessions) {
+    var arrayToPost = [];
+    for (i = 0; i < idsOfFriends.length; i++) {
+        var toWhoVkIdString = idsOfFriends[i].uid.toString();
+        if (typeOfConfessions == 0) {
+            $('#date' + toWhoVkIdString).addClass('date-pressed');
+        } else {
+            $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         }
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
-            type: 'POST',
-            data: JSON.stringify(arrayToPost),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: true
-        });
+        var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
+        arrayToPost.push(elementConfession);
+    }
+    $.ajax({
+        url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
+        type: 'POST',
+        data: JSON.stringify(arrayToPost),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: true
     });
 }
 
-function deleteAllConfessions (whoVkIdString) {
-    VK.api('friends.get', {order: 'hints', fields: 'id' }, function(data) {
-        for (i = 0; i < data.response.length; i++) {
-            var toWhoVkIdString = data.response[i].uid.toString();
-            $('#date' + toWhoVkIdString).removeClass('date-pressed');
-            $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
-        }
-        $.ajax({
-            url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
-            type: "DELETE"
-        });
+function deleteAllConfessions (whoVkIdString, idsOfFriends) {
+    for (i = 0; i < idsOfFriends.length; i++) {
+        var toWhoVkIdString = idsOfFriends[i].uid.toString();
+        $('#date' + toWhoVkIdString).removeClass('date-pressed');
+        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+    }
+    $.ajax({
+        url: 'http://vklovers.herokuapp.com/users/who_confession/' + whoVkIdString + '/',
+        type: "DELETE"
     });
-}
+};
 
-function interActionWithViewer(whoVkIdNumber) {
+
+function interActionWithViewer(whoVkIdNumber, idsOfFriends) {
     var whoVkIdString = whoVkIdNumber.toString();
     $('#table-part').on('click', 'button', function() {
         var toWhoVkIdString = $(this).attr('value');
@@ -248,17 +245,17 @@ function interActionWithViewer(whoVkIdNumber) {
     });
     $('#date-all').on('click', function () {
         if (!$(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
-            deleteAllConfessions(whoVkIdString);
-            makeAllPossibleConfessions(whoVkIdString, 0);
+            deleteAllConfessions(whoVkIdString, idsOfFriends);
+            makeAllPossibleConfessions(whoVkIdString, idsOfFriends, 0);
             $(this).addClass('date-all-pressed');
         }
         if ($(this).hasClass('date-all-pressed') && !$('#sex-all').hasClass('sex-all-pressed')) {
-            deleteAllConfessions(whoVkIdString);
+            deleteAllConfessions(whoVkIdString, idsOfFriends);
             $(this).removeClass('date-all-pressed');
         }
         if (!$(this).hasClass('date-all-pressed') && $('#sex-all').hasClass('sex-all-pressed')) {
-            deleteAllConfessions(whoVkIdString);
-            makeAllPossibleConfessions(whoVkIdString, 0);
+            deleteAllConfessions(whoVkIdString, idsOfFriends);
+            makeAllPossibleConfessions(whoVkIdString, idsOfFriends, 0);
             $(this).addClass('date-all-pressed');
             $('sex-all').removeClass('sex-all-pressed');
         }
@@ -307,7 +304,9 @@ function initSuccess () {
             }
         });
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
-        interActionWithViewer(viewerUserIdNumber);
+        VK.api('friends.get', {order: 'hints', fields: 'id' }, function(data) {
+            interActionWithViewer(viewerUserIdNumber, data.response);
+        });
     });
 }
 
