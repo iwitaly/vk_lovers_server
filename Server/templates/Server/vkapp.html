@@ -153,7 +153,6 @@ $(document).ready(
 
 function checkForUsersConfession (whoVkIdString) {
     //alert('check');
-    var whoVkIdString = whoVkIdNumber.toString();
     $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
 
     })
