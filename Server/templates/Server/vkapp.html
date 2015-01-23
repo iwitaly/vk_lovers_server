@@ -46,7 +46,6 @@
 <script>
 
 function checkForUsersConfession (whoVkIdNumber) {
-    //alert('check');
     var whoVkIdString = whoVkIdNumber.toString();
     $.getJSON('http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/', {}, function(data) {
 
@@ -57,8 +56,14 @@ function checkForUsersConfession (whoVkIdNumber) {
                     var currentType = data[i]['type'];
                     if (currentType == 0) {
                         $('#date' + toWhoVkIdString).addClass('date-pressed');
+                        var currentRow = $('#date' + toWhoVkIdString).closest('tr');
+                        currentRow.detach();
+                        $.('#main-table').prepend(currentRow);
                     } else {
                         $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                        var currentRow = $('#sex' + toWhoVkIdString).closest('tr');
+                        currentRow.detach();
+                        $.('#main-table').prepend(currentRow);
                     }
                 }
             });
