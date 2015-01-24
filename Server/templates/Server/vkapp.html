@@ -233,7 +233,10 @@ function searchAndDraw (searchString) {
         $this = $(this);
         var name = $this.find('td.name-field').text();
         if (name.indexOf(searchString) == -1) {
-            $this.hide();
+            $this.hide('fast');
+        }
+        else {
+            $this.show('fast');
         }
     });
 }
@@ -279,7 +282,7 @@ $('#share').on('click', function () {
 })
 $("#search-field").keyup(function () {
     var searchString = $("#search-field").val();
-
+    searchAndDraw(searchString);
 });
 //}
 
