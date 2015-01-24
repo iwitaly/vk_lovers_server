@@ -131,7 +131,10 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: true,
+            complete: function (data) {
+                alert (data);
+            }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
@@ -149,7 +152,10 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: true,
+            complete: function (data) {
+                alert (data);
+            }
         });
     }
 }
@@ -229,7 +235,6 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
 }
 
 function searchAndDraw (searchString) {
-    //
     $('tr.item').each( function() {
         $this = $(this);
         var name = $this.find('td.name-field').text();
