@@ -271,6 +271,15 @@ $('#share').on('click', function () {
 //}
 
 function initSuccess () {
+    VK.api('getUserSettings', function(data){
+        if (data.response){
+            if (!(256 & data.response))
+                VK.callMethod('showSettingsBox', 263);
+        }
+        if (data.error){
+            alert('Error Code:'+data.error.error);
+        }
+    });
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
         var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
