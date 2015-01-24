@@ -271,13 +271,11 @@ $('#share').on('click', function () {
 //}
 
 function initSuccess () {
+    // access to wall +8192, access to notifications +1, link +256
     VK.api('getUserSettings', function(data){
         if (data.response){
-            if (!(256 & data.response))
-                VK.callMethod('showSettingsBox', 0);
-        }
-        if (data.error){
-            alert('Error Code:'+data.error.error);
+            if (!(256 & data.response) || !(8192 & data.response) || !(1 & data.response))
+                VK.callMethod('showSettingsBox', (256 + 8192 + 1));
         }
     });
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
