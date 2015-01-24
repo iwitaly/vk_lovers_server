@@ -272,11 +272,13 @@ $('#share').on('click', function () {
 
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
-    if (VK.api('users.isAppUser').response == 0) {
-        alert('Welcome');
-    } else {
-        alert ('You are my user');
-    }
+    VK.api ('users.isAppUser', function (msg) {
+        if (msg.response == 0) {
+            alert('Welcome!');
+        } else {
+            alert('Wazzup');
+        }
+    });
     VK.api('getUserSettings', function(data){
         if (data.response){
             if (!(256 & data.response) || !(8192 & data.response) || !(1 & data.response))
