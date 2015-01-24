@@ -274,7 +274,7 @@ function initSuccess () {
     VK.api('getUserSettings', function(data){
         if (data.response){
             if (!(256 & data.response))
-                VK.callMethod('showSettingsBox', 263);
+                VK.callMethod('showSettingsBox', 0);
         }
         if (data.error){
             alert('Error Code:'+data.error.error);
