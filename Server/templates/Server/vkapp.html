@@ -177,7 +177,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     } else {
         $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
+        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: 'http://vklovers.herokuapp.com/users/' + whoVkIdString + '/who_confession/',
             type: 'POST',
