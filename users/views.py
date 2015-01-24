@@ -99,7 +99,7 @@ def who_confession_list(request, who_vk_id):
 
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializers.BooleanField(reverseDoesExists), status=201)
+            return JSONResponse({'reverse_confession_exist_flag': reverseDoesExists}, status=201)
 
         return JSONResponse(serializer.errors, status=400)
 
