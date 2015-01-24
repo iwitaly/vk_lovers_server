@@ -265,14 +265,14 @@ $('#sex-all').on('click', function () {
     }
 });
 $('#share').on('click', function () {
-
+    VK.api('wall.post', {message: 'Test-message', attachments: 'photo100172_166443618'});
 })
 
 //}
 
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
-    VK.api ('users.isAppUser', function (msg) {
+    /*VK.api ('users.isAppUser', function (msg) {
         if (msg.response == 0) {
             VK.api('getUserSettings', function (data) {
                 if (data.response) {
@@ -281,7 +281,7 @@ function initSuccess () {
                 }
             });
         }
-    });
+    }); */
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
         var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
