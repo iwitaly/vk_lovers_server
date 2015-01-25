@@ -133,10 +133,9 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: true,
-            complete: function (data, status, statusText) {
+            complete: function (data) {
                 console.log("Response " + data);
-                console.log("Response " + data.is_completed);
-                console.log(status);
+                console.log(typeof data);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
