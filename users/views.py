@@ -79,8 +79,10 @@ def sendNotification (user_vk_id):
     json_with_access_token = json.load(response)
     current_access_token = json_with_access_token['access_token']
     print(current_access_token)
-    url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + user_vk_id + '&message=' + 'Test notification' + '&v=5.27&access_token=' + current_access_token
-    urllib2.urlopen(url_to_send_notification)
+    url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + user_vk_id + '&message=' + 'Test' + '&v=5.27&access_token=' + current_access_token
+    response = urllib2.urlopen(url_to_send_notification)
+    json_notification = json.load(response)
+    print(json_notification)
 
 @csrf_exempt
 def who_confession_list(request, who_vk_id):
