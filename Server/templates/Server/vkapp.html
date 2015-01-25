@@ -30,6 +30,7 @@
     </style>
 </head>
 <body>
+    <p></p>
     <div class='header'>
         <div id='search-part'>
             <input type='text' id='search-field' name='search-for-name'>
@@ -133,10 +134,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                alert (data.who_vk_id);
-                alert (data);
-                alert (data[0].who_vk_id);
-                alert (data[0].is_completed);
+                $('p').text(data.who_vk_id + data[0].who_vk_id + data[0].is_completed);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
