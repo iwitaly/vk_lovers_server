@@ -155,10 +155,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                alert (data.who_vk_id);
-                alert (data);
-                alert (data[0].who_vk_id);
-                alert (data[0].is_completed);
+
             }
         });
     }
@@ -176,7 +173,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: true,
             complete: function (data) {
                 console.log("Response " + data.responseJSON.is_completed);
             }
@@ -197,7 +194,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             data: JSON.stringify(confessionInfo),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: true
+            async: true,
             complete: function (data) {
                 console.log("Response " + data.responseJSON.is_completed);
             }
