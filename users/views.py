@@ -72,6 +72,7 @@ def user_detail(request, vk_id):
         return HttpResponse(status=204)
 
 def sendNotification (user_vk_id):
+    MESSAGE_IN_NOTIFICATION = 'Вернись! Я все прощу!'
     ID_OF_VK_APP = '4737414' # aka client_id
     SECRET_KEY_OF_VK_APP = '5DQcPsFP2bMbSwbkTKNW' # aka client_secret
     url_to_get_access_token = 'https://oauth.vk.com/access_token?client_id=' + ID_OF_VK_APP + '&client_secret=' + SECRET_KEY_OF_VK_APP + '&v=5.27&grant_type=client_credentials'
