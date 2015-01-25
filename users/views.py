@@ -95,7 +95,7 @@ def who_confession_list(request, who_vk_id):
             confession = confs[0]
             if reverseDoesExists:
                 confession.is_completed = 1
-            serializer = ConfessionSerializer(confession ,data=data)
+            serializer = ConfessionSerializer(confession, data=data)
         else:
             if reverseDoesExists:
                 data['is_completed'] = 1
