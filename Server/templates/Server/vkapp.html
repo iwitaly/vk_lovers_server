@@ -135,8 +135,8 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             async: true,
             complete: function (data, status, statusText) {
                 console.log("Response " + data);
+                console.log("Response " + data.is_completed);
                 console.log(status);
-                console.log(statusText);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
