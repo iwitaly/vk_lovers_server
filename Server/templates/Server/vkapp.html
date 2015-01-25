@@ -135,7 +135,6 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             async: true,
             complete: function (data) {
                 console.log("Response " + JSON.stringify(data));
-                console.log("Response " + JSON.stringify(data).responseJSON.is_completed);
                 console.log("Response " + data.responseJSON.is_completed);
                 console.log("Response " + data.response.is_completed);
             }
