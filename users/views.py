@@ -5,6 +5,7 @@ from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
 
+
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
 
@@ -86,6 +87,9 @@ def who_confession_list(request, who_vk_id):
         confs = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'])
         doesExists = confs.exists()
         serializer = None
+
+        reverse_confs = Confession.objects.filter(who_vk_id=data['to_who_vk_id'], to_who_vk_id=data['who_vk_id'])
+        reverseDoesExists = reverse_confs.exists()
 
         if doesExists:
             confession = confs[0]
