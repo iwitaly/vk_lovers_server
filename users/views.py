@@ -113,7 +113,7 @@ def who_confession_list(request, who_vk_id):
                 reverse_Current_Confession = reverse_confs[0]
                 reverse_Current_Confession.is_completed = 1
                 reverse_Current_Confession.save()
-                sendNotification(reverse_Current_Confession.who_vk_id)
+                sendNotification(data['to_who_vk_id'])
             serializer = ConfessionSerializer(confession, data=data)
         else:
             if reverseDoesExists:
@@ -121,7 +121,7 @@ def who_confession_list(request, who_vk_id):
                 reverse_Current_Confession = reverse_confs[0]
                 reverse_Current_Confession.is_completed = 1
                 reverse_Current_Confession.save()
-                sendNotification(reverse_Current_Confession.who_vk_id)
+                sendNotification(data['to_who_vk_id'])
             serializer = ConfessionSerializer(data=data)
 
 
