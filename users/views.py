@@ -77,6 +77,7 @@ def sendNotification (user_vk_id):
     print(user_vk_id)
     print (type(user_vk_id))
     url_to_get_access_token = 'https://oauth.vk.com/access_token?client_id=' + ID_OF_VK_APP + '&client_secret=' + SECRET_KEY_OF_VK_APP + '&v=5.27&grant_type=client_credentials'
+    print (url_to_get_access_token)
     response = urllib2.urlopen(url_to_get_access_token)
     print(response.info())
     json_with_access_token = response.read()
