@@ -5,7 +5,6 @@ from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
 import urllib2
-import simplejson
 import json
 
 k_Default_email = 'unknown@unknown.com'
@@ -76,22 +75,11 @@ def sendNotification (user_vk_id):
     ID_OF_VK_APP = '4737414' # aka client_id
     SECRET_KEY_OF_VK_APP = '5DQcPsFP2bMbSwbkTKNW' # aka client_secret
     url_to_get_access_token = 'https://oauth.vk.com/access_token?client_id=' + ID_OF_VK_APP + '&client_secret=' + SECRET_KEY_OF_VK_APP + '&v=5.27&grant_type=client_credentials'
-    #print (url_to_get_access_token)
     response = urllib2.urlopen(url_to_get_access_token)
-    #print(response.info())
-    #json_with_access_token = response.read()
-    #print ('Info ends')
-    #print (json_with_access_token)
-    #dict_with_access_token = simplejson.load(json_with_access_token)
-    #print (dict_with_access_token)
-    #current_access_token = dict_with_access_token['access_token']
-    #print (current_access_token)
-
     json_with_access_token = json.load(response)
-    print(json_with_access_token['access_token'])
-
+    current_access_token = json_with_access_token['access_token']
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + user_vk_id + '&message=' + 'Test notification' + '&v=5.27&access_token=' + current_access_token
-    response = urllib2.urlopen(url_to_send_notification)
+    urllib2.urlopen(url_to_send_notification)
 
 @csrf_exempt
 def who_confession_list(request, who_vk_id):
