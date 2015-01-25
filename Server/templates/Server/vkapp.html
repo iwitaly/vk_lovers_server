@@ -133,7 +133,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                alert (data.reverse_confession_exist_flag);
+                alert (data.is_completed);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
@@ -154,7 +154,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                alert (data.reverse_confession_exist_flag);
+                alert(data.is_completed);
             }
         });
     }
