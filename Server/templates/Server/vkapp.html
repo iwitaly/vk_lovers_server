@@ -177,6 +177,9 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: true
+            complete: function (data) {
+                console.log("Response " + data.responseJSON.is_completed);
+            }
         });
     } else if ((flagDatePressed == false) && (flagSexPressed == true)) {
         $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
@@ -195,6 +198,9 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: true
+            complete: function (data) {
+                console.log("Response " + data.responseJSON.is_completed);
+            }
         });
     }
 }
