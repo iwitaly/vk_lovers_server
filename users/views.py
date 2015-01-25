@@ -6,6 +6,7 @@ from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
 import urllib2
 import simplejson
+import json
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -78,15 +79,16 @@ def sendNotification (user_vk_id):
     #print (url_to_get_access_token)
     response = urllib2.urlopen(url_to_get_access_token)
     #print(response.info())
-    json_with_access_token = response.read()
+    #json_with_access_token = response.read()
     #print ('Info ends')
-    print (json_with_access_token)
+    #print (json_with_access_token)
     #dict_with_access_token = simplejson.load(json_with_access_token)
     #print (dict_with_access_token)
     #current_access_token = dict_with_access_token['access_token']
     #print (current_access_token)
 
-    print (json_with_access_token['access_token'])
+    json_with_access_token = json.load(response)
+    print(json_with_access_token)
 
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + user_vk_id + '&message=' + 'Test notification' + '&v=5.27&access_token=' + current_access_token
     response = urllib2.urlopen(url_to_send_notification)
