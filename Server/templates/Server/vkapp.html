@@ -245,7 +245,8 @@ function searchAndDraw (searchString) {
     $('tr.item').each( function() {
         $this = $(this);
         var name = $this.find('td.name-field').text();
-        if (name.indexOf(searchString) == -1) {
+        name = name.toLowerCase();
+        if (name.indexOf(searchString.toLowerCase()) == -1) {
             $this.hide('fast');
         }
         else {
