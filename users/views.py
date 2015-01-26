@@ -82,9 +82,9 @@ def sendNotification (user_vk_id):
     json_with_access_token = json.load(response)
     current_access_token = json_with_access_token['access_token']
     #print(current_access_token)
-    #params = urllib.quote(MESSAGE_TEXT.decode('cp1251').encode('utf-8'))
+    params = MESSAGE_TEXT.decode('cp1251').encode('utf-8')
 
-    params = urllib.urlencode({'text': MESSAGE_TEXT})
+    #params = urllib.urlencode({'text': MESSAGE_TEXT})
 
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
                                user_vk_id + '&message=%s' % params + '&v=5.27&client_secret=' + \
