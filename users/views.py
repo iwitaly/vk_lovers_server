@@ -1,10 +1,13 @@
+# coding=utf-8
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
-
+import urllib2
+import urllib
+import json
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -70,6 +73,35 @@ def user_detail(request, vk_id):
         user.delete()
         return HttpResponse(status=204)
 
+def sendNotification (user_vk_id):
+    #MESSAGE_TEXT = raw_input('Вернись! Я все прощу!')
+    #MESSAGE_TEXT = u'Вернись! Я все прощу!'
+
+    ID_OF_VK_APP = '4737414' # aka client_id
+    SECRET_KEY_OF_VK_APP = '5DQcPsFP2bMbSwbkTKNW' # aka client_secret
+    url_to_get_access_token = 'https://oauth.vk.com/access_token?client_id=' + ID_OF_VK_APP + '&client_secret=' + SECRET_KEY_OF_VK_APP + '&v=5.27&grant_type=client_credentials'
+    response = urllib2.urlopen(url_to_get_access_token)
+    json_with_access_token = json.load(response)
+    current_access_token = json_with_access_token['access_token']
+    #print(current_access_token)
+    #params = urllib.quote(MESSAGE_TEXT.decode('utf-8').encode('cp1251'))
+
+    param = urllib.urlencode({'message': u'Вернись! Я все прощу!'.encode('utf-8')})
+    #params = urllib.urlencode({'text': MESSAGE_TEXT})
+    print (param)
+    url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
+                               user_vk_id + '&' + param + '&v=5.27&client_secret=' + \
+                               SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
+    '''
+    url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
+                               user_vk_id + '&message=' + 'Text' + '&v=5.27&client_secret=' + \
+                               SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
+    '''
+    print(url_to_send_notification)
+    response = urllib2.urlopen(url_to_send_notification)
+    json_notification = json.load(response)
+    print(json_notification)
+
 @csrf_exempt
 def who_confession_list(request, who_vk_id):
     try:
@@ -93,9 +125,22 @@ def who_confession_list(request, who_vk_id):
 
         if doesExists:
             confession = confs[0]
-            serializer = ConfessionSerializer(confession ,data=data)
+            if reverseDoesExists:
+                confession.is_completed = 1
+                reverse_Current_Confession = reverse_confs[0]
+                reverse_Current_Confession.is_completed = 1
+                reverse_Current_Confession.save()
+                sendNotification(data['to_who_vk_id'])
+            serializer = ConfessionSerializer(confession, data=data)
         else:
+            if reverseDoesExists:
+                data['is_completed'] = 1
+                reverse_Current_Confession = reverse_confs[0]
+                reverse_Current_Confession.is_completed = 1
+                reverse_Current_Confession.save()
+                sendNotification(data['to_who_vk_id'])
             serializer = ConfessionSerializer(data=data)
+
 
         if serializer.is_valid():
             serializer.save()
