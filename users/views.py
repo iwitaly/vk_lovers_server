@@ -82,7 +82,7 @@ def sendNotification (user_vk_id):
     json_with_access_token = json.load(response)
     current_access_token = json_with_access_token['access_token']
     #print(current_access_token)
-    params = MESSAGE_TEXT.decode('cp1251').encode('utf-8')
+    params = urllib.quote(MESSAGE_TEXT.decode('utf-8').encode('cp1251'))
 
     #params = urllib.urlencode({'text': MESSAGE_TEXT})
 
