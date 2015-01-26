@@ -88,9 +88,9 @@ def sendNotification (user_vk_id):
 
     param = urllib.urlencode({'message': u'Вернись! Я все прощу!'.encode('utf-8')})
     #params = urllib.urlencode({'text': MESSAGE_TEXT})
-
+    print (param)
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
-                               user_vk_id + '&%s' % param + '&v=5.27&client_secret=' + \
+                               user_vk_id + '&' + param + '&v=5.27&client_secret=' + \
                                SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
     '''
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
