@@ -75,7 +75,7 @@ def user_detail(request, vk_id):
 
 def sendNotification (user_vk_id):
     #MESSAGE_TEXT = raw_input('Вернись! Я все прощу!')
-    MESSAGE_TEXT = u'Вернись! Я все прощу!'
+    #MESSAGE_TEXT = u'Вернись! Я все прощу!'
 
     ID_OF_VK_APP = '4737414' # aka client_id
     SECRET_KEY_OF_VK_APP = '5DQcPsFP2bMbSwbkTKNW' # aka client_secret
@@ -86,10 +86,11 @@ def sendNotification (user_vk_id):
     #print(current_access_token)
     #params = urllib.quote(MESSAGE_TEXT.decode('utf-8').encode('cp1251'))
 
+    param = urllib.urlencode({'param': u'Вернись! Я все прощу!'.encode('utf-8')})
     #params = urllib.urlencode({'text': MESSAGE_TEXT})
 
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
-                               user_vk_id + '&message=%s' % MESSAGE_TEXT + '&v=5.27&client_secret=' + \
+                               user_vk_id + '&message=%s' % param + '&v=5.27&client_secret=' + \
                                SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
     '''
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
