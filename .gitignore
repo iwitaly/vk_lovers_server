@@ -4,3 +4,4 @@ venv
 staticfiles
 dump.sql
 latest.dump
+pushcert.pem
