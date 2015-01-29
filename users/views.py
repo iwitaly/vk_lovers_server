@@ -73,7 +73,7 @@ def user_detail(request, vk_id):
         user.delete()
         return HttpResponse(status=204)
 
-def sendNotification (user_vk_id):
+def sendNotificationVK(user_vk_id):
     #MESSAGE_TEXT = raw_input('Вернись! Я все прощу!')
     #MESSAGE_TEXT = u'Вернись! Я все прощу!'
     ID_OF_VK_APP = '4737414' # aka client_id
@@ -100,6 +100,36 @@ def sendNotification (user_vk_id):
     json_notification = json.load(response)
     print(json_notification)
 
+
+#data - parsed request
+def handleDataFromPostRequest(data):
+    confs = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'])
+    doesExists = confs.exists()
+    serializer = None
+
+    reverse_confs = Confession.objects.filter(who_vk_id=data['to_who_vk_id'], to_who_vk_id=data['who_vk_id'])
+    reverseDoesExists = reverse_confs.exists()
+
+    #PUT
+    if reverseDoesExists:
+        reverse_current_confession = reverse_confs[0]
+        reverse_current_confession.is_completed = 1
+        reverse_current_confession.save()
+        sendNotificationVK(data['to_who_vk_id'])
+
+    if doesExists:
+        confession = confs[0]
+        if reverseDoesExists:
+            confession.is_completed = 1
+        serializer = ConfessionSerializer(confession, data=data)
+    else: #POST
+        if reverseDoesExists:
+            data['is_completed'] = 1
+        serializer = ConfessionSerializer(data=data)
+
+    return serializer
+
+
 @csrf_exempt
 def who_confession_list(request, who_vk_id):
     try:
@@ -114,38 +144,13 @@ def who_confession_list(request, who_vk_id):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        confs = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'])
-        doesExists = confs.exists()
-        serializer = None
-
-        reverse_confs = Confession.objects.filter(who_vk_id=data['to_who_vk_id'], to_who_vk_id=data['who_vk_id'])
-        reverseDoesExists = reverse_confs.exists()
-
-        if doesExists:
-            confession = confs[0]
-            if reverseDoesExists:
-                confession.is_completed = 1
-                reverse_Current_Confession = reverse_confs[0]
-                reverse_Current_Confession.is_completed = 1
-                reverse_Current_Confession.save()
-                sendNotification(data['to_who_vk_id'])
-            serializer = ConfessionSerializer(confession, data=data)
-        else:
-            if reverseDoesExists:
-                data['is_completed'] = 1
-                reverse_Current_Confession = reverse_confs[0]
-                reverse_Current_Confession.is_completed = 1
-                reverse_Current_Confession.save()
-                sendNotification(data['to_who_vk_id'])
-            serializer = ConfessionSerializer(data=data)
-
+        serializer = handleDataFromPostRequest(data)
 
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data, status=201)
 
         return JSONResponse(serializer.errors, status=400)
-
 
 @csrf_exempt
 def who_confession_detail(request, who_vk_id, to_who_vk_id):
@@ -187,15 +192,7 @@ def post_all_confessions(request, vk_id):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         for req in data:
-            confs = Confession.objects.filter(who_vk_id=req['who_vk_id'], to_who_vk_id=req['to_who_vk_id'])
-            doesExists = confs.exists()
-
-            if doesExists:
-                confession = confs[0]
-                serializer = ConfessionSerializer(confession ,data=req)
-            else:
-                serializer = ConfessionSerializer(data=req)
-
+            serializer = handleDataFromPostRequest(req)
             if serializer.is_valid():
                 serializer.save()
             else:
