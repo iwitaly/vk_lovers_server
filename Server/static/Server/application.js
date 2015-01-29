@@ -74,7 +74,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
     var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
         $('#date' + toWhoVkIdString).addClass('date-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0, is_completed: 0};
+        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
             type: 'POST',
@@ -83,7 +83,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.is_completed);
+                console.log("Response " + data.responseJSON.reverse_type);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
@@ -95,7 +95,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
     } else {
         $('#date' + toWhoVkIdString).addClass('date-pressed');
         $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0, is_completed: 0};
+        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
             type: 'POST',
@@ -115,7 +115,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
         $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1, is_completed: 0};
+        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
             type: 'POST',
@@ -124,7 +124,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.is_completed);
+                console.log("Response " + data.responseJSON.reverse_type);
             }
         });
     } else if ((flagDatePressed == false) && (flagSexPressed == true)) {
@@ -136,7 +136,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     } else {
         $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         $('#date' + toWhoVkIdString).removeClass('date-pressed');
-        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1, is_completed: 0};
+        var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
             type: 'POST',
@@ -145,7 +145,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.is_completed);
+                console.log("Response " + data.responseJSON.reverse_type);
             }
         });
     }
@@ -176,7 +176,7 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
             $('#date' + toWhoVkIdString).removeClass('date-pressed');
             $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         }
-        var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions, is_completed: 0};
+        var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
     });
     $.ajax({
@@ -185,7 +185,11 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         data: JSON.stringify(arrayToPost),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        async: true
+        async: true,
+        complete: function(data) {
+            console.log("Response " + data);
+            console.log("Response " + data.responseJSON[0].reverse_type);
+        }
     });
 }
 
