@@ -10,7 +10,7 @@
 }
 #table-part {
     float: left;
-    overflow: scroll;
+    overflow-y: auto;
 }
 #to-all-buttons-part {
     float: right;
