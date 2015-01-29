@@ -279,8 +279,7 @@ function initSuccess () {
     });
     VK.api('users.get', {fields: 'sex, contacts'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
-        var viewerPhone = dataFromVk.response[0].mobile_phone;
-        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: viewerPhone};
+        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
         $.ajax({
             url: HOME_URL + 'users/',
             type: 'POST',
