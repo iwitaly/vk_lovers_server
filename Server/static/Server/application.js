@@ -9,7 +9,7 @@ function checkForUsersConfession (whoVkIdNumber) {
                 for (i = 0; i < data.length; i++) {
                     var toWhoVkIdString = data[i].to_who_vk_id;
                     var currentType = data[i]['type'];
-                    var toWhoType = data.responseJSON['reverse_type'];
+                    var toWhoType = data[i]['reverse_type'];
                     if (currentType == 0) {
                         $('#date' + toWhoVkIdString).addClass('date-pressed');
                         var currentRow = $('#date' + toWhoVkIdString).closest('tr');
