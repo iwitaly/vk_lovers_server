@@ -227,7 +227,6 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
             $('#date' + toWhoVkIdString).removeClass('date-pressed');
             $('#sex' + toWhoVkIdString).addClass('sex-pressed');
         }
-
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions, is_completed: 0};
         arrayToPost.push(elementConfession);
     });
@@ -291,9 +290,11 @@ $('#sex-all').on('click', function () {
         $('#date-all').removeClass('date-all-pressed');
     }
 });
+
 $('#share').on('click', function () {
     VK.api('wall.post', {message: 'Test-message', attachments: 'photo-11982368_346772314'});
 })
+
 $("#search-field").keyup(function () {
     var searchString = $("#search-field").val();
     searchAndDraw(searchString);
