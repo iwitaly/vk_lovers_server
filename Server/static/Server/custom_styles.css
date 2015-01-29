@@ -11,11 +11,14 @@
 #table-part {
     float: left;
     overflow-y: auto;
+    height: 440px;
 }
 #to-all-buttons-part {
     float: right;
+    height: 60px;
 }
 #search-part {
+    height: 60px;
     float: left;
 }
 .date-pressed {
