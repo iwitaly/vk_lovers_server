@@ -8,6 +8,7 @@ from users.serializers import UserSerializer, ConfessionSerializer
 import urllib2
 import urllib
 import json
+from push_notifications.models import APNSDevice
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -21,11 +22,21 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+def sendNotifTest():
+    device = APNSDevice(registration_id='c1f1f735a674b397ef0d1bd239e05688d95db03aec95d4d790b60ab2e5fda50a',
+                        device_id='F9DFCABD-53E5-4AB7-BCB0-471F05C6FDF9')
+    device.send_message("You've got mail", badge=1, sound='default') # Alert message may only be sent as text.
+    #device.send_message(None, badge=5) # No alerts but with badge.
+    #device.send_message(None, badge=1, extra={"foo": "bar"}) # Silent message with badge and added custom data.
+
 @csrf_exempt
 def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
+
+        sendNotifTest()
+
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
