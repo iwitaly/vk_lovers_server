@@ -113,18 +113,20 @@ def handleDataFromPostRequest(data):
     #PUT
     if reverseDoesExists:
         reverse_current_confession = reverse_confs[0]
-        reverse_current_confession.is_completed = 1
-        reverse_current_confession.save()
         sendNotificationVK(data['to_who_vk_id'])
 
     if doesExists:
         confession = confs[0]
         if reverseDoesExists:
-            confession.is_completed = 1
+            confession.reverse_type = reverse_current_confession.type
+            reverse_current_confession.reverse_type = data['type']
+            reverse_current_confession.save()
         serializer = ConfessionSerializer(confession, data=data)
     else: #POST
         if reverseDoesExists:
-            data['is_completed'] = 1
+            data['reverse_type'] = reverse_current_confession.type
+            reverse_current_confession.reverse_type = data['type']
+            reverse_current_confession.save()
         serializer = ConfessionSerializer(data=data)
 
     return serializer
@@ -189,18 +191,20 @@ def to_who_confession_list(request, who_vk_id):
 
 @csrf_exempt
 def post_all_confessions(request, vk_id):
+    serializers_data_list = []
     if request.method == 'POST':
         data = JSONParser().parse(request)
         for req in data:
             serializer = handleDataFromPostRequest(req)
             if serializer.is_valid():
                 serializer.save()
+                serializers_data_list.append(serializer.data)
             else:
                 resp = {'status' : 400}
                 return JSONResponse(resp, status=400)
 
-        resp = {'status' : 201}
-        return JSONResponse(resp, status=201)
+        #resp = {'status' : 201}
+        return JSONResponse(serializers_data_list, status=201)
 
     elif request.method == 'DELETE':
         try:

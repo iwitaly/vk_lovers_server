@@ -1,6 +1,5 @@
 var HOME_URL = 'http://62.109.1.60:8000/'
 
-
 function checkForUsersConfession (whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
     $.getJSON(HOME_URL + 'users/' + whoVkIdString + '/who_confession/', {}, function(data) {
@@ -251,16 +250,16 @@ $("#search-field").keyup(function () {
 
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
-    /*VK.api ('users.isAppUser', function (msg) {
+    VK.api ('users.isAppUser', function (msg) {
         if (msg.response == 0) {
             VK.api('getUserSettings', function (data) {
                 if (data.response) {
-                    if (!(256 & data.response) || !(8192 & data.response) || !(1 & data.response))
-                        VK.callMethod('showSettingsBox', (256 + 8192 + 1));
+                    if (!(256 & data.response) || !(1 & data.response))
+                        VK.callMethod('showSettingsBox', (256 + 1));
                 }
             });
         }
-    }); */
+    });
     VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
         var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
