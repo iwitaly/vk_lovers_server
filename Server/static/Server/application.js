@@ -9,6 +9,7 @@ function checkForUsersConfession (whoVkIdNumber) {
                 for (i = 0; i < data.length; i++) {
                     var toWhoVkIdString = data[i].to_who_vk_id;
                     var currentType = data[i]['type'];
+                    var toWhoType = data[i]['reverse_type'];
                     if (currentType == 0) {
                         $('#date' + toWhoVkIdString).addClass('date-pressed');
                         var currentRow = $('#date' + toWhoVkIdString).closest('tr');
@@ -20,6 +21,7 @@ function checkForUsersConfession (whoVkIdNumber) {
                         currentRow.detach();
                         $('#main-table').prepend(currentRow);
                     }
+                    showMatchScreen(currentType, toWhoType, toWhoVkIdString);
                 }
             });
 }
@@ -69,8 +71,21 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     });
 }
 
-function showMatchScreen (whoType, toWhoType) {
-
+function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
+    if ((whoType == -1) || (toWhoType == -1)) {
+        return;
+    }
+    var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
+    var minType = Math.min(whoType, toWhoType);
+    if (minType == 0) {
+        $('#pop-up-confession-text').text(toWhoName + ' хочет сходить с вами на свидание...');
+    } else {
+        $('#pop-up-confession-text').text(toWhoName + ' хочет заняться с вами любовью...');
+    }
+    $('#pop-up-window').dialog({
+        width: 180,
+        height: 150
+    });
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -89,7 +104,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             complete: function (data) {
                 var whoType = data.responseJSON['type'];
                 var toWhoType = data.responseJSON['reverse_type'];
-                showMatchScreen(whoType, toWhoType);
+                showMatchScreen(whoType, toWhoType, toWhoVkIdString);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
@@ -112,7 +127,7 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             complete: function (data) {
                 var whoType = data.responseJSON['type'];
                 var toWhoType = data.responseJSON['reverse_type'];
-                showMatchScreen(whoType, toWhoType);
+                showMatchScreen(whoType, toWhoType, toWhoVkIdString);
             }
         });
     }
@@ -134,7 +149,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             complete: function (data) {
                 var whoType = data.responseJSON['type'];
                 var toWhoType = data.responseJSON['reverse_type'];
-                showMatchScreen(whoType, toWhoType);
+                showMatchScreen(whoType, toWhoType, toWhoVkIdString);
             }
         });
     } else if ((flagDatePressed == false) && (flagSexPressed == true)) {
@@ -157,7 +172,7 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             complete: function (data) {
                 var whoType = data.responseJSON['type'];
                 var toWhoType = data.responseJSON['reverse_type'];
-                showMatchScreen(whoType, toWhoType);
+                showMatchScreen(whoType, toWhoType, toWhoVkIdString);
             }
         });
     }
@@ -199,8 +214,11 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         dataType: 'json',
         async: true,
         complete: function(data) {
-            console.log("Response " + data);
-            console.log("Response " + data.responseJSON[0].reverse_type);
+            for (i = 0; i < data.responseJSON.length; i++) {
+                var whoType = data.responseJSON[i]['type'];
+                var toWhoType = data.responseJSON[i]['reverse_type'];
+                showMatchScreen(whoType, toWhoType, data.responseJSON[i].to_who_vk_id);
+            }
         }
     });
 }

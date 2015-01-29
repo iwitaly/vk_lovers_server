@@ -1,3 +1,13 @@
+body {
+    height: 500px;
+    width: 607px;
+    margin: 0px;
+}
+
+#pop-up-window {
+    display: none;
+}
+
 .date-all-pressed {
     background-color: orange;
 }
@@ -6,11 +16,15 @@
 }
 #table-part {
     float: left;
+    overflow-y: auto;
+    height: 90%;
 }
 #to-all-buttons-part {
     float: right;
+    height: 10%;
 }
 #search-part {
+    height: 10%;
     float: left;
 }
 .date-pressed {

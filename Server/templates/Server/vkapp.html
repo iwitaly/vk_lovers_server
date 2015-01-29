@@ -4,31 +4,32 @@
     <meta charset="UTF-8">
     <title></title>
     <script src='http://code.jquery.com/jquery-1.11.2.js'></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src='http://vk.com/js/api/xd_connection.js?2'></script>
     {% load staticfiles %}
     <link href="{% static 'Server/custom_styles.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <p></p>
-    <div class='header'>
-        <div id='search-part'>
-            <input type='text' id='search-field' name='search-for-name'>
-        </div>
-        <div id='to-all-buttons-part'>
-            <table>
-                <tr>
-                    <td><button id='share'>Share</button></td>
-                    <td><button id='date-all'>Date all</button></td>
-                    <td><button id='sex-all'>Sex all</button></td>
-                </tr>
-            </table>
-        </div>
+    <div id='search-part'>
+        <input type='text' id='search-field' name='search-for-name'>
+    </div>
+    <div id='to-all-buttons-part'>
+        <table>
+            <tr>
+                <td><button id='share'>Share</button></td>
+                <td><button id='date-all'>Date all</button></td>
+                <td><button id='sex-all'>Sex all</button></td>
+            </tr>
+        </table>
     </div>
     <div id='table-part'>
         <table id='main-table'>
         </table>
     </div>
-{% load staticfiles %}
+    <div id='pop-up-window' title="Уведомление">
+    <p id='pop-up-confession-text'></p>
+    </div>
+    {% load staticfiles %}
 <script src="{% static 'Server/application.js' %}"></script>
 </body>
 </html>
