@@ -69,6 +69,10 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     });
 }
 
+function showMatchScreen (whoType, toWhoType) {
+
+}
+
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
     var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
     var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
@@ -83,7 +87,9 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.reverse_type);
+                var whoType = data.responseJSON['type'];
+                var toWhoType = data.responseJSON['reverse_type'];
+                showMatchScreen(whoType, toWhoType);
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
@@ -104,7 +110,9 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-
+                var whoType = data.responseJSON['type'];
+                var toWhoType = data.responseJSON['reverse_type'];
+                showMatchScreen(whoType, toWhoType);
             }
         });
     }
@@ -124,7 +132,9 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.reverse_type);
+                var whoType = data.responseJSON['type'];
+                var toWhoType = data.responseJSON['reverse_type'];
+                showMatchScreen(whoType, toWhoType);
             }
         });
     } else if ((flagDatePressed == false) && (flagSexPressed == true)) {
@@ -145,7 +155,9 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             dataType: 'json',
             async: true,
             complete: function (data) {
-                console.log("Response " + data.responseJSON.reverse_type);
+                var whoType = data.responseJSON['type'];
+                var toWhoType = data.responseJSON['reverse_type'];
+                showMatchScreen(whoType, toWhoType);
             }
         });
     }
@@ -209,6 +221,7 @@ function searchAndDraw (searchString) {
 
 //function interActionWithViewer(whoVkIdNumber) {
 var whoVkIdString;
+var viewerSex
 $('#table-part').on('click', 'button', function() {
     var toWhoVkIdString = $(this).attr('value');
     if ($(this).hasClass('button-date') == true) {
@@ -264,9 +277,9 @@ function initSuccess () {
             });
         }
     });
-    VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
+    VK.api('users.get', {fields: 'sex, contacts'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
-        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
+        var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: dataFromVk.response[0].contacts.mobile_phone};
         $.ajax({
             url: HOME_URL + 'users/',
             type: 'POST',
@@ -284,6 +297,7 @@ function initSuccess () {
             }
         });
         whoVkIdString = viewerUserIdNumber.toString();
+        viewerSex = dataFromVk.response[0].sex
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
         //interActionWithViewer(viewerUserIdNumber);
     });
