@@ -72,7 +72,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
 }
 
 function showMatchScreen (whoType, toWhoType, toWhoVkId) {
-    $('#pop-up-window').dialog();
+    //$('#pop-up-window').dialog();
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
