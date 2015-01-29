@@ -1,3 +1,7 @@
+#pop-up-window {
+    display: none;
+}
+
 .date-all-pressed {
     background-color: orange;
 }
