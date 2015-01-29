@@ -5,29 +5,6 @@
     <title></title>
     <script src='http://code.jquery.com/jquery-1.11.2.js'></script>
     <script src='http://vk.com/js/api/xd_connection.js?2'></script>
-    <style type="text/css">
-        .date-all-pressed {
-            background-color: orange;
-        }
-        .sex-all-pressed {
-            background-color: orange;
-        }
-        #table-part {
-            float: left;
-        }
-        #to-all-buttons-part {
-            float: right;
-        }
-        #search-part {
-            float: left;
-        }
-        .date-pressed {
-            background-color: red;
-        }
-        .sex-pressed {
-            background-color: red;
-        }
-    </style>
 </head>
 <body>
     <p></p>
@@ -50,6 +27,7 @@
         </table>
     </div>
 {% load staticfiles %}
+<style src="{% static 'Server/custom_styles.css' %}" type="text/css"></style>
 <script src="{% static 'Server/application.js' %}"></script>
 </body>
 </html>

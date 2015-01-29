@@ -1,0 +1,21 @@
+.date-all-pressed {
+    background-color: orange;
+}
+.sex-all-pressed {
+    background-color: orange;
+}
+#table-part {
+    float: left;
+}
+#to-all-buttons-part {
+    float: right;
+}
+#search-part {
+    float: left;
+}
+.date-pressed {
+    background-color: red;
+}
+.sex-pressed {
+    background-color: red;
+}
