@@ -71,8 +71,18 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     });
 }
 
-function showMatchScreen (whoType, toWhoType, toWhoVkId) {
-    //$('#pop-up-window').dialog();
+function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
+    if ((whoType == -1) || (toWhoType == -1)) {
+        return;
+    }
+    var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
+    var minType = Math.min(whoType, toWhoType);
+    if (minType == 0) {
+        $('#pop-up-confession-text').text(toWhoName + ' хочет сходить с вами на свидание...');
+    } else {
+        $('#pop-up-confession-text').text(toWhoName + ' хочет заняться с вами любовью...');
+    }
+    $('#pop-up-window').dialog();
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
