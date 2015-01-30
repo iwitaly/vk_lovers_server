@@ -48,26 +48,23 @@ body {
     display: table;
     height: 15%;
 }
-#header-row {
-    display: table-row;
-}
 #search-field {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
 }
 
 #share {
-    display: table-cell;
+    display: inline-block;
 }
 
 #date-all {
-    display: table-cell;
+    display: inline-block;
 }
 
 #sex-all {
-    display: table-cell;
+    display: inline-block;
 }
 
 .date-pressed {
