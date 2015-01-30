@@ -14,7 +14,7 @@ def device_list(request):
         doesExists = devices.exists()
 
         if doesExists:
-            JSONResponse(data, status=201)
+            return JSONResponse(data, status=201)
 
         serializer = APNSDeviceSerializer(data=data)
 
