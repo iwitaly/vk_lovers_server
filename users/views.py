@@ -37,7 +37,7 @@ def user_list(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
 
-        sendNotifTest()
+        #sendNotifTest()
 
         return JSONResponse(serializer.data)
 
