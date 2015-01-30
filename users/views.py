@@ -1,14 +1,16 @@
 # coding=utf-8
+import urllib2
+import urllib
+import json
+
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
-import urllib2
-import urllib
-import json
 from push_notifications.models import APNSDevice
+
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -35,7 +37,7 @@ def user_list(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
 
-        #sendNotifTest()
+        sendNotifTest()
 
         return JSONResponse(serializer.data)
 
@@ -49,8 +51,6 @@ def user_list(request):
             data['mobile'] = k_Default_mobile
 
         doesExists = User.objects.filter(vk_id=data['vk_id'], mobile=data['mobile'], email=data['email']).exists()
-
-        print serializer.is_valid(), doesExists
 
         if doesExists:
             return JSONResponse(serializer.data, status=201)
