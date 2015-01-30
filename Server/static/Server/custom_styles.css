@@ -93,10 +93,14 @@ td.name-field {
 }
 
 #ok-button-pop-up-same {
-    display: block;
+    display:table-cell;
     vertical-align: bottom;
+    margin-left: auto;
+    margin-right: auto;
 }
 #pop-up-date-first-buttons-part{
-    display: block;
+    display:table-cell;
     vertical-align: bottom;
+    margin-left: auto;
+    margin-right: auto;
 }
