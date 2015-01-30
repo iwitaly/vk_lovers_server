@@ -50,7 +50,7 @@ def handlePostUser(data):
 
         serializer = UserSerializer(user, data=data)
     else: #POST
-        serializer = ConfessionSerializer(data=data)
+        serializer = UserSerializer(data=data)
 
     return serializer
 
