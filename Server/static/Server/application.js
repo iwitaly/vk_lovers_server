@@ -85,7 +85,10 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     $('#ok-button-pop-up-same').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
-    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
+    var completedRow = $('#date' + toWhoVkIdString).closest('tr');
+    completedRow.addClass('completed-row');
+    completedRow.detach();
+    $('#main-table').prepend(currentRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
     $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     if (wishType == 0) {
@@ -99,7 +102,10 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
 
 $('#accept-date-pop-up-date-first').on('click', function() {
     var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
-    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
+    var completedRow = $('#date' + toWhoVkIdString).closest('tr');
+    completedRow.addClass('completed-row');
+    completedRow.detach();
+    $('#main-table').prepend(currentRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
     $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     $('#pop-up-window-date-first').hide();
