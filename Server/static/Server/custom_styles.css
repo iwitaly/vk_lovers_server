@@ -51,10 +51,9 @@ body {
 }
 
 #search-field {
-    box-sizing: border-box;
+    width: 80%;
 }
-.search-block {
-    padding: 10%;
+.search-block {;
     display:table-cell;
     vertical-align:middle;
     height: 100%;
