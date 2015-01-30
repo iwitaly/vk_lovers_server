@@ -71,19 +71,34 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
     });
 }
 
-function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
-    if ((whoType == -1) || (toWhoType == -1)) {
-        return;
-    }
+function showSheWantsDateFirst (toWhoVkIdString) {
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
-    var minType = Math.min(whoType, toWhoType);
-    if (minType == 0) {
-        $('#pop-up-confession-text').text(toWhoName + ' хочет сходить с вами на свидание...');
+    $('#pop-up-date-first-text').text(toWhoName + ' хочет сначала сходить с вами на свидание...');
+    $('#pop-up-window-date-first').show();
+}
+
+function showWishesTheSame (wishType, toWhoVkIdString) {
+    $('main-window').addClass('pop-up-container');
+    var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
+    if (wishType == 0) {
+        $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
     } else {
-        $('#pop-up-confession-text').text(toWhoName + ' хочет заняться с вами любовью...');
+        $('#pop-up-same-text').text(toWhoName + ' хочет заняться с вами любовью...');
     }
-    popUpShow()
+    $('#pop-up-window-same').show();
+}
+
+function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
+    if ((whoType < toWhoType) || (toWhoType == -1)) {
+        return;
+    }
+    if (whoType == toWhoType) {
+        showWishesTheSame(whoType, toWhoVkIdString);
+    }
+    if ((whoType == 1) && (toWhoType == 0)) {
+        showSheWantsDateFirst(toWhoVkIdString);
+    }
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -281,18 +296,10 @@ $("#search-field").keyup(function () {
 });
 //}
 
-
-function popUpShow(){
-    $('#pop-up-window').show();
-}
-//Функция скрытия PopUp
-function popUpHide(){
-    $('#pop-up-window').hide();
-}
-
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
-    popUpHide();
+    $('#pop-up-window-same').hide();
+    $('#pop-up-window-date-first').hide();
     VK.api ('users.isAppUser', function (msg) {
         if (msg.response == 0) {
             VK.api('getUserSettings', function (data) {
