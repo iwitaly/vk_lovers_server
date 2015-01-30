@@ -8,7 +8,6 @@ body {
     margin: 0px;
 }
 
-
 .pop-up-window {
     width:100%;
     min-height:100%;
@@ -45,15 +44,18 @@ body {
     height: 85%;
     width: 100%;
 }
+#header {
+    height: 15%;
+}
 #to-all-buttons-part {
     display: inline-block;
-    height: 15%;
     width: 40%;
+    box-sizing: border-box;
 }
 #search-part {
     display: inline-block;
     width: 40%;
-    height: 15%;
+    box-sizing: border-box;
 }
 .date-pressed {
     background-color: red;
@@ -80,9 +82,11 @@ td.name-field {
 #share {
     display: inline-block;
 }
+
 #date-all {
     display: inline-block;
 }
+
 #sex-all {
     display: inline-block;
 }
