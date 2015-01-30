@@ -86,6 +86,8 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
+    $('#date' + toWhoVkIdString).removeClass('date-pressed');
+    $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     if (wishType == 0) {
         $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
     } else {
@@ -98,6 +100,8 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
 $('#accept-date-pop-up-date-first').on('click', function() {
     var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
+    $('#date' + toWhoVkIdString).removeClass('date-pressed');
+    $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     $('#pop-up-window-date-first').hide();
     $('main-window').removeClass('pop-up-container');
     var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
