@@ -72,6 +72,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
 }
 
 function showSheWantsDateFirst (toWhoVkIdString) {
+    $('#ok-button-pop-up-same').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     $('#pop-up-date-first-text').text(toWhoName + ' хочет сначала сходить с вами на свидание...');
@@ -79,7 +80,10 @@ function showSheWantsDateFirst (toWhoVkIdString) {
 }
 
 function showWishesTheSame (wishType, toWhoVkIdString) {
+    $('#accept-date-pop-up-date-first').val(toWhoVkIdString);
+    $('#not-accept-date-pop-up-date-first').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
+    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     if (wishType == 0) {
         $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
@@ -88,6 +92,40 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     }
     $('#pop-up-window-same').show();
 }
+
+
+$('#accept-date-pop-up-date-first').on('click', function() {
+    var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
+    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
+    $('#pop-up-window-date-first').hide();
+    $('main-window').removeClass('pop-up-container');
+    var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
+        type: 'POST',
+        data: JSON.stringify(confessionInfo),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: true
+    });
+
+});
+
+$('#not-accept-date-pop-up-date-first').on('click', function() {
+    $('#pop-up-window-date-first').hide();
+    $('main-window').removeClass('pop-up-container');
+});
+
+$('#ok-button-pop-up-same').on('click', function() {
+    $('#pop-up-window-same').hide();
+    var toWhoVkIdString = $('#ok-button-pop-up-same').val();
+    $('main-window').removeClass('pop-up-container');
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
+        type: "DELETE"
+    });
+});
+
 
 function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
     if ((whoType < toWhoType) || (toWhoType == -1)) {
