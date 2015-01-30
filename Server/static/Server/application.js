@@ -75,6 +75,7 @@ function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
     if ((whoType == -1) || (toWhoType == -1)) {
         return;
     }
+    $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     var minType = Math.min(whoType, toWhoType);
     if (minType == 0) {
@@ -82,6 +83,7 @@ function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
     } else {
         $('#pop-up-confession-text').text(toWhoName + ' хочет заняться с вами любовью...');
     }
+    popUpShow()
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
@@ -279,8 +281,18 @@ $("#search-field").keyup(function () {
 });
 //}
 
+
+function popUpShow(){
+    $('#pop-up-window').show();
+}
+//Функция скрытия PopUp
+function popUpHide(){
+    $('#pop-up-window').hide();
+}
+
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
+    popUpHide();
     VK.api ('users.isAppUser', function (msg) {
         if (msg.response == 0) {
             VK.api('getUserSettings', function (data) {
