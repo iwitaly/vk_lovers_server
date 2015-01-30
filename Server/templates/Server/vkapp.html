@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title></title>
     <script src='http://code.jquery.com/jquery-1.11.2.js'></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src='http://vk.com/js/api/xd_connection.js?2'></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     {% load staticfiles %}
     <link href="{% static 'Server/custom_styles.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div id='main-window'>
     <div id='search-part'>
         <input type='text' id='search-field' name='search-for-name'>
     </div>
@@ -27,6 +26,7 @@
         <table id='main-table'>
         </table>
     </div>
+</div>
     <div id='pop-up-window' title="Уведомление">
     <p id='pop-up-confession-text'></p>
     </div>
