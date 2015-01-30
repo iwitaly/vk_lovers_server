@@ -68,3 +68,7 @@ body {
 td.name-field {
     font-size: large;
 }
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
