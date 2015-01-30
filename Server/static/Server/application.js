@@ -42,10 +42,10 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var valueDateString = "'" + toWhoVkIdString + "'" ;
     var valueSexString = "'" + toWhoVkIdString + "'" ;
     $('#main-table').append("<tr class='item'>" +
-        "<td class='vert-align'>" + "<img src='" + photo + "'>" + '</td>' +
+        "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
-        "<td class='vert-align'>" + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
-        "<td class='vert-align'>" + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-primary' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-primary' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
 }
 
@@ -95,7 +95,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
-    completedRow.addClass('completed-row');
+    completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
@@ -112,7 +112,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
 $('#accept-date-pop-up-date-first').on('click', function() {
     var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
-    completedRow.addClass('completed-row');
+    completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');

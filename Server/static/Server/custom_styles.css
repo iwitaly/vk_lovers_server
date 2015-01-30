@@ -42,15 +42,17 @@ body {
 #table-part {
     float: left;
     overflow-y: auto;
-    height: 90%;
+    height: 85%;
     width: 100%;
 }
 #to-all-buttons-part {
     float: right;
-    height: 10%;
+    height: 15%;
+    width: 40%;
 }
 #search-part {
-    height: 10%;
+    width: 40%;
+    height: 15%;
     float: left;
 }
 .date-pressed {
