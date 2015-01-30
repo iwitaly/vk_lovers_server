@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'users',
     'Server',
+    'push_notifications',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,3 +106,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+        "GCM_API_KEY": "<your api key>",
+        "APNS_CERTIFICATE": 'pushcert.pem',
+}
+
+APNS_CERTIFICATE = os.path.join(BASE_DIR, 'pushcert.pem')
+SOUTH_MIGRATION_MODULES = {"push_notifications": "push_notifications.south_migrations"}
