@@ -49,15 +49,22 @@ body {
     height: 15%;
 }
 #search-field {
-    vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
 }
 .search-block {
+    vertical-align: middle;
     display: inline-block;
+    height: 100%;
+    width: 55%;
+    box-sizing: border-box;
 }
 .to-all-block {
+    vertical-align: middle;
+    height: 100%;
+    width: 15%;
     display: inline-block;
+    box-sizing: border-box;
 }
 .date-pressed {
     background-color: red;
