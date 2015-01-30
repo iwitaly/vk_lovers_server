@@ -47,6 +47,7 @@ body {
 #header {
     display: table;
     height: 15%;
+    width: 100%;
 }
 #search-field {
     margin-left: auto;
