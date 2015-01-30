@@ -46,14 +46,14 @@ body {
     width: 100%;
 }
 #to-all-buttons-part {
-    float: right;
+    display: inline-block;
     height: 15%;
     width: 40%;
 }
 #search-part {
+    display: inline-block;
     width: 40%;
     height: 15%;
-    float: left;
 }
 .date-pressed {
     background-color: red;
@@ -75,4 +75,14 @@ td.name-field {
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
 
+}
+
+#share {
+    display: inline-block;
+}
+#date-all {
+    display: inline-block;
+}
+#sex-all {
+    display: inline-block;
 }
