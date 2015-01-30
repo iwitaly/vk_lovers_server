@@ -52,10 +52,21 @@ body {
     width: 40%;
     box-sizing: border-box;
 }
+.to-all-buttons-table {
+    display: table;
+}
+.to-all-buttons-row {
+    display: table-row;
+}
 #search-part {
     display: inline-block;
-    width: 40%;
+    width: 60%;
     box-sizing: border-box;
+}
+#search-field {
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
 }
 .date-pressed {
     background-color: red;
@@ -80,13 +91,13 @@ td.name-field {
 }
 
 #share {
-    display: inline-block;
+    display: table-cell;
 }
 
 #date-all {
-    display: inline-block;
+    display: table-cell;
 }
 
 #sex-all {
-    display: inline-block;
+    display: table-cell;
 }
