@@ -45,29 +45,31 @@ body {
     width: 100%;
 }
 #header {
+    display: table;
     height: 15%;
 }
-#to-all-buttons-part {
-    display: inline-block;
-    width: 50%;
-    box-sizing: border-box;
-}
-.to-all-buttons-table {
-    display: table;
-}
-.to-all-buttons-row {
+#header-row {
     display: table-row;
 }
-#search-part {
-    display: inline-block;
-    width: 50%;
-    box-sizing: border-box;
-}
 #search-field {
+    display: table-cell;
     vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
 }
+
+#share {
+    display: table-cell;
+}
+
+#date-all {
+    display: table-cell;
+}
+
+#sex-all {
+    display: table-cell;
+}
+
 .date-pressed {
     background-color: red;
 }
@@ -88,16 +90,4 @@ td.name-field {
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
 
-}
-
-#share {
-    display: table-cell;
-}
-
-#date-all {
-    display: table-cell;
-}
-
-#sex-all {
-    display: table-cell;
 }
