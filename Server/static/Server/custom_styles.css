@@ -51,6 +51,7 @@ body {
 }
 
 .search-block {
+    padding: 10%;
     display:table-cell;
     vertical-align:middle;
     height: 100%;
