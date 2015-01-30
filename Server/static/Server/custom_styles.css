@@ -59,13 +59,13 @@ body {
 }
 
 #pop-up-date-first-buttons-part {
-    position: absolute;
+    position: relative;
     bottom: 0;
     right: 0;
 }
 
 #ok-button-pop-up-same {
-    position: absolute;
+    position: relative;
     bottom: 0;
     right: 0;
 }
