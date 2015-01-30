@@ -88,7 +88,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
     completedRow.addClass('completed-row');
     completedRow.detach();
-    $('#main-table').prepend(currentRow);
+    $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
     $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     if (wishType == 0) {
@@ -105,7 +105,7 @@ $('#accept-date-pop-up-date-first').on('click', function() {
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
     completedRow.addClass('completed-row');
     completedRow.detach();
-    $('#main-table').prepend(currentRow);
+    $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
     $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
     $('#pop-up-window-date-first').hide();
