@@ -82,10 +82,6 @@ function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
     } else {
         $('#pop-up-confession-text').text(toWhoName + ' хочет заняться с вами любовью...');
     }
-    $('#pop-up-window').dialog({
-        width: 180,
-        height: 150
-    });
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
