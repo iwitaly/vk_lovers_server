@@ -27,9 +27,9 @@ function checkForUsersConfession (whoVkIdNumber) {
                     }
                 }
                 for (ind in arrayOfCompletedRows) {
-                    var toWhoVkIdString = data[i].to_who_vk_id;
-                    var currentType = data[i]['type'];
-                    var toWhoType = data[i]['reverse_type'];
+                    var toWhoVkIdString = data[ind].to_who_vk_id;
+                    var currentType = data[ind]['type'];
+                    var toWhoType = data[ind]['reverse_type'];
                     showMatchScreen(currentType, toWhoType, toWhoVkIdString);
                 }
             });
