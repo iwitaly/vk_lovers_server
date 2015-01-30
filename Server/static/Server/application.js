@@ -75,7 +75,6 @@ function showSheWantsDateFirst (toWhoVkIdString) {
     $('#accept-date-pop-up-date-first').val(toWhoVkIdString);
     $('#not-accept-date-pop-up-date-first').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
-    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     $('#pop-up-date-first-text').text(toWhoName + ' хочет сначала сходить с вами на свидание...');
     $('#pop-up-window-date-first').show();
@@ -86,6 +85,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     $('#ok-button-pop-up-same').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
+    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
     if (wishType == 0) {
         $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
     } else {
