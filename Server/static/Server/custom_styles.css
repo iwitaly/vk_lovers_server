@@ -43,6 +43,7 @@ body {
     float: left;
     overflow-y: auto;
     height: 90%;
+    width: 100%;
 }
 #to-all-buttons-part {
     float: right;
