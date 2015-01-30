@@ -1,14 +1,16 @@
 # coding=utf-8
+import urllib2
+import urllib
+import json
+
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
-import urllib2
-import urllib
-import json
 from push_notifications.models import APNSDevice
+
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -29,31 +31,40 @@ def sendNotifTest():
     #device.send_message(None, badge=5) # No alerts but with badge.
     #device.send_message(None, badge=1, extra={"foo": "bar"}) # Silent message with badge and added custom data.
 
+def handlePostUser(data):
+    users = User.objects.filter(vk_id=data['vk_id'])
+    doesExists = users.exists()
+    serializer = None
+
+    if data['email'] == '':
+        data['email'] = k_Default_email
+    if data['mobile'] == '':
+        data['mobile'] = k_Default_mobile
+
+    if doesExists:
+        user = users[0]
+        if data['mobile'] == k_Default_mobile:
+            data['mobile'] = user.mobile
+        if data['email'] == k_Default_email:
+            data['email'] = user.email
+
+        serializer = UserSerializer(user, data=data)
+    else: #POST
+        serializer = UserSerializer(data=data)
+
+    return serializer
+
 @csrf_exempt
 def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
 
-        #sendNotifTest()
-
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = UserSerializer(data=data)
-
-        if data['email'] == '':
-            data['email'] = k_Default_email
-        if data['mobile'] == '':
-            data['mobile'] = k_Default_mobile
-
-        doesExists = User.objects.filter(vk_id=data['vk_id'], mobile=data['mobile'], email=data['email']).exists()
-
-        print serializer.is_valid(), doesExists
-
-        if doesExists:
-            return JSONResponse(serializer.data, status=201)
+        serializer = handlePostUser(data)
 
         if serializer.is_valid():
             serializer.save()

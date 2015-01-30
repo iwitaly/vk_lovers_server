@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('users.urls')),
     url(r'^vkapp/', views.index, name='vkapp'),
+    url(r'^', include('push_notifications.urls')),
 )
