@@ -6,6 +6,7 @@ function checkForUsersConfession (whoVkIdNumber) {
 
     })
             .always(function(data) {
+                var arrayOfCompletedRows = [];
                 for (i = 0; i < data.length; i++) {
                     var toWhoVkIdString = data[i].to_who_vk_id;
                     var currentType = data[i]['type'];
@@ -21,6 +22,14 @@ function checkForUsersConfession (whoVkIdNumber) {
                         currentRow.detach();
                         $('#main-table').prepend(currentRow);
                     }
+                    if (!((currentType < toWhoType) || (toWhoType == -1))) {
+                        arrayOfCompletedRows.push(i);
+                    }
+                }
+                for (ind in arrayOfCompletedRows) {
+                    var toWhoVkIdString = data[i].to_who_vk_id;
+                    var currentType = data[i]['type'];
+                    var toWhoType = data[i]['reverse_type'];
                     showMatchScreen(currentType, toWhoType, toWhoVkIdString);
                 }
             });
