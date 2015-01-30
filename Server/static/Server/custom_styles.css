@@ -65,3 +65,12 @@ body {
     color: #fff;
 }
 
+td.name-field {
+    font-size: medium;
+    color: #2b587a;
+}
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+
+}
