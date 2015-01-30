@@ -31,29 +31,40 @@ def sendNotifTest():
     #device.send_message(None, badge=5) # No alerts but with badge.
     #device.send_message(None, badge=1, extra={"foo": "bar"}) # Silent message with badge and added custom data.
 
+def handlePostUser(data):
+    users = User.objects.filter(vk_id=data['vk_id'])
+    doesExists = users.exists()
+    serializer = None
+
+    if data['email'] == '':
+        data['email'] = k_Default_email
+    if data['mobile'] == '':
+        data['mobile'] = k_Default_mobile
+
+    if doesExists:
+        user = users[0]
+        if data['mobile'] == k_Default_mobile:
+            data['mobile'] = user.mobile
+        if data['email'] == k_Default_email:
+            data['email'] = user.email
+
+        serializer = UserSerializer(user, data=data)
+    else: #POST
+        serializer = ConfessionSerializer(data=data)
+
+    return serializer
+
 @csrf_exempt
 def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
 
-        #sendNotifTest()
-
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = UserSerializer(data=data)
-
-        if data['email'] == '':
-            data['email'] = k_Default_email
-        if data['mobile'] == '':
-            data['mobile'] = k_Default_mobile
-
-        doesExists = User.objects.filter(vk_id=data['vk_id'], mobile=data['mobile'], email=data['email']).exists()
-
-        if doesExists:
-            return JSONResponse(serializer.data, status=201)
+        serializer = handlePostUser(data)
 
         if serializer.is_valid():
             serializer.save()
