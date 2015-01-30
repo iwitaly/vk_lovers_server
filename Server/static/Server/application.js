@@ -72,25 +72,26 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
 }
 
 function showSheWantsDateFirst (toWhoVkIdString) {
-    $('#ok-button-pop-up-same').val(toWhoVkIdString);
+    $('#accept-date-pop-up-date-first').val(toWhoVkIdString);
+    $('#not-accept-date-pop-up-date-first').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
+    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     $('#pop-up-date-first-text').text(toWhoName + ' хочет сначала сходить с вами на свидание...');
     $('#pop-up-window-date-first').show();
 }
 
 function showWishesTheSame (wishType, toWhoVkIdString) {
-    $('#accept-date-pop-up-date-first').val(toWhoVkIdString);
-    $('#not-accept-date-pop-up-date-first').val(toWhoVkIdString);
+    $('#pop-up-window-same').show();
+    $('#ok-button-pop-up-same').val(toWhoVkIdString);
     $('main-window').addClass('pop-up-container');
-    $('#date' + toWhoVkIdString).closest('tr').addClass('completed-row');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     if (wishType == 0) {
         $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
     } else {
         $('#pop-up-same-text').text(toWhoName + ' хочет заняться с вами любовью...');
     }
-    $('#pop-up-window-same').show();
+
 }
 
 
