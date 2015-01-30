@@ -26,11 +26,10 @@ function checkForUsersConfession (whoVkIdNumber) {
                         arrayOfCompletedRows.push(i);
                     }
                 }
-                for (ind in arrayOfCompletedRows) {
-                    console.log(ind);
-                    var toWhoVkIdString = data[ind].to_who_vk_id;
-                    var currentType = data[ind]['type'];
-                    var toWhoType = data[ind]['reverse_type'];
+                for (i = 0; i < arrayOfCompletedRows.length; i++) {
+                    var toWhoVkIdString = data[arrayOfCompletedRows[i]].to_who_vk_id;
+                    var currentType = data[arrayOfCompletedRows[i]]['type'];
+                    var toWhoType = data[arrayOfCompletedRows[i]]['reverse_type'];
                     showMatchScreen(currentType, toWhoType, toWhoVkIdString);
                 }
             });
