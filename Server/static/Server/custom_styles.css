@@ -49,24 +49,16 @@ body {
     height: 15%;
 }
 #search-field {
-    display: inline-block;
     vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
 }
-
-#share {
+.search-block {
     display: inline-block;
 }
-
-#date-all {
+.to-all-block {
     display: inline-block;
 }
-
-#sex-all {
-    display: inline-block;
-}
-
 .date-pressed {
     background-color: red;
 }
