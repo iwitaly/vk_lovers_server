@@ -50,20 +50,21 @@ body {
     width: 100%;
 }
 
+#search-field {
+    box-sizing: border-box;
+}
 .search-block {
     padding: 10%;
     display:table-cell;
     vertical-align:middle;
     height: 100%;
     width: 55%;
-    box-sizing: border-box;
 }
 .to-all-block {
     display:table-cell;
     vertical-align:middle;
     height: 100%;
     width: 15%;
-    box-sizing: border-box;
 }
 .date-pressed {
     background-color: red;
