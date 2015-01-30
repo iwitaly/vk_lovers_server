@@ -66,6 +66,5 @@ body {
 }
 
 td.name-field {
-    vertical-align: middle;
-    font-size: x-large;
+    font-size: large;
 }

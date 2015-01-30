@@ -43,7 +43,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var valueSexString = "'" + toWhoVkIdString + "'" ;
     $('#main-table').append("<tr class='item'>" +
         '<td>' + "<img src='" + photo + "'>" + '</td>' +
-        "<td class='name-field'>" + first_name + ' ' + last_name + '</td>' +
+        "<td class='name-field text-center'>" + first_name + ' ' + last_name + '</td>' +
         '<td>' + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
         '<td>' + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
