@@ -22,11 +22,12 @@ function checkForUsersConfession (whoVkIdNumber) {
                         currentRow.detach();
                         $('#main-table').prepend(currentRow);
                     }
-                    if (!((currentType < toWhoType) || (toWhoType == -1))) {
+                    if (((currentType >= toWhoType) && (toWhoType != -1))) {
                         arrayOfCompletedRows.push(i);
                     }
                 }
                 for (ind in arrayOfCompletedRows) {
+                    console.log(arrayOfCompletedRows);
                     var toWhoVkIdString = data[ind].to_who_vk_id;
                     var currentType = data[ind]['type'];
                     var toWhoType = data[ind]['reverse_type'];
