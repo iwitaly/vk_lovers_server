@@ -66,10 +66,11 @@ body {
 }
 
 td.name-field {
-    font-size: large;
+    font-size: medium;
+    color: #2b587a;
 }
 
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
-    color: #2b587a;
+
 }
