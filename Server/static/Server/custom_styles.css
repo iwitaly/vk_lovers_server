@@ -54,14 +54,12 @@ body {
     margin-right: auto;
 }
 .search-block {
-    vertical-align: middle;
     display: inline-block;
     height: 100%;
     width: 55%;
     box-sizing: border-box;
 }
 .to-all-block {
-    vertical-align: middle;
     height: 100%;
     width: 15%;
     display: inline-block;
@@ -87,4 +85,10 @@ td.name-field {
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
 
+}
+.content-in-center {
+    vertical-align:middle;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
