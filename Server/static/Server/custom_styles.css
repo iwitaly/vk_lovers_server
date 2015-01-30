@@ -58,15 +58,15 @@ body {
     color: #fff;
 }
 
-/*
+
 #pop-up-date-first-buttons-part {
-    position: relative;
+    position: fixed;
     bottom: 0;
     right: 0;
 }
 
 #ok-button-pop-up-same {
-    position: relative;
+    position: fixed;
     bottom: 0;
     right: 0;
 }
