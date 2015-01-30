@@ -65,7 +65,7 @@ body {
     color: #fff;
 }
 
-td .name-field {
+td.name-field {
     vertical-align: middle;
     font-size: x-large;
 }
