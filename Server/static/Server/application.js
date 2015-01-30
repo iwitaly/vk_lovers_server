@@ -27,7 +27,7 @@ function checkForUsersConfession (whoVkIdNumber) {
                     }
                 }
                 for (ind in arrayOfCompletedRows) {
-                    console.log(arrayOfCompletedRows);
+                    console.log(ind);
                     var toWhoVkIdString = data[ind].to_who_vk_id;
                     var currentType = data[ind]['type'];
                     var toWhoType = data[ind]['reverse_type'];
