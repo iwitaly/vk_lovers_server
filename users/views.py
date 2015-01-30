@@ -124,7 +124,8 @@ def handleDataFromPostRequest(data):
     #PUT
     if reverseDoesExists:
         reverse_current_confession = reverse_confs[0]
-        if (reverse_current_confession.type == data['type']):
+        if ((reverse_current_confession.type == data['type']) or
+                ((reverse_current_confession.type==1) and (data['type'] == 0))):
             sendNotificationVK(data['to_who_vk_id'])
 
     if doesExists:
