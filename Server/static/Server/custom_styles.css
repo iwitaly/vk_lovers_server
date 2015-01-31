@@ -117,18 +117,8 @@ i {
         width: 40px;
         height: 40px;
         display: inline-block;
-        white-space: nowrap;
         background-color: white;
-        background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#2b587a));
-        background-image: -webkit-linear-gradient(top, white, #2b587a);
-        background-image: -moz-linear-gradient(top, white, #2b587a);
-        background-image: -ms-linear-gradient(top, white, #2b587a);
-        background-image: -o-linear-gradient(top, white, #2b587a);
-        background-image: linear-gradient(top, white, #2b587a);
         border: 1px solid #ccc;
-        text-decoration: none;
-        color: #333;
-        text-shadow: 0 1px 0 rgba(255,255,255,.8);
         border-radius: 100%;
         box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
 }
@@ -136,7 +126,6 @@ i {
 .button:hover
 {
         background-color: lightpink;
-        background-image: linear-gradient(top, lightpink, white);
 }
 
 .button:active
