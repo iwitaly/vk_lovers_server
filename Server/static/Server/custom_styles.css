@@ -104,6 +104,8 @@ td.name-field {
     bottom: 6%;
     right: 4%;
 }
+
+
 .button
 {
         width: 40px;
@@ -112,7 +114,8 @@ td.name-field {
         white-space: nowrap;
         background-color: white;
         background-image: linear-gradient(top, #eee, #ccc);
-        border: 1px solid #777;
+        padding: 0 1.5em;
+        border: 1px solid #ccc;
         text-decoration: none;
         color: #333;
         text-shadow: 0 1px 0 rgba(255,255,255,.8);
@@ -139,7 +142,7 @@ td.name-field {
         background: #fafafa;
 }
 
-.button.date-pressed {
+.button .date-pressed {
     background-color: red !important;
 }
 .button.sex-pressed {
