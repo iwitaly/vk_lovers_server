@@ -44,8 +44,8 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     $('#main-table').append("<tr class='item'>" +
         "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
-        "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-primary' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
-        "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-primary' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
     '</tr>');
 }
 
@@ -135,8 +135,14 @@ $('#accept-date-pop-up-date-first').on('click', function() {
 });
 
 $('#not-accept-date-pop-up-date-first').on('click', function() {
+    var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     $('#pop-up-window-date-first').hide();
     $('main-window').removeClass('pop-up-container');
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
+        type: "DELETE"
+    });
+
 });
 
 $('#ok-button-pop-up-same').on('click', function() {
