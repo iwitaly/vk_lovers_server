@@ -105,14 +105,17 @@ td.name-field {
     right: 4%;
 }
 
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 100%;
+}
 
-i {
-    vertical-align:middle;
+.button .i {
+     text-align: center;
 }
 
 .button
 {
-        text-align: center;
         display: inline-block;
         position: relative;
         width: 40px;
