@@ -108,6 +108,7 @@ td.name-field {
 
 .button
 {
+        vertical-align:middle;
         text-align: center;
         display: inline-block;
         position: relative;
