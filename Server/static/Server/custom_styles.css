@@ -109,8 +109,6 @@ i {
     display: block;
     margin-right: auto;
     margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
 
 }
 
@@ -121,7 +119,12 @@ i {
         display: inline-block;
         white-space: nowrap;
         background-color: white;
-        background-image: linear-gradient(top, #eee, #ccc);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#2b587a));
+        background-image: -webkit-linear-gradient(top, white, #2b587a);
+        background-image: -moz-linear-gradient(top, white, #2b587a);
+        background-image: -ms-linear-gradient(top, white, #2b587a);
+        background-image: -o-linear-gradient(top, white, #2b587a);
+        background-image: linear-gradient(top, white, #2b587a);
         border: 1px solid #ccc;
         text-decoration: none;
         color: #333;
@@ -148,12 +151,3 @@ i {
         outline: 0;
         background: #fafafa;
 }
-
-.button .date-pressed {
-    background-color: red !important;
-}
-.button.sex-pressed {
-    background-color: red !important;
-
-}
-
