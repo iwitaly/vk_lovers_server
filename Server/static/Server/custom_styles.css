@@ -117,7 +117,7 @@ i {
         margin: 0 auto;
         width: 40px;
         height: 40px;
-        display: inline-block;
+        display: block;
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 100%;
