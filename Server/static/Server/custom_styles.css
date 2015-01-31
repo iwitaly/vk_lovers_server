@@ -106,19 +106,13 @@ td.name-field {
 }
 
 i {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
 
 }
 
 .button
 {
-        display:table-cell;
-        vertical-align:middle;
-        margin-right: auto;
-        margin-left: auto;
-
+        position: relative;
         width: 40px;
         height: 40px;
         background-color: white;
