@@ -9,6 +9,7 @@ body {
 }
 
 .pop-up-window {
+    position: relative;
     width:100%;
     min-height:100%;
     background-color: rgba(0,0,0,0.5);
@@ -93,14 +94,14 @@ td.name-field {
 }
 
 #pop-up-same-buttons-part {
-    display:table-cell;
-    vertical-align: bottom;
+    position: absolute;
+    bottom: 10%;
     margin-left: auto;
     margin-right: auto;
 }
 #pop-up-date-first-buttons-part{
-    display:table-cell;
-    vertical-align: bottom;
+    position: absolute;
+    bottom: 10%;
     margin-left: auto;
     margin-right: auto;
 }
