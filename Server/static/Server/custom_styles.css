@@ -67,10 +67,10 @@ body {
     width: 15%;
 }
 .date-pressed {
-    background-color: red;
+    background-color: red !important;
 }
 .sex-pressed {
-    background-color: red;
+    background-color: red !important;
 }
 
 .pop-up-container {
