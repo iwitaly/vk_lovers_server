@@ -128,7 +128,10 @@ $('#accept-date-pop-up-date-first').on('click', function() {
         dataType: 'json',
         async: true
     });
-
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
+        type: "DELETE"
+    });
 });
 
 $('#not-accept-date-pop-up-date-first').on('click', function() {

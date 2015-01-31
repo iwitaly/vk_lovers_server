@@ -93,6 +93,13 @@ td.name-field {
     margin-right: auto;
 }
 
+#accept-date-pop-up-date-first {
+    display: inline-block;
+}
+#not-accept-date-pop-up-date-first {
+    display: inline-block;
+}
+
 #pop-up-same-buttons-part {
     position: absolute;
     bottom: 6%;
