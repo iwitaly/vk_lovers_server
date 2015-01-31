@@ -105,6 +105,14 @@ td.name-field {
     right: 4%;
 }
 
+i {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
 
 .button
 {
@@ -114,7 +122,6 @@ td.name-field {
         white-space: nowrap;
         background-color: white;
         background-image: linear-gradient(top, #eee, #ccc);
-        padding: 0 1.5em;
         border: 1px solid #ccc;
         text-decoration: none;
         color: #333;
