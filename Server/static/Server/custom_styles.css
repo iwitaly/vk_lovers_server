@@ -106,9 +106,12 @@ td.name-field {
 }
 
 
+i {
+    vertical-align:middle;
+}
+
 .button
 {
-        vertical-align:middle;
         text-align: center;
         display: inline-block;
         position: relative;
