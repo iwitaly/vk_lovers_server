@@ -96,8 +96,13 @@ td.name-field {
 #pop-up-same-buttons-part {
     position: absolute;
     bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
 }
 #pop-up-date-first-buttons-part{
     position: absolute;
     bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
+
 }
