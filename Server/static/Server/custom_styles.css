@@ -110,3 +110,7 @@ td.name-field {
     bottom: 6%;
     right: 4%;
 }
+
+.btn-circle {
+    border-radius: 100%;
+}
