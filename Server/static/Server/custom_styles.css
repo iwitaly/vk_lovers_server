@@ -52,13 +52,17 @@ body {
     margin: 0px;
     height: 100%;
     width: 34%;
+    box-sizing: border-box;
+    border: 2px solid rgb(218,225,232);
 }
 
 .avatar-field {
-    padding-left: 30%;
+    padding-left: 30px;
 }
 
 #table-part {
+    box-sizing: border-box;
+    border: 2px solid rgb(242,242,242);
     float: right;
     margin: 0px;
     overflow-y: auto;
