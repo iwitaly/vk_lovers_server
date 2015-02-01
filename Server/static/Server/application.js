@@ -65,7 +65,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
        switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
-                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_100,
                             data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -73,7 +73,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 1: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 2)
-                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_100,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -81,7 +81,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_100,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
