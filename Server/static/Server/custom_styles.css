@@ -171,19 +171,19 @@ td.name-field {
     box-shadow: none;
 }
 
-/*
+
 .btn-danger {
     background: #ffffff;
-    color: rgb(188, 205, 221);
+    color: palevioletred;
     box-shadow: none;}
 
 .btn-danger:hover {
     background: rgb(233, 237, 241);
-    color: rgb(121, 157, 193);
+    color: palevioletred
 }
 
 .btn-danger:active, .btn-danger:focus, .open > .dropdown-toggle.btn-default  {
     background: #ffffff;
-    color: rgb(121, 157, 193);
+    color: palevioletred
     box-shadow: none;
 }
