@@ -160,12 +160,12 @@ td.name-field {
     box-shadow: none;
 }
 
-.btn-default:hover, .btn-default:focus {
+.btn-default:hover {
     background: rgb(233, 237, 241);
     color: rgb(188, 205, 221);
 }
 
-.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+.btn-default:active, .btn-default:focus , .open > .dropdown-toggle.btn-default {
     background: #ffffff;
     color: rgb(188, 205, 221);
     box-shadow: none;
@@ -177,12 +177,12 @@ td.name-field {
     color: rgb(188, 205, 221);
     box-shadow: none;}
 
-.btn-danger:hover, .btn-danger:focus {
+.btn-danger:hover {
     background: rgb(233, 237, 241);
     color: rgb(121, 157, 193);
 }
 
-.btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-default  {
+.btn-danger:active, .btn-danger:focus, .open > .dropdown-toggle.btn-default  {
     background: #ffffff;
     color: rgb(121, 157, 193);
     box-shadow: none;
