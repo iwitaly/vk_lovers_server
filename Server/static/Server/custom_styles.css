@@ -185,6 +185,6 @@ td.name-field {
 
 .btn-danger:focus {
     background: #ffffff;
-    color: palevioletred
+    color: palevioletred;
     box-shadow: none;
 }
