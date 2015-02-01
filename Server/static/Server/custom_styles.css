@@ -112,3 +112,8 @@ td.name-field {
 .button-sex {
     border-radius: 10%;
 }
+
+.avatar.resize{
+    width:70px; /* you can use % */
+    height: 70px;
+}
