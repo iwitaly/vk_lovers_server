@@ -42,10 +42,10 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var valueDateString = "'" + toWhoVkIdString + "'" ;
     var valueSexString = "'" + toWhoVkIdString + "'" ;
     $('#main-table').append("<tr class='item'>" +
-        "<td class='vert-align'>" + "<img src='" + photo + "'>" + '</td>' +
+        "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
-        "<td class='vert-align'>" + "<button class='button-date' id=" + idDateString + ' value=' + valueDateString + '>' + 'Date'+ '</button>' + '</td>' +
-        "<td class='vert-align'>" + "<button class='button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + 'Sex'+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<a class='button button-date' id=" + idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart fa-2x'></i>"+ '</a>' + '</td>' +
+        "<td class='vert-align'>" + "<a class='button button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</a>' + '</td>' +
     '</tr>');
 }
 
@@ -95,7 +95,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     $('main-window').addClass('pop-up-container');
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
-    completedRow.addClass('completed-row');
+    completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
@@ -112,7 +112,7 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
 $('#accept-date-pop-up-date-first').on('click', function() {
     var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
-    completedRow.addClass('completed-row');
+    completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('date-pressed');
@@ -128,12 +128,21 @@ $('#accept-date-pop-up-date-first').on('click', function() {
         dataType: 'json',
         async: true
     });
-
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
+        type: "DELETE"
+    });
 });
 
 $('#not-accept-date-pop-up-date-first').on('click', function() {
+    var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     $('#pop-up-window-date-first').hide();
     $('main-window').removeClass('pop-up-container');
+    $.ajax({
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
+        type: "DELETE"
+    });
+
 });
 
 $('#ok-button-pop-up-same').on('click', function() {

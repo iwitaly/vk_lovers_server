@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="http://code.jquery.com/jquery-1.11.2.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -13,37 +14,39 @@
 </head>
 <body>
 <div id="main-window">
-    <div id="search-part">
-        <input type="text" id="search-field" name="search-for-name">
-    </div>
-    <div id="to-all-buttons-part">
-        <table>
-            <tr>
-                <td><button id="share">Share</button></td>
-                <td><button id="date-all">Date all</button></td>
-                <td><button id="sex-all">Sex all</button></td>
-            </tr>
-        </table>
+    <div id="header">
+        <div class="search-block">
+            <input type="search" id="search-field" name="search-for-name" class="form-control content-in-center">
+        </div>
+        <div class="to-all-block">
+            <button id="share" type="button" class="content-in-center btn btn-warning">Share</button>
+        </div>
+        <div class="to-all-block">
+            <button id="date-all" type="button" class="content-in-center btn btn-primary">Date all</button>
+        </div>
+        <div class="to-all-block">
+            <button id="sex-all" type="button" class="content-in-center btn btn-primary">Sex all</button>
+        </div>
     </div>
     <div id="table-part">
-        <table id="main-table" class="table table-striped">
+        <table id="main-table" class="table table-condensed">
         </table>
     </div>
 </div>
     <div id="pop-up-window-same" class="pop-up-window">
         <div class="pop-up-content">
             <p id="pop-up-same-text"></p>
-            <button id="ok-button-pop-up-same">Ок</button>
+            <div id="pop-up-same-buttons-part">
+                <button id="ok-button-pop-up-same" type="button" class="btn btn-success">Ок</button>
+            </div>
         </div>
     </div>
     <div id="pop-up-window-date-first" class="pop-up-window">
         <div class="pop-up-content">
             <p id="pop-up-date-first-text"></p>
             <div id="pop-up-date-first-buttons-part">
-                <table>
-                    <td><button id="accept-date-pop-up-date-first">Ладно, схожу на свидание</button></td>
-                    <td><button id="not-accept-date-pop-up-date-first">Только секс!</button></td>
-                </table>
+                <button id="accept-date-pop-up-date-first" type="button" class="btn btn-primary">Ладно, схожу на свидание</button>
+                <button id="not-accept-date-pop-up-date-first" type="button" class="btn btn-primary">Ни за что!</button>
             </div>
         </div>
     </div>
