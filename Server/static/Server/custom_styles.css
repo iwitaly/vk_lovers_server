@@ -48,12 +48,16 @@ body {
 }
 
 #info-part {
+    background-color: rgb(247,247,247);
     float: left;
     margin: 0px;
     height: 100%;
     width: 34%;
     box-sizing: border-box;
-    border: 2px solid rgb(218,225,232);
+    border-right: 1px solid rgb(218,225,232);
+    border-left: 1px solid rgb(242,242,242);
+    border-top: 1px solid rgb(242,242,242);
+    border-bottom: 1px solid rgb(242,242,242);
 }
 
 .avatar-field {
@@ -62,7 +66,7 @@ body {
 
 #table-part {
     box-sizing: border-box;
-    border: 2px solid rgb(242,242,242);
+    border: 1px solid rgb(242,242,242);
     float: right;
     margin: 0px;
     overflow-y: auto;
