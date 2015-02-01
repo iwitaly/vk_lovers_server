@@ -52,7 +52,7 @@ def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
-        
+
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
@@ -154,10 +154,10 @@ def handleDataFromPostRequest(data):
     #PUT
     if reverseDoesExists:
         reverse_current_confession = reverse_confs[0]
+        sendNotificationApple(data)
         if ((reverse_current_confession.type == data['type']) or
                 ((reverse_current_confession.type==1) and (data['type'] == 0))):
             sendNotificationVK(data['to_who_vk_id'])
-            sendNotificationApple(data)
 
     if doesExists:
         confession = confs[0]
