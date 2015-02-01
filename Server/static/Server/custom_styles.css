@@ -48,14 +48,14 @@ body {
 #info-part {
     display: inline-block;
     height: 100%;
-    width: 34%
+    width: 206px
 }
 
 #table-part {
     display: inline-block;
     overflow-y: auto;
     height: 100%;
-    width: 66%;
+    width: 400px;
 }
 #header {
     display: table;
