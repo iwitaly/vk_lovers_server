@@ -174,11 +174,11 @@ td.name-field {
     color: rgb(121, 157, 193);
 }
 
-.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
     background: rgb(233, 237, 241);
 }
 
-.btn-default:active, .btn-default.active {
+.btn-danger:active, .btn-danger.active {
     background: rgb(233, 237, 241);
     box-shadow: none;
 }
