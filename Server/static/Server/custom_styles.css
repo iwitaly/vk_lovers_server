@@ -191,11 +191,6 @@ td.name-field {
     color: palevioletred;
 }
 
-.btn-danger:active {
-    background: rgb(233, 237, 241);
-    color: rgb(188, 205, 221);
-}
-
 .btn-default:hover {
     background: rgb(233, 237, 241);
     color: rgb(188, 205, 221);
@@ -204,4 +199,9 @@ td.name-field {
 .btn-default:active {
     background: rgb(255, 205, 255);
     color: palevioletred;
+}
+
+.btn-danger:active {
+    background: rgb(233, 237, 241);
+    color: rgb(188, 205, 221);
 }
