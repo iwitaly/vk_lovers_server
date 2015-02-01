@@ -109,8 +109,8 @@ STATICFILES_DIRS = (
 
 PUSH_NOTIFICATIONS_SETTINGS = {
         "GCM_API_KEY": "<your api key>",
-        "APNS_CERTIFICATE": 'pushcert.pem',
+        "APNS_CERTIFICATE": '/home/ev/Certificate/pushcert.pem',
 }
 
-APNS_CERTIFICATE = os.path.join(BASE_DIR, 'pushcert.pem')
+APNS_CERTIFICATE = os.path.join(BASE_DIR, '/home/ev/Certificate/pushcert.pem')
 SOUTH_MIGRATION_MODULES = {"push_notifications": "push_notifications.south_migrations"}
