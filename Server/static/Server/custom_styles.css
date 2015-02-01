@@ -40,22 +40,25 @@ body {
 }
 
 #main-part {
+    margin: 0px;
     position: relative;
     width: 100%;
     height: 85%;
 }
 
 #info-part {
+    margin: 0px;
     display: inline-block;
     height: 100%;
-    width: 206px
+    width: 34%;
 }
 
 #table-part {
+    margin: 0px;
     display: inline-block;
     overflow-y: auto;
     height: 100%;
-    width: 400px;
+    width: 66%;
 }
 #header {
     display: table;
