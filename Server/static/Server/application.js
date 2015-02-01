@@ -12,12 +12,14 @@ function checkForUsersConfession (whoVkIdNumber) {
                     var currentType = data[i]['type'];
                     var toWhoType = data[i]['reverse_type'];
                     if (currentType == 0) {
-                        $('#date' + toWhoVkIdString).addClass('date-pressed');
+                        $('#date' + toWhoVkIdString).addClass('btn-danger');
+                        $('#date' + toWhoVkIdString).removeClass('btn-default');
                         var currentRow = $('#date' + toWhoVkIdString).closest('tr');
                         currentRow.detach();
                         $('#main-table').prepend(currentRow);
                     } else {
-                        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+                        $('#sex' + toWhoVkIdString).addClass('btn-danger');
+                        $('#sex' + toWhoVkIdString).removeClass('btn-default');
                         var currentRow = $('#sex' + toWhoVkIdString).closest('tr');
                         currentRow.detach();
                         $('#main-table').prepend(currentRow);
@@ -41,20 +43,29 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
     var valueDateString = "'" + toWhoVkIdString + "'" ;
     var valueSexString = "'" + toWhoVkIdString + "'" ;
+    /*
     $('#main-table').append("<tr class='item'>" +
         "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
-        "<td class='vert-align'>" + "<a class='button button-date' id=" + idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart fa-2x'></i>"+ '</a>' + '</td>' +
-        "<td class='vert-align'>" + "<a class='button button-sex' id=" + idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</a>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart-o fa-2x'></i>"+ '</button>' + '</td>' +
+        "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</td>' +
+    '</tr>'); */
+    $('#main-table').append("<tr class='item'>" +
+        "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
+        "<td>" + "<div class='name-field vert-align'>" + first_name + ' ' + last_name + '</div>' +
+        "<div class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' +
+            valueDateString + '>' + "<i class='fa fa-heart-o fa-2x'></i>"+ '</button>'  +
+            "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +
+            valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</div>' + '</td>' +
     '</tr>');
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
+    VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_100' }, function(data) {
        switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
-                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                    addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_100,
                             data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -62,7 +73,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 1: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 2)
-                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(viewerUserIdNumber,  data.response[i].uid, data.response[i].photo_100,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -70,7 +81,7 @@ function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
             case 2: {
                 for(i = 0; i < data.response.length; i++) {
                     if (data.response[i].sex == 1)
-                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_50,
+                        addRowToTableWithFriends(viewerUserIdNumber, data.response[i].uid, data.response[i].photo_100,
                                 data.response[i].first_name, data.response[i].last_name);
                 }
                 break;
@@ -98,8 +109,10 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
-    $('#date' + toWhoVkIdString).removeClass('date-pressed');
-    $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+    $('#date' + toWhoVkIdString).removeClass('btn-danger');
+    $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+    $('#date' + toWhoVkIdString).addClass('btn-default');
+    $('#sex' + toWhoVkIdString).addClass('btn-default');
     if (wishType == 0) {
         $('#pop-up-same-text').text(toWhoName + ' хочет сходить с вами на свидание...');
     } else {
@@ -115,8 +128,10 @@ $('#accept-date-pop-up-date-first').on('click', function() {
     completedRow.addClass('success');
     completedRow.detach();
     $('#main-table').prepend(completedRow);
-    $('#date' + toWhoVkIdString).removeClass('date-pressed');
-    $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+    $('#date' + toWhoVkIdString).removeClass('btn-danger');
+    $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+    $('#date' + toWhoVkIdString).addClass('btn-default');
+    $('#sex' + toWhoVkIdString).addClass('btn-default');
     $('#pop-up-window-date-first').hide();
     $('main-window').removeClass('pop-up-container');
     var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
@@ -169,10 +184,11 @@ function showMatchScreen (whoType, toWhoType, toWhoVkIdString) {
 }
 
 function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
-    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
-    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
+    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('btn-danger');
+    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('btn-danger');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $('#date' + toWhoVkIdString).addClass('date-pressed');
+        $('#date' + toWhoVkIdString).addClass('btn-danger');
+        $('#date' + toWhoVkIdString).removeClass('btn-default');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
@@ -188,14 +204,17 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
             }
         });
     } else if ((flagDatePressed == true) && (flagSexPressed == false)) {
-        $('#date' + toWhoVkIdString).removeClass('date-pressed');
+        $('#date' + toWhoVkIdString).removeClass('btn-danger');
+        $('#date' + toWhoVkIdString).addClass('btn-default');
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
             type: "DELETE"
         });
     } else {
-        $('#date' + toWhoVkIdString).addClass('date-pressed');
-        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+        $('#date' + toWhoVkIdString).addClass('btn-danger');
+        $('#date' + toWhoVkIdString).removeClass('btn-default');
+        $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+        $('#sex' + toWhoVkIdString).addClass('btn-default');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 0};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
@@ -214,10 +233,11 @@ function callBackOnClickToDateButton (whoVkIdString, toWhoVkIdString) {
 }
 
 function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
-    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('date-pressed');
-    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('sex-pressed');
+    var flagDatePressed = $('#date' + toWhoVkIdString).hasClass('btn-danger');
+    var flagSexPressed = $('#sex' + toWhoVkIdString).hasClass('btn-danger');
     if ((flagDatePressed == false) && (flagSexPressed == false)) {
-        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+        $('#sex' + toWhoVkIdString).addClass('btn-danger');
+        $('#sex' + toWhoVkIdString).removeClass('btn-default');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
@@ -233,14 +253,17 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
             }
         });
     } else if ((flagDatePressed == false) && (flagSexPressed == true)) {
-        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+        $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+        $('#sex' + toWhoVkIdString).addClass('btn-default');
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString + '/',
             type: "DELETE"
         });
     } else {
-        $('#sex' + toWhoVkIdString).addClass('sex-pressed');
-        $('#date' + toWhoVkIdString).removeClass('date-pressed');
+        $('#sex' + toWhoVkIdString).addClass('btn-danger');
+        $('#sex' + toWhoVkIdString).removeClass('btn-default');
+        $('#date' + toWhoVkIdString).removeClass('btn-danger');
+        $('#date' + toWhoVkIdString).addClass('btn-default');
         var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 1};
         $.ajax({
             url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/',
@@ -262,8 +285,10 @@ function deleteAllConfessions (whoVkIdString) {
     $('tr.item').each( function() {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
-        $('#date' + toWhoVkIdString).removeClass('date-pressed');
-        $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+        $('#date' + toWhoVkIdString).removeClass('btn-danger');
+        $('#date' + toWhoVkIdString).addClass('btn-default');
+        $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+        $('#sex' + toWhoVkIdString).addClass('btn-default');
     });
     $.ajax({
         url: HOME_URL + 'users/' + 'who_confession/' + whoVkIdString + '/',
@@ -277,11 +302,15 @@ function makeAllPossibleConfessions (whoVkIdString, typeOfConfessions) {
         $this = $(this);
         var toWhoVkIdString = $this.find('button.button-date').val();
         if (typeOfConfessions == 0) {
-            $('#date' + toWhoVkIdString).addClass('date-pressed');
-            $('#sex' + toWhoVkIdString).removeClass('sex-pressed');
+            $('#date' + toWhoVkIdString).addClass('btn-danger');
+            $('#date' + toWhoVkIdString).removeClass('btn-default');
+            $('#sex' + toWhoVkIdString).removeClass('btn-danger');
+            $('#sex' + toWhoVkIdString).addClass('btn-default');
         } else {
-            $('#date' + toWhoVkIdString).removeClass('date-pressed');
-            $('#sex' + toWhoVkIdString).addClass('sex-pressed');
+            $('#date' + toWhoVkIdString).removeClass('btn-danger');
+            $('#date' + toWhoVkIdString).addClass('btn-default');
+            $('#sex' + toWhoVkIdString).addClass('btn-danger');
+            $('#sex' + toWhoVkIdString).removeClass('btn-default');
         }
         var elementConfession = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: typeOfConfessions};
         arrayToPost.push(elementConfession);
