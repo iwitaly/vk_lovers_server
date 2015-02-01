@@ -6,3 +6,4 @@ dump.sql
 latest.dump
 pushcert.pem
 db.sqlite3
+script.sh

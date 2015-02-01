@@ -10,7 +10,7 @@ from rest_framework.parsers import JSONParser
 from users.models import User, Confession
 from users.serializers import UserSerializer, ConfessionSerializer
 from push_notifications.models import APNSDevice
-
+from rest_framework import status
 
 k_Default_email = 'unknown@unknown.com'
 k_Default_mobile = 'unknown'
@@ -23,13 +23,6 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
-def sendNotifTest():
-    device = APNSDevice(registration_id='c1f1f735a674b397ef0d1bd239e05688d95db03aec95d4d790b60ab2e5fda50a',
-                        device_id='F9DFCABD-53E5-4AB7-BCB0-471F05C6FDF9')
-    device.send_message("You've got mail", badge=1, sound='default') # Alert message may only be sent as text.
-    #device.send_message(None, badge=5) # No alerts but with badge.
-    #device.send_message(None, badge=1, extra={"foo": "bar"}) # Silent message with badge and added custom data.
 
 def handlePostUser(data):
     users = User.objects.filter(vk_id=data['vk_id'])
@@ -59,7 +52,7 @@ def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
-
+        
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
@@ -122,6 +115,32 @@ def sendNotificationVK(user_vk_id):
     json_notification = json.load(response)
     print(json_notification)
 
+#data = dictionary with confession
+def sendToDevice(device):
+    device.send_message("You've got mail", badge=1, sound='default') # Alert message may only be sent as text.
+
+def sendNotificationApple(data):
+    first_vk_id = data['who_vk_id']
+    second_vk_id = data['to_who_vk_id']
+    first_device, second_device = None, None
+
+    try:
+         first_device = APNSDevice.objects.filter(user=first_vk_id)
+         second_device = APNSDevice.objects.filter(user=second_vk_id)
+    except APNSDevice.DoesNotExist:
+        print 'Govno'
+
+    if first_device and second_device:
+        devices = first_device | second_device #merge queries
+        sendToDevice(devices)
+    elif first_device:
+        sendToDevice(first_device)
+    elif second_device:
+        sendToDevice(second_device)
+    else:
+        return JSONResponse(data, status=status.HTTP_204_NO_CONTENT)
+
+    return JSONResponse(data, status=status.HTTP_200_OK)
 
 #data - parsed request
 def handleDataFromPostRequest(data):
@@ -138,6 +157,7 @@ def handleDataFromPostRequest(data):
         if ((reverse_current_confession.type == data['type']) or
                 ((reverse_current_confession.type==1) and (data['type'] == 0))):
             sendNotificationVK(data['to_who_vk_id'])
+            sendNotificationApple(data)
 
     if doesExists:
         confession = confs[0]
