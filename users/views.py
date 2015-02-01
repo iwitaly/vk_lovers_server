@@ -117,7 +117,7 @@ def sendNotificationVK(user_vk_id):
 
 #data = dictionary with confession
 def sendToDevice(device):
-    device.send_message("You've got mail", badge=1, sound='default') # Alert message may only be sent as text.
+    device.send_message("You've got mail", badge=1, sound='default', data='chlen') # Alert message may only be sent as text.
 
 def sendNotificationApple(data):
     first_vk_id = data['who_vk_id']
