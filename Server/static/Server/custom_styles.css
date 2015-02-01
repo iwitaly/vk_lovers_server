@@ -47,15 +47,15 @@ body {
 }
 
 #info-part {
+    float: left;
     margin: 0px;
-    display: inline-block;
     height: 100%;
     width: 34%;
 }
 
 #table-part {
+    float: right;
     margin: 0px;
-    display: inline-block;
     overflow-y: auto;
     height: 100%;
     width: 66%;
