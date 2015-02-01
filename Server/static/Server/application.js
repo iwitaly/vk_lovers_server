@@ -43,16 +43,25 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
     var idSexString = "'sex" + toWhoVkIdString + "'" ;
     var valueDateString = "'" + toWhoVkIdString + "'" ;
     var valueSexString = "'" + toWhoVkIdString + "'" ;
+    /*
     $('#main-table').append("<tr class='item'>" +
         "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
         "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart-o fa-2x'></i>"+ '</button>' + '</td>' +
         "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</td>' +
+    '</tr>'); */
+    $('#main-table').append("<tr class='item'>" +
+        "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
+        "<td>" + "<div class='name-field vert-align'>" + first_name + ' ' + last_name + '</div>' +
+        "<div class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' +
+            valueDateString + '>' + "<i class='fa fa-heart-o fa-2x'></i>"+ '</button>'  +
+            "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +
+            valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</div>' + '</td>' +
     '</tr>');
 }
 
 function makeTableWithFriends(viewerUserIdNumber, viewerUserSex) {
-    VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_50' }, function(data) {
+    VK.api('friends.get', {order: 'hints', fields: 'id, first_name, last_name, sex, photo_100' }, function(data) {
        switch (viewerUserSex) {
             case 0: {
                 for(i = 0; i < data.response.length; i++) {
