@@ -41,7 +41,7 @@ body {
 
 #main-part {
     position: relative;
-    width: 100%;
+    width: 85%;
     height: 100%;
 }
 
@@ -55,7 +55,7 @@ body {
     display: inline-block;
     overflow-y: auto;
     height: 100%;
-    width: 66%;
+    width: 60%;
 }
 #header {
     display: table;
