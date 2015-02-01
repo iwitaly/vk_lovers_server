@@ -55,13 +55,11 @@ body {
     width: 34%;
     box-sizing: border-box;
     border-right: 1px solid rgb(218,225,232);
-    border-left: 1px solid rgb(242,242,242);
     border-top: 1px solid rgb(242,242,242);
-    border-bottom: 1px solid rgb(242,242,242);
 }
 
 .avatar-field {
-    padding-left: 30px;
+
 }
 
 #table-part {
@@ -142,4 +140,45 @@ td.name-field {
 
 .button-sex {
     border-radius: 10%;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-default {
+    background: #ffffff;
+    color: rgb(188, 205, 221);
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    background: rgb(233, 237, 241);
+}
+
+.btn-default:active, .btn-default.active {
+    background: rgb(233, 237, 241);
+    box-shadow: none;
+}
+
+
+.btn-danger {
+    background: #ffffff;
+    color: rgb(121, 157, 193);
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    background: rgb(233, 237, 241);
+}
+
+.btn-default:active, .btn-default.active {
+    background: rgb(233, 237, 241);
+    box-shadow: none;
 }
