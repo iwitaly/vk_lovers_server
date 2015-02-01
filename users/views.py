@@ -101,7 +101,8 @@ def sendNotificationVK(user_vk_id):
     #params = urllib.quote(MESSAGE_TEXT.decode('utf-8').encode('cp1251'))
     param = urllib.urlencode({'message': u'Вернись! Я все прощу!'.encode('utf-8')})
     #params = urllib.urlencode({'text': MESSAGE_TEXT})
-    print (param)
+
+    #print (param)
     url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
                                user_vk_id + '&' + param + '&v=5.27&client_secret=' + \
                                SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
@@ -110,14 +111,14 @@ def sendNotificationVK(user_vk_id):
                                user_vk_id + '&message=' + 'Text' + '&v=5.27&client_secret=' + \
                                SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
     '''
-    print(url_to_send_notification)
+    #print(url_to_send_notification)
     response = urllib2.urlopen(url_to_send_notification)
     json_notification = json.load(response)
-    print(json_notification)
+    #print(json_notification)
 
 #data = dictionary with confession
-def sendToDevice(device):
-    device.send_message("You've got mail", badge=1, sound='default', extra={'foo' : 'bar'}) # Alert message may only be sent as text.
+def sendToDevice(device, data):
+    device.send_message("You've got mail", badge=1, sound='default', extra=data) # Alert message may only be sent as text.
 
 def sendNotificationApple(data):
     first_vk_id = data['who_vk_id']
@@ -132,11 +133,11 @@ def sendNotificationApple(data):
 
     if first_device and second_device:
         devices = first_device | second_device #merge queries
-        sendToDevice(devices)
+        sendToDevice(devices, data)
     elif first_device:
-        sendToDevice(first_device)
+        sendToDevice(first_device, data)
     elif second_device:
-        sendToDevice(second_device)
+        sendToDevice(second_device, data)
     else:
         return JSONResponse(data, status=status.HTTP_204_NO_CONTENT)
 
