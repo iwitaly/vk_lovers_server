@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    font-family: tahoma, tahoma, verdana, arial, sans-serif;
 }
 
 #main-window {
@@ -53,12 +54,17 @@ body {
     width: 34%;
 }
 
+.avatar-field {
+    padding-left: 30%;
+}
+
 #table-part {
     float: right;
     margin: 0px;
     overflow-y: auto;
     height: 100%;
     width: 66%;
+
 }
 #header {
     display: table;
