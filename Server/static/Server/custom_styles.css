@@ -165,7 +165,7 @@ td.name-field {
     color: rgb(188, 205, 221);
 }
 
-.btn-default:focus {
+.btn-default:focus , .open > .dropdown-toggle.btn-default {
     background: #ffffff;
     color: rgb(188, 205, 221);
     box-shadow: none;
@@ -183,7 +183,7 @@ td.name-field {
     color: palevioletred
 }
 
-.btn-danger:focus  {
+.btn-danger:focus, .open > .dropdown-toggle.btn-danger  {
     background: #ffffff;
     color: palevioletred
     box-shadow: none;
