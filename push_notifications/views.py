@@ -5,6 +5,7 @@ from rest_framework.parsers import JSONParser
 from push_notifications.serializers import APNSDeviceSerializer
 from users.views import JSONResponse
 from push_notifications.models import APNSDevice
+from users.models import User
 
 @csrf_exempt
 def device_list(request):
@@ -14,13 +15,16 @@ def device_list(request):
         doesExists = devices.exists()
 
         if doesExists:
-            return JSONResponse(data, status=201)
+            return JSONResponse(data, status=302)
 
-        serializer = APNSDeviceSerializer(data=data)
+        try:
+            user = User.objects.get(pk=data['user'])
+        except User.DoesNotExist:
+            return JSONResponse(data, status=400)
 
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
+        try:
+            device = user.apnsdevice_set.create(registration_id=data['registration_id'])
+        except user.IntegrityError:
+            return JSONResponse({'shit : bad save'}, status=400)
 
-        return JSONResponse(serializer.errors, status=400)
-
+        return JSONResponse(data, status=201)

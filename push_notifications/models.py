@@ -6,21 +6,21 @@ from push_notifications.fields import HexIntegerField
 from users.models import User
 
 # Compatibility with custom user models, while keeping backwards-compatibility with <1.5
-AUTH_USER_MODEL = getattr(settings, "AUTH_USER_MODEL", "auth.User")
+#AUTH_USER_MODEL = getattr(settings, "User", "users.User")
 
 
 class Device(models.Model):
 	name = models.CharField(max_length=255, verbose_name=_("Name"), blank=True, null=True)
 	active = models.BooleanField(verbose_name=_("Is active"), default=True,
 		help_text=_("Inactive devices will not be sent notifications"))
-	user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True)
+	user = models.ForeignKey(User, to_field='vk_id')
 	date_created = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True, null=True)
 
 	class Meta:
 		abstract = True
 
 	def __unicode__(self):
-		return self.name or str(self.device_id or "") or "%s for %s" % (self.__class__.__name__, self.user or "unknown user")
+		return self.user.vk_id or str(self.device_id or "") or "%s for %s" % (self.__class__.__name__, self.user or "unknown user")
 
 
 class GCMDeviceManager(models.Manager):
@@ -80,7 +80,6 @@ class APNSDeviceQuerySet(models.query.QuerySet):
 class APNSDevice(Device):
 	device_id = UUIDField(verbose_name=_("Device ID"), blank=True, null=True, help_text="UDID / UIDevice.identifierForVendor()")
 	registration_id = models.CharField(verbose_name=_("Registration ID"), max_length=64, unique=True)
-	vk_id = models.ForeignKey(User, to_field='vk_id')
 	objects = APNSDeviceManager()
 
 	class Meta:
@@ -88,8 +87,13 @@ class APNSDevice(Device):
 
 	def send_message(self, message, **kwargs):
 		from push_notifications.apns import apns_send_message
-
 		return apns_send_message(registration_id=self.registration_id, alert=message, **kwargs)
+
+	def __unicode__(self):
+		return self.registration_id + '+' + self.user.vk_id
+
+	def __str__(self):
+		return self.registration_id + '+' + self.user.vk_id
 
 
 
