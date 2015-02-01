@@ -39,11 +39,26 @@ body {
     background-color: #4cae4c;
 }
 
-#table-part {
-    float: left;
-    overflow-y: auto;
-    height: 85%;
+#main-part {
+    margin: 0px;
+    position: relative;
     width: 100%;
+    height: 85%;
+}
+
+#info-part {
+    float: left;
+    margin: 0px;
+    height: 100%;
+    width: 34%;
+}
+
+#table-part {
+    float: right;
+    margin: 0px;
+    overflow-y: auto;
+    height: 100%;
+    width: 66%;
 }
 #header {
     display: table;
@@ -111,9 +126,4 @@ td.name-field {
 
 .button-sex {
     border-radius: 10%;
-}
-
-.avatar.resize{
-    width:70px; /* you can use % */
-    height: 70px;
 }

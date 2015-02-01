@@ -51,7 +51,7 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-default' id=" + idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</td>' +
     '</tr>'); */
     $('#main-table').append("<tr class='item'>" +
-        "<td class='vert-align'>" + "<img class='img-rounded' src='" + photo + "'>" + '</td>' +
+        "<td class='vert-align'>" + "<img class='img-circle' width='60px' height='60px' src='" + photo + "'>" + '</td>' +
         "<td>" + "<div class='name-field vert-align'>" + first_name + ' ' + last_name + '</div>' +
         "<div class='vert-align'>" + "<button type='button' class='button-date btn btn-default' id=" + idDateString + ' value=' +
             valueDateString + '>' + "<i class='fa fa-heart-o'></i>"+ '</button>'  +
