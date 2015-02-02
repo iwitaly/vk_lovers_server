@@ -61,16 +61,16 @@ def user_list(request):
 
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data, status=201)
+            return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
 
-        return JSONResponse(serializer.errors, status=400)
+        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 def user_detail(request, vk_id):
     try:
         user = User.objects.get(pk=vk_id)
     except User.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = UserSerializer(user)
@@ -82,11 +82,11 @@ def user_detail(request, vk_id):
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
+        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         user.delete()
-        return HttpResponse(status=204)
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 def sendNotificationVK(user_vk_id):
     #MESSAGE_TEXT = raw_input('Вернись! Я все прощу!')
@@ -182,7 +182,7 @@ def who_confession_list(request, who_vk_id):
     try:
         who_user = User.objects.get(pk=who_vk_id)
     except User.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         who_confessions = who_user.confession_set.all()
@@ -195,16 +195,16 @@ def who_confession_list(request, who_vk_id):
 
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data, status=201)
+            return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
 
-        return JSONResponse(serializer.errors, status=400)
+        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 def who_confession_detail(request, who_vk_id, to_who_vk_id):
     try:
         confession = Confession.objects.get(who_vk_id=who_vk_id, to_who_vk_id=to_who_vk_id)
     except Confession.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'GET':
         serializer = ConfessionSerializer(confession)
@@ -216,18 +216,18 @@ def who_confession_detail(request, who_vk_id, to_who_vk_id):
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
+        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         confession.delete()
-        return HttpResponse(status=204)
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 @csrf_exempt
 def to_who_confession_list(request, who_vk_id):
     try:
         who_user = User.objects.get(vk_id=who_vk_id)
     except User.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         to_who_confessions = who_user.get_list_of_to_who_confession()
@@ -246,22 +246,22 @@ def post_all_confessions(request, vk_id):
                 serializers_data_list.append(serializer.data)
             else:
                 resp = {'status' : 400}
-                return JSONResponse(resp, status=400)
+                return JSONResponse(resp, status=status.HTTP_400_BAD_REQUEST)
 
         #resp = {'status' : 201}
-        return JSONResponse(serializers_data_list, status=201)
+        return JSONResponse(serializers_data_list, status=status.HTTP_201_CREATED)
 
     elif request.method == 'DELETE':
         try:
             user = User.objects.get(pk=vk_id)
         except User.DoesNotExist:
-            return HttpResponse(status=404)
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
         confessions = user.confession_set.all()
         for conf in confessions:
             conf.delete()
 
         resp = {'status' : 201}
-        return JSONResponse(resp, status=201)
+        return JSONResponse(resp, status=status.HTTP_201_CREATED)
 
-    return HttpResponse(status=400)
+    return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
