@@ -1,4 +1,4 @@
-var HOME_URL = 'http://62.109.1.60:8000/'
+var HOME_URL = 'http://62.109.1.60/'
 
 function checkForUsersConfession (whoVkIdNumber) {
     var whoVkIdString = whoVkIdNumber.toString();
@@ -35,6 +35,10 @@ function checkForUsersConfession (whoVkIdNumber) {
                     showMatchScreen(currentType, toWhoType, toWhoVkIdString);
                 }
             });
+    $('#table-part').mCustomScrollbar({
+        theme:"minimal-dark",
+        scrollbarPosition: "outside"
+    });
 }
 
 function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, first_name, last_name) {
@@ -49,9 +53,9 @@ function addRowToTableWithFriends (viewerUserIdNumber, cellUserIdNumber, photo, 
         "<td class='vert-align avatar-field'>" + "<img class='img-circle avatar' width='60px' height='60px' src='" + photo + "'>" + '</td>' +
         "<td class='name-field vert-align'>" + first_name + ' ' + last_name + '</td>' +
         "<td class='vert-align'>" + "<button type='button' class='button-date btn btn-xs btn-default' id=" +
-            idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart fa-2x'></i>"+ '</button>' + '</td>' +
+            idDateString + ' value=' + valueDateString + '>' + "<i class='fa fa-heart-o fa-2x'></i>"+ '</button>' + '</td>' +
         "<td class='vert-align'>" + "<button type='button' class='button-sex btn btn-xs btn-default' id=" +
-            idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-venus-mars fa-2x'></i>"+ '</button>' + '</td>' +
+            idSexString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-heart fa-2x'></i>"+ '</button>' + '</td>' +
         "<td class='vert-align'>" + "<button type='button' class='button-send btn btn-xs btn-default' id=" +
             idSendString + ' value=' +  valueSexString + '>'  + "<i class='fa fa-paper-plane fa-2x'></i>"+ '</button>' + '</td>' +
     '</tr>');
@@ -113,6 +117,9 @@ function showWishesTheSame (wishType, toWhoVkIdString) {
     var toWhoName = $('#date' + toWhoVkIdString).closest('td').prev().text();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
     completedRow.addClass('success');
+    $('#date' + toWhoVkIdString).hide();
+    $('#sex' + toWhoVkIdString).hide();
+    $('#send' + toWhoVkIdString).hide();
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('btn-danger');
@@ -131,6 +138,9 @@ $('#accept-date-pop-up-date-first').on('click', function() {
     var toWhoVkIdString = $('#accept-date-pop-up-date-first').val();
     var completedRow = $('#date' + toWhoVkIdString).closest('tr');
     completedRow.addClass('success');
+    $('#date' + toWhoVkIdString).hide();
+    $('#sex' + toWhoVkIdString).hide();
+    $('#send' + toWhoVkIdString).hide();
     completedRow.detach();
     $('#main-table').prepend(completedRow);
     $('#date' + toWhoVkIdString).removeClass('btn-danger');
@@ -285,6 +295,45 @@ function callBackOnClickToSexButton (whoVkIdString, toWhoVkIdString) {
     }
 }
 
+function order(toWhoPhoneNumber) {
+    var params = {
+      type: 'item',
+      item: toWhoPhoneNumber
+    };
+    VK.callMethod('showOrderBox', params);
+}
+
+var callbacksResults = document.getElementById('callbacks');
+
+VK.addCallback('onOrderSuccess', function(order_id) {
+    $('#pop-up-window-payment-success').show();
+});
+VK.addCallback('onOrderFail', function() {
+    $('#pop-up-window-payment-failed').show();
+});
+VK.addCallback('onOrderCancel', function() {
+    $('#pop-up-window-payment-cancel').show();
+});
+$('#ok-button-pop-up-payment-success').on('click', function() {
+    $('#pop-up-window-payment-success').hide();
+});
+$('#ok-button-pop-up-payment-failed').on('click', function() {
+    $('#pop-up-window-payment-failed').hide();
+});
+$('#ok-button-pop-up-payment-cancel').on('click', function() {
+    $('#pop-up-window-payment-cancel').hide();
+});
+$('#ok-button-pop-up-send').on('click', function() {
+    var itemString = $('#to-who-phone-field').val();
+    $('#pop-up-window-send').hide();
+    order(itemString);
+});
+
+function callBackOnClickToSendButton (whoVkIdString, toWhoVkIdString) {
+    $('#pop-up-window-send').show();
+    $('send' + toWhoVkIdString).addClass('btn-danger');
+}
+
 function deleteAllConfessions (whoVkIdString) {
     $('tr.item').each( function() {
         $this = $(this);
@@ -358,7 +407,10 @@ $('#table-part').on('click', 'button', function() {
     if ($(this).hasClass('button-date') == true) {
         callBackOnClickToDateButton(whoVkIdString, toWhoVkIdString);
     } else {
-        callBackOnClickToSexButton(whoVkIdString, toWhoVkIdString);
+        if ($(this).hasClass('button-sex') == true)
+            callBackOnClickToSexButton(whoVkIdString, toWhoVkIdString);
+        else
+            callBackOnClickToSendButton(whoVkIdString, toWhoVkIdString);
     }
 });
 $('#date-all').on('click', function () {
@@ -394,10 +446,15 @@ $("#search-field").keyup(function () {
     var searchString = $("#search-field").val();
     searchAndDraw(searchString);
 });
+
 //}
 
 function initSuccess () {
     // access to wall +8192, access to notifications +1, link +256
+    $('#pop-up-window-send').hide();
+    $('#pop-up-window-payment-success').hide();
+    $('#pop-up-window-payment-failed').hide();
+    $('#pop-up-window-payment-cancel').hide();
     $('#pop-up-window-same').hide();
     $('#pop-up-window-date-first').hide();
     VK.api ('users.isAppUser', function (msg) {
@@ -410,7 +467,7 @@ function initSuccess () {
             });
         }
     });
-    VK.api('users.get', {fields: 'sex'}, function(dataFromVk) {
+    VK.api('users.get', {fields: 'sex, photo_100'}, function(dataFromVk) {
         var viewerUserIdNumber = dataFromVk.response[0].uid;
         var userInfo = {vk_id: viewerUserIdNumber.toString(), email: 'unknown@unknown.com', mobile: 'unknown'};
         $.ajax({
@@ -430,7 +487,8 @@ function initSuccess () {
             }
         });
         whoVkIdString = viewerUserIdNumber.toString();
-        viewerSex = dataFromVk.response[0].sex
+        viewerSex = dataFromVk.response[0].sex;
+        $('#user-avatar').attr('src', dataFromVk.response[0].photo_100);
         makeTableWithFriends(viewerUserIdNumber, dataFromVk.response[0].sex);
         //interActionWithViewer(viewerUserIdNumber);
     });

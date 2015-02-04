@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'users',
     'Server',
     'push_notifications',
+    'external_api_manager',
 )
 
 MIDDLEWARE_CLASSES = (

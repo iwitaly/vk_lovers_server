@@ -45,18 +45,18 @@ body {
     position: relative;
     width: 100%;
     height: 92%;
-    border: 1px solid rgb(90, 124, 160)
+    border: 1px solid rgb(233, 237, 241);
 }
 
 #info-part {
-    background-color: rgb(233, 237, 241);
+    background-color: #ffffff;
     float: left;
     margin: 0px;
     height: 100%;
     width: 34%;
     box-sizing: border-box;
     border-right: 1px solid rgb(218,225,232);
-    border-top: 1px solid rgb(242,242,242);
+    border-top: 1px solid #ddd;
 }
 
 .avatar-field {
@@ -65,37 +65,71 @@ body {
 
 #table-part {
     box-sizing: border-box;
-    border: 1px solid rgb(242,242,242);
+    border-left: 1px solid rgb(242,242,242);
     float: right;
     margin: 0px;
-    overflow-y: auto;
     height: 100%;
     width: 66%;
 
 }
 #header {
-    background-image: linear-gradient(rgb(76, 110, 146), rgb(90, 124, 160));
+    /* background-image: linear-gradient(rgb(76, 110, 146), rgb(90, 124, 160)); */
+    background-color: rgb(233, 237, 241);
     display: table;
     height: 8%;
     width: 100%;
 }
 
+.search-block { position: relative; }
+.search-block input {
+    width: 224px;
+    height: 22px;
+    border-radius: 11px;
+    margin-left: 9px;
+    text-indent: 10px;
+}
+.search-block .fa-search {
+    position: absolute;
+    font-size: 12px;
+    top:14px;
+    color: #45688E;
+    left:15px;
+}
+
 #search-field {
+    color: #45688E;
+    font-size: 11px;
+}
+
+
+#avatar-block {
+    display:table-cell;
+    vertical-align:middle;
+    height: 100%;
+    width: 10%;
+}
+
+#user-avatar {
+    float: right;
+    margin-right: 21px;
+}
+#to-who-phone-field {
     width: 165px;
     height: 22px;
+    border-radius: 5%;
 }
 
 .search-block {;
     display:table-cell;
     vertical-align:middle;
     height: 100%;
-    width: 55%;
+    width: 56%;
 }
-.to-all-block {
+#logo-block {
     display:table-cell;
     vertical-align:middle;
     height: 100%;
-    width: 15%;
+    width: 34%;
 }
 
 .pop-up-container {
@@ -127,6 +161,27 @@ td.name-field {
     display: inline-block;
 }
 
+
+#pop-up-payment-success-buttons-part {
+    position: absolute;
+    bottom: 6%;
+    right: 4%;
+}
+#pop-up-payment-failed-buttons-part {
+    position: absolute;
+    bottom: 6%;
+    right: 4%;
+}
+#pop-up-payment-cancel-buttons-part {
+    position: absolute;
+    bottom: 6%;
+    right: 4%;
+}
+#pop-up-send-buttons-part {
+    position: absolute;
+    bottom: 6%;
+    right: 4%;
+}
 #pop-up-same-buttons-part {
     position: absolute;
     bottom: 6%;
@@ -137,6 +192,7 @@ td.name-field {
     bottom: 6%;
     right: 4%;
 }
+
 
 .button-date {
     border-radius: 10%;
@@ -152,11 +208,16 @@ td.name-field {
     padding: 5px 5px;
 }
 
+.button-send {
+    border-radius: 10%;
+    height: 35px;
+    width: 45px;
+    padding: 5px 5px;
+    margin-right: 7px;
+}
+
 .btn {
     border: 0 none;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
@@ -164,6 +225,9 @@ td.name-field {
 }
 
 .btn-default {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     background: #ffffff;
     color: rgb(188, 205, 221);
     box-shadow: none;
@@ -177,6 +241,9 @@ td.name-field {
 
 
 .btn-danger {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     background: #ffffff;
     color: palevioletred;
     box-shadow: none;
@@ -208,4 +275,29 @@ td.name-field {
 .btn-danger:active {
     background: rgb(233, 237, 241);
     color: rgb(188, 205, 221);
+}
+
+
+.btn-info {
+    line-height: 1.182;
+    font-weight: bold;
+    font-size: 11px;
+    border-radius: 0px;
+    background: rgb(233, 237, 241);
+    outline: none;
+    color: #45688E;
+    box-shadow: none;
+    font-family: tahoma, tahoma, verdana, arial, sans-serif;
+    height: 40px;
+}
+
+.btn-info:focus , .open > .dropdown-toggle.btn-info {
+    background: rgb(233, 237, 241);
+    color: #607387;
+    box-shadow: none;
+}
+
+.btn-info:hover {
+    background: rgb(223, 227, 255);
+    color: #607387;
 }

@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'Server/jquery.mCustomScrollbar.css' %}" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="http://code.jquery.com/jquery-1.11.2.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -15,19 +17,15 @@
 <body>
 <div id="main-window">
     <div id="header">
-        <div class="search-block">
-            <input type="search" id="search-field" name="search-for-name" class="form-control content-in-center">
-            <input placeholder="&#61447; Username">
+        <div id="logo-part">
 
         </div>
-        <div class="to-all-block">
-            <button id="share" type="button" class="content-in-center btn btn-warning">Share</button>
+        <div class="search-block">
+            <span class="fa fa-search"></span>
+            <input type="search" id="search-field" name="search-for-name" class="form-control" placeholder="Поиск">
         </div>
-        <div class="to-all-block">
-            <button id="date-all" type="button" class="content-in-center btn btn-primary">Date all</button>
-        </div>
-        <div class="to-all-block">
-            <button id="sex-all" type="button" class="content-in-center btn btn-primary">Sex all</button>
+        <div id="avatar-block">
+            <img id="user-avatar" class="img-circle" width='30px' height='30px'>
         </div>
     </div>
     <div id="main-part">
@@ -57,7 +55,44 @@
             </div>
         </div>
     </div>
-    {% load staticfiles %}
+    <div id="pop-up-window-payment-success" class="pop-up-window">
+        <div class="pop-up-content">
+            <p id="pop-up-payment-success-text">Ваше признание успешно отправлено.</p>
+            <div id="pop-up-payment-success-buttons-part">
+                <button id="ok-button-pop-up-payment-success" type="button" class="btn btn-success">Ок</button>
+            </div>
+        </div>
+    </div>
+    <div id="pop-up-window-payment-failed" class="pop-up-window">
+        <div class="pop-up-content">
+            <p id="pop-up-payment-failed-text">Что-то пошло не так.</p>
+            <div id="pop-up-payment-failed-buttons-part">
+                <button id="ok-button-pop-up-payment-failed" type="button" class="btn btn-danger">Ок</button>
+            </div>
+        </div>
+    </div>
+    <div id="pop-up-window-payment-cancel" class="pop-up-window">
+        <div class="pop-up-content">
+            <p id="pop-up-payment-cancel-text">Отправка признания отменена.</p>
+            <div id="pop-up-payment-cancel-buttons-part">
+                <button id="ok-button-pop-up-payment-cancel" type="button" class="btn btn-primary">Ок</button>
+            </div>
+        </div>
+    </div>
+    <div id="pop-up-window-send" class="pop-up-window">
+        <div class="pop-up-content">
+            <p id="pop-up-send">Введите номер получателя.</p>
+            <div id="pop-up-input-part">
+                <input id="to-who-phone-field" placeholder="Номер получателя" class="form-control content-in-center">
+            <div id="pop-up-send-buttons-part">
+                <button id="ok-button-pop-up-send" type="button" class="btn btn-primary">Отправить</button>
+            </div>
+            </div>
+        </div>
+    </div>
+{% load staticfiles %}
 <script src="{% static 'Server/application.js' %}"></script>
+{% load staticfiles %}
+<script src="{% static 'Server/jquery.mCustomScrollbar.concat.min.js' %}"></script>
 </body>
 </html>
