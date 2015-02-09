@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.11.2.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body {
+            font-family: tahoma, tahoma, verdana, arial, sans-serif;
+            height: 150px;
+            width: 500px;
+            background-color: rgb(233, 237, 241);
+        }
+        #send-button {
+            margin: 55px 10px 55px 15px;
+            width: 40px;
+            height: 40px;
+        }
+        #logo {
+            margin: 35px 15px 35px 10px;
+        }
+        #mobile-field {
+            margin: 55px 15px 55px 15px;
+            color: #45688E;
+            font-size: 25px;
+            width: 250px;
+            height: 40px;
+            border-radius: 2%;
+            text-indent: 5px;
+        }
+        #logo-block {
+            display: inline-block;
+        }
+        #input-block {
+            display: inline-block;
+        }
+        #buttons-block {
+            display: inline-block;
+        }
+        .btn-default {
+            background: #6383a8;
+            line-height: 13px;
+            zoom: 1;
+            font-size: 11px;
+            border-radius: 2px;
+            outline: none;
+            color: #FFF;
+            border: 0;
+            box-shadow: none;
+            font-weight: normal;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            font-family: tahoma, tahoma, verdana, arial, sans-serif;
+        }
+        .btn-default:focus , .open > .dropdown-toggle.btn-default {
+            background: #6B84B0;
+            color: #FFF;
+            box-shadow: none;
+        }
+        .btn-default:hover {
+            background: #6D8CB0;
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+
+<div id="logo-block">
+    {% load staticfiles %}
+    <img id='logo' src="//62.109.1.60/static/Server/buf_logo.ico" height="80px" width="80px">
+</div>
+<div id="input-block">
+    <input id="mobile-field" class="form-control" placeholder="7XXXXXXXXXX">
+</div>
+<div id="buttons-block">
+    <button type='button' class='button-date btn btn-xs btn-default' id="send-button" value={{ data.vk_id }}>
+        <i class='fa fa-mail-forward fa-2x'></i>
+    </button>
+</div>
+
+<script>
+    var HOME_URL = 'http://62.109.1.60/';
+    $('#send-button').on('click', function () {
+        var userInfo = {vk_id: $('#send-button').val(), email: '', mobile: '', to_who_mobile: $('#mobile-field').val()};
+        $.ajax({
+            url: HOME_URL + 'users/',
+            type: 'POST',
+            data: JSON.stringify(userInfo),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true,
+            complete: window.close()
+        });
+    })
+</script>
+
+</body>
+</html>
+
