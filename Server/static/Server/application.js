@@ -272,9 +272,9 @@ $('#not-accept-date-pop-up-date-first').on('click', function() {
     $('#send' + toWhoVkIdString).hide();
     completedRow.detach();
     $('#main-table').prepend(completedRow);
-    var confessionInfo = {who_vk_id: toWhoVkIdString, to_who_vk_id: whoVkIdString, type: 1};
+    var confessionInfo = {who_vk_id: whoVkIdString, to_who_vk_id: toWhoVkIdString, type: 3};
     $.ajax({
-        url: HOME_URL + 'users/' + toWhoVkIdString + '/who_confession/' + whoVkIdString + '/',
+        url: HOME_URL + 'users/' + whoVkIdString + '/who_confession/' + toWhoVkIdString  + '/',
         type: 'PUT',
         data: JSON.stringify(confessionInfo),
         contentType: 'application/json; charset=utf-8',
@@ -490,8 +490,6 @@ $('#ok-button-pop-up-send').on('click', function() {
 
 function callBackOnClickToSendButton (whoVkIdString, toWhoVkIdString) {
     if ($('#send' + toWhoVkIdString).hasClass('btn-default')) {
-        console.log(toWhoVkIdString);
-        console.log($('#date' + toWhoVkIdString).hasClass('btn-danger'));
         sendType = ($('#date' + toWhoVkIdString).hasClass('btn-danger')) ? 0 : 1;
         if (sendType == 0 && viewerSex == 2) {
             $('#warning-send-text').text(
