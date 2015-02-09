@@ -1,13 +1,9 @@
 # coding=utf-8
-import urllib2
-import urllib
-import json
-
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from users.models import User, Confession
+from users.models import User, Confession, CONFESSION_LIM_DATE, CONFESSION_LIM_SEX
 from users.serializers import UserSerializer, ConfessionSerializer
 from push_notifications.models import APNSDevice
 from rest_framework import status
@@ -34,6 +30,8 @@ def handlePostUser(data):
         data['email'] = k_Default_email
     if data['mobile'] == '':
         data['mobile'] = k_Default_mobile
+    if data['to_who_mobile'] == '':
+        data['to_who_mobile'] = k_Default_mobile
 
     if doesExists:
         user = users[0]
@@ -41,6 +39,8 @@ def handlePostUser(data):
             data['mobile'] = user.mobile
         if data['email'] == k_Default_email:
             data['email'] = user.email
+        if data['to_who_mobile'] == k_Default_mobile:
+            data['to_who_mobile'] = user.to_who_mobile
 
         serializer = UserSerializer(user, data=data)
     else: #POST
@@ -80,6 +80,7 @@ def user_detail(request, vk_id):
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = UserSerializer(user, data=data)
+
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)
@@ -88,21 +89,6 @@ def user_detail(request, vk_id):
     elif request.method == 'DELETE':
         user.delete()
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
-
-def sendNotificationVK(user_vk_id):
-    ID_OF_VK_APP = '4737414' # aka client_id
-    SECRET_KEY_OF_VK_APP = '5DQcPsFP2bMbSwbkTKNW' # aka client_secret
-    url_to_get_access_token = 'https://oauth.vk.com/access_token?client_id=' + ID_OF_VK_APP + '&client_secret=' + SECRET_KEY_OF_VK_APP + '&v=5.27&grant_type=client_credentials'
-    response = urllib2.urlopen(url_to_get_access_token)
-    json_with_access_token = json.load(response)
-    current_access_token = json_with_access_token['access_token']
-    param = urllib.urlencode({'message': u'Вернись! Я все прощу!'.encode('utf-8')})
-    url_to_send_notification = 'https://api.vk.com/method/secure.sendNotification?user_id=' + \
-                               user_vk_id + '&' + param + '&v=5.27&client_secret=' + \
-                               SECRET_KEY_OF_VK_APP + '&access_token=' + current_access_token
-    response = urllib2.urlopen(url_to_send_notification)
-    json_notification = json.load(response)
-    #print(json_notification)
 
 #data = dictionary with confession
 def sendToDevice(device, data):
@@ -132,7 +118,24 @@ def sendNotificationApple(data):
     return JSONResponse(data, status=status.HTTP_200_OK)
 
 #data - parsed request
-def handleDataFromPostRequest(data):
+def handleConfession(data, should_increment):
+    user_who_sent_confession = User.objects.get(pk=data['who_vk_id'])
+
+    if should_increment:
+        if data['type'] == 0:
+            try:
+                user_who_sent_confession.confession_count_date += 1
+            except User.ValidationError:
+                user_who_sent_confession.confession_count_date = CONFESSION_LIM_DATE
+                return None
+        else:
+            try:
+                user_who_sent_confession.confession_count_sex += 1
+            except User.ValidationError:
+                user_who_sent_confession.confession_count_sex = CONFESSION_LIM_SEX
+                return None
+        user_who_sent_confession.save()
+
     confs = Confession.objects.filter(who_vk_id=data['who_vk_id'], to_who_vk_id=data['to_who_vk_id'])
     doesExists = confs.exists()
     serializer = None
@@ -147,7 +150,6 @@ def handleDataFromPostRequest(data):
         if ((reverse_current_confession.type == data['type']) or
                 ((reverse_current_confession.type==1) and (data['type'] == 0))):
             VKManager.sendNotificationVKtoUser(data['to_who_vk_id'])
-            #sendNotificationVK(data['to_who_vk_id'])
 
     if doesExists:
         confession = confs[0]
@@ -180,7 +182,10 @@ def who_confession_list(request, who_vk_id):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = handleDataFromPostRequest(data)
+        serializer = handleConfession(data, should_increment=True)
+
+        if not serializer:
+            return JSONResponse({})
 
         if serializer.is_valid():
             serializer.save()
@@ -201,7 +206,9 @@ def who_confession_detail(request, who_vk_id, to_who_vk_id):
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        serializer = ConfessionSerializer(confession, data=data)
+        serializer = ConfessionSerializer(confession, data=data, partial=True)
+        handleConfession(data, should_increment=False)
+
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)
@@ -229,7 +236,7 @@ def post_all_confessions(request, vk_id):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         for req in data:
-            serializer = handleDataFromPostRequest(req)
+            serializer = handleConfession(req, should_increment=True)
             if serializer.is_valid():
                 serializer.save()
                 serializers_data_list.append(serializer.data)
@@ -254,3 +261,14 @@ def post_all_confessions(request, vk_id):
         return JSONResponse(resp, status=status.HTTP_201_CREATED)
 
     return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def to_who_confession_number(request, vk_id):
+    try:
+        who_user = User.objects.get(vk_id=vk_id)
+    except User.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        number = who_user.get_number_of_to_who_confession()
+        return JSONResponse({'count' : number})

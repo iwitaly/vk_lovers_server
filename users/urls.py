@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^users/(?P<who_vk_id>[0-9]+)/who_confession/$', views.who_confession_list),
     url(r'^users/(?P<who_vk_id>[0-9]+)/who_confession/(?P<to_who_vk_id>[0-9]+)/$', views.who_confession_detail),
     url(r'^users/(?P<who_vk_id>[0-9]+)/to_who_confession/$', views.to_who_confession_list),
-    url(r'^users/who_confession/(?P<vk_id>[0-9]+)/$', views.post_all_confessions)
+    url(r'^users/who_confession/(?P<vk_id>[0-9]+)/$', views.post_all_confessions),
+    url(r'^users/to_who_confession_number/(?P<vk_id>[0-9]+)/$', views.to_who_confession_number)
 ]

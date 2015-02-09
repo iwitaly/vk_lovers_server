@@ -10,29 +10,56 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="http://vk.com/js/api/xd_connection.js?2"></script>
+    <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script src='http://62.109.1.60/static/Server/jquery.maskedinput.js' type="text/javascript"></script>
     {% load staticfiles %}
     <link href="{% static 'Server/custom_styles.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="main-window">
-    <div id="header">
-        <div id="logo-part">
-
-        </div>
-        <div class="search-block">
-            <span class="fa fa-search"></span>
-            <input type="search" id="search-field" name="search-for-name" class="form-control" placeholder="Поиск">
-        </div>
-        <div id="avatar-block">
-            <img id="user-avatar" class="img-circle" width='30px' height='30px'>
-        </div>
+<div id="header">
+    <div id="logo-block">
+        <img src="//62.109.1.60/static/Server/bar.png" width="206px" height="40px">
     </div>
+    <div id="avatar-block">
+        <img id="user-avatar" class="img-circle" width='30px' height='30px'>
+    </div>
+</div>
+<div id="main-window">
     <div id="main-part">
         <div id="info-part">
-
+            <div id="to-who-number-part" class="info-row">
+                <div class="icon-block">
+                    <img id="spy" src="//62.109.1.60/static/Server/logo.png" width="50px" height="50px">
+                </div>
+                <div class="text-block">
+                    <p class="numbers-text" id="to-who-number-text"></p>
+                    <p class="comment-text">вам призналось</p>
+                </div>
+            </div>
+            <div id="who-date-number-part" class="info-row">
+                <div class="icon-block">
+                    <img id="heart1" src="//62.109.1.60/static/Server/heart1.png" width="50px" height="50px">
+                </div>
+                <div class="text-block">
+                    <p class="numbers-text" id="who-date-number-text"></p>
+                    <p class="comment-text">"нравится" осталось</p>
+                </div>
+            </div>
+            <div id="who-sex-number-part" class="info-row">
+                <div class="icon-block">
+                    <img id="heart2" src="//62.109.1.60/static/Server/heart2.png" width="50px" height="50px">
+                </div>
+                <div class="text-block">
+                    <p class="numbers-text" id="who-sex-number-text"></p>
+                    <p class="comment-text" id="comment-who-sex"></p>
+                </div>
+            </div>
         </div>
         <div id="table-part">
+            <div class="search-block">
+                <span class="fa fa-search fa-2x"></span>
+                <input type="search" id="search-field" name="search-for-name" placeholder="Поиск">
+            </div>
             <table id="main-table" class="table table-condensed">
             </table>
         </div>
@@ -40,53 +67,58 @@
 </div>
     <div id="pop-up-window-same" class="pop-up-window">
         <div class="pop-up-content">
-            <p id="pop-up-same-text"></p>
+            <div id="adv-same">
+                <img id="adv-same-img" width="125px" height="125px">
+            </div>
+            <div class="pop-up-text-block">
+                <p id="pop-up-same-text" class="notify-text"></p>
+                <blockquote>
+                  <p id="adv-same-text" class="adv-text text-justify"></p>
+                  <footer><cite title="Source Title">команда сервиса Тайно влюбленный.</cite></footer>
+                </blockquote>
+            </div>
             <div id="pop-up-same-buttons-part">
-                <button id="ok-button-pop-up-same" type="button" class="btn btn-success">Ок</button>
+                <button id="ok-button-pop-up-same" type="button" class="btn btn-info">Ок</button>
             </div>
         </div>
     </div>
     <div id="pop-up-window-date-first" class="pop-up-window">
-        <div class="pop-up-content">
-            <p id="pop-up-date-first-text"></p>
+        <div id="pop-up-content-first" class="pop-up-content">
+            <div id="adv-first">
+                <img id="adv-first-img" width="125px" height="125px">
+            </div>
+            <div class="pop-up-text-block">
+                <p id="pop-up-date-first-text" class="notify-text"></p>
+                <blockquote>
+                  <p id="adv-first-text" class="adv-text text-justify"></p>
+                  <footer><cite title="Source Title">команда сервиса Тайно влюбленный.</cite></footer>
+                </blockquote>
+            </div>
             <div id="pop-up-date-first-buttons-part">
-                <button id="accept-date-pop-up-date-first" type="button" class="btn btn-primary">Ладно, схожу на свидание</button>
-                <button id="not-accept-date-pop-up-date-first" type="button" class="btn btn-primary">Ни за что!</button>
-            </div>
-        </div>
-    </div>
-    <div id="pop-up-window-payment-success" class="pop-up-window">
-        <div class="pop-up-content">
-            <p id="pop-up-payment-success-text">Ваше признание успешно отправлено.</p>
-            <div id="pop-up-payment-success-buttons-part">
-                <button id="ok-button-pop-up-payment-success" type="button" class="btn btn-success">Ок</button>
-            </div>
-        </div>
-    </div>
-    <div id="pop-up-window-payment-failed" class="pop-up-window">
-        <div class="pop-up-content">
-            <p id="pop-up-payment-failed-text">Что-то пошло не так.</p>
-            <div id="pop-up-payment-failed-buttons-part">
-                <button id="ok-button-pop-up-payment-failed" type="button" class="btn btn-danger">Ок</button>
-            </div>
-        </div>
-    </div>
-    <div id="pop-up-window-payment-cancel" class="pop-up-window">
-        <div class="pop-up-content">
-            <p id="pop-up-payment-cancel-text">Отправка признания отменена.</p>
-            <div id="pop-up-payment-cancel-buttons-part">
-                <button id="ok-button-pop-up-payment-cancel" type="button" class="btn btn-primary">Ок</button>
+                <button id="accept-date-pop-up-date-first" type="button" class="btn btn-info"></button>
+                <button id="not-accept-date-pop-up-date-first" type="button" class="btn btn-info"></button>
             </div>
         </div>
     </div>
     <div id="pop-up-window-send" class="pop-up-window">
         <div class="pop-up-content">
-            <p id="pop-up-send">Введите номер получателя.</p>
-            <div id="pop-up-input-part">
-                <input id="to-who-phone-field" placeholder="Номер получателя" class="form-control content-in-center">
-            <div id="pop-up-send-buttons-part">
-                <button id="ok-button-pop-up-send" type="button" class="btn btn-primary">Отправить</button>
+            <div id="top-input-block">
+                <div id="pop-up-input-part">
+                    <p id="to-who-phone-label">Введите номер получателя:</p>
+                    <input id="to-who-phone-field" type="tel" class="form-control">
+                </div>
             </div>
+            <div class="pop-up-text-block">
+                <p class="send-text">На указанный вами номер будет отправлено sms сообщение с текстом:</p>
+                <blockquote>
+                  <p id="warning-send-text" class="text-justify"></p>
+                  <footer>отправитель: <cite title="Source Title">Тайно влюбленный.</cite></footer>
+                </blockquote>
+                <p class="send-text-comment" class="text-justify">Внимание! Нажимая отправить, вы принимаете тот факт, что вы являетесь инициатором отправки этого сообщения. И несете ответственность за любые последствия этого действия. </p>
+            </div>
+            <div id="pop-up-send-buttons-part">
+                <button id="cancel-send" type="button" class="btn btn-info">Отмена</button>
+                <button id="ok-button-pop-up-send" type="button" class="btn btn-info">Отправить</button>
             </div>
         </div>
     </div>

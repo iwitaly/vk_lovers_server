@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^vkapp/', views.index, name='vkapp'),
     url(r'^', include('push_notifications.urls')),
     url(r'^', include('external_api_manager.urls')),
+    url(r'^$', views.home),
 )
